@@ -1,0 +1,132 @@
+@import url('https://fonts.googleapis.com/css2?family=Michroma&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+* {
+  margin: 0;
+  border: 0;
+  padding: 0;
+}
+:root {
+  font-family: Poppins , Arial, sans-serif;
+  /* font-logo: Michroma; */
+  font-weight: 400;
+
+  color: rgba(255, 255, 255, 0.87);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+.imgBackground {
+  display: flex;
+  background-image: url("/public/fundo_inicio.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: column;
+  background-position: 45%;
+  padding: 16px;
+}
+
+.todo{
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 96px;
+  line-height: 80px;
+  /* identical to box height */
+
+  color: #FFFFFF;
+}
+
+.mainButton{
+  box-sizing: border-box;
+  min-width: 300px;
+  font-size: 18px;
+  color: white;
+  padding: 1rem;
+  border: 1px solid white;
+  font-weight: 200;
+
+  background: #060606;
+  border-radius: 12px;
+
+  cursor: pointer;
+}
+
+.mainButton:hover{
+  background: #181818;
+  box-shadow: 5px 5px 20px #af2a2a;
+ 
+}
+
+.possuiConta {
+
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 36px;
+  text-decoration: none;
+
+  color: #EBEBEB;
+
+  opacity: 0.7;
+}
+
+.possuiConta:hover{
+  font-weight: 700;
+}
+
+.paragrafos{
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 30px;
+  text-decoration: none;
+  min-width: 200px;
+
+  color: #EBEBEB;
+}
+
+
+
+.inputs::-webkit-input-placeholder{
+  font-size: 16px;
+  color: white;
+  font-family: 'Poppins';
+  opacity: 0.7;
+}
+
+.inputs:focus{
+  outline: none;
+}
+
+.esqueciSenha {
+
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 200;
+  font-size: 12px;
+  line-height: 36px;
+  text-decoration: none;
+
+  color: white;
+
+  opacity: 0.8;
+}
+
+.textoCadastro{
+  font-size: 16px !important; 
+}
