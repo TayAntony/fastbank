@@ -17,19 +17,34 @@ function Login() {
     const [senha, setSenha] = useState('')
 
     const logar = () => {
-        localStorage.setItem("dados", JSON.stringify({ login: email, senha: senha }))
+        const data = {login: email, senha: senha};
+        localStorage.setItem("dados", JSON.stringify(data));
         
-        if (email == "tay" && senha == "123") {
-            navigate("/homepage")
-        }else{
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'E-mail ou senha incorretos',
-                confirmButtonText: 'Tentar novamente',
-                confirmButtonColor: '#D51317',
-              })
+        fetch('/api/login/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data),
+        })
+        .then(response => response.json())
+        .then (data => {
+            if(data.token){
+                navigate("/homepage")
+            }
+            else{
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'E-mail ou senha incorretos',
+                    confirmButtonText: 'Tentar novamente',
+                    confirmButtonColor: '#D51317',
+                })
         }
+        })
+        .catch(error => {
+            console.error('Erro ao fazer login: ', error)
+        })
     }
 
     const esqueciSenha = () => {

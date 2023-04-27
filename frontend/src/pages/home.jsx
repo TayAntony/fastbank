@@ -19,18 +19,8 @@ function Homepage() {
     return (
         <>
 
-            <Header />
-            <p>{dados.login}</p>
-            <div className='p-4'>
-                <MyComponent />
-                <h1 className="text-black font-bold mt-5 ml-7">Ofertas Imperdíveis!</h1>
-                <p className="text-black ml-7">Aproveite</p>
-                <div className='flex xs:flex-nowrap flex-wrap justify-between'>
-                    {lista.map((item) => (
-                        <CardProduto item={item}/>
-                    ))}
-                </div>
-            </div>
+            <p className='text-black'>ola</p>
+           
         </>);
 }
 

@@ -73,16 +73,7 @@ class Endereco(models.Model):
         verbose_name_plural = "Endereço"
 
 
-class Contatos(models.Model):
-    numero_telefone = models.IntegerField(max_length=11)
-    email = models.EmailField()
-    endereco = models.ForeignKey(Endereco, on_delete=models.DO_NOTHING)
-
-    class Meta:
-        verbose_name_plural = "Contatos"
-
-
-class Tipo_cliente(models.Model):
+class TipoCliente(models.Model):
     PESSOA_FISICA = "F"
     PESSOA_JURIDICA = "J"
 
@@ -98,13 +89,32 @@ class Tipo_cliente(models.Model):
 
 class Cliente(models.Model):
     nome_cliente = models.CharField(max_length=100)
-    contatos_cliente = models.ForeignKey(Contatos, on_delete=models.DO_NOTHING)
-    tipo_cliente = models.ForeignKey(Tipo_cliente, on_delete=models.DO_NOTHING)
+    endereco_cliente = models.ForeignKey(Endereco, on_delete=models.PROTECT)
+    tipo_cliente = models.ForeignKey(TipoCliente, on_delete=models.DO_NOTHING)
+    foto = models.ImageField(upload_to="foto_perfil")
     cpf_cnpj = models.CharField(max_length=20)
     data_nascimento_criacao = models.DateField()
+    usuario = models.CharField(max_length=20)
+    senha = models.IntegerField()
 
     class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=["usuario"],
+                name="unique_cliente_user",
+            )
+        ]
         verbose_name_plural = "Cliente"
+
+    
+class Contatos(models.Model):
+    codigo_cliente = models.ForeignKey(Cliente, on_delete=models.PROTECT)
+    numero_telefone = models.IntegerField(max_length=11)
+    email = models.EmailField()
+    observacao = models.CharField(max_length=255)
+
+    class Meta:
+        verbose_name_plural = "Contatos"
 
 
 class Conta(models.Model):
@@ -138,62 +148,56 @@ class Conta(models.Model):
 
 class Cartao(models.Model):
     numero_cartao = models.CharField(max_length=20)
+    conta_cartao = models.ForeignKey(Conta, on_delete=models.DO_NOTHING)
     cvv = models.IntegerField(max_length=3)
     data_vencimento = models.DateField()
+    bandeira = models.CharField(max_length=20)
     nome_titular_cartao = models.CharField(max_length=100)
-    conta_cartao = models.ForeignKey(Conta, on_delete=models.DO_NOTHING)
     cartao_ativo = models.BooleanField()
 
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=["numero_cartao"],
+                name="unique_numero_cartao",
+            )
+        ]
+        verbose_name_plural = "Cartao"
 
-class Transferencia(models.Model):
-    # GANHA DINHEIRO NA CONTA
-    TRANSFERENCIA_BANCARIA = "B"
-    TRANSFERENCIA_PIX = "P"
-    TRANSFERENCIA_TED = "T"
+class Movimentacao(models.Model):
+    DEBITO = "D"
+    CREDITO = "C"
+    TRANSFERENCIA = "T"
 
-    TIPO_TRANSFERENCIA = [
-        (TRANSFERENCIA_BANCARIA, "Tranferência bancária"),
-        (TRANSFERENCIA_PIX, "Transferência via Pix"),
-        (TRANSFERENCIA_TED, "Transferência via TED"),
-    ]
-    remetente_transferencia = models.ForeignKey(Conta, on_delete=models.DO_NOTHING)
-    data_transferencia = models.DateField()
-    valor_transferencia = models.DecimalField(max_digits=10, decimal_places=2)
-    tipo_transferencia = models.CharField(
-        max_length=1, choices=TIPO_TRANSFERENCIA, default=TRANSFERENCIA_PIX
-    )
-
-
-class Pagamentos(models.Model):
-    # PERDE DINHEIRO NA CONTA
-    PAGAMENTO_CARTAO = "C"
-    PAGAMENTO_BOLETO = "B"
-    PAGAMENTO_PIX = "P"
-
-    TIPO_PAGAMENTO = [
-        (PAGAMENTO_BOLETO, "Boleto"),
-        (PAGAMENTO_CARTAO, "Cartão"),
-        (PAGAMENTO_PIX, "Pix"),
+    TIPO_OPERACAO = [
+        (DEBITO, "Operação de débito"),
+        (CREDITO, "Operação de crédito"),
+        (TRANSFERENCIA, "Operação de transferência"),
     ]
 
-    destinatario_pagamento = models.ForeignKey(Conta, on_delete=models.DO_NOTHING)
-    tipo_pagamento = models.CharField(
-        max_length=1, choices=TIPO_PAGAMENTO, default=PAGAMENTO_PIX
-    )
-    valor_pagamento = models.DecimalField(max_digits=10, decimal_places=2)
-    data_pagamento = models.DateField(auto_now=True)
+    codigo_cartao = models.ForeignKey(Cartao, on_delete=models.PROTECT)
+    data_hora = models.DateTimeField(auto_now=True)
+    operacao = models.CharField(max_length=1, choices=TIPO_OPERACAO, default=DEBITO)
+    valor = models.DecimalField(max_digits=10, decimal_places=2)
 
 
-class Tipo_transacao(models.Model):
-    # aumentou ou diminuiu o saldo da conta
+class Emprestimo(models.Model):
+    codigo_conta = models.ForeignKey(Conta, on_delete=models.DO_NOTHING)
+    data_solicitacao = models.DateField()
+    valor_solicitado = models.DecimalField(max_digits=10, decimal_places=2)
+    juros = models.DecimalField(max_digits=10, decimal_places=2)
+    aprovado = models.BooleanField()
+    numero_parcela = models.IntegerField()
+    data_aprovacao = models.DateField()
+    observacao = models.TextField()
 
-    TIPO_TRANSACAO_LISTA = [("P", Pagamentos), ("T", Transferencia)]
 
-    tipo_transacao = models.CharField(
-        max_length=1, choices=TIPO_TRANSACAO_LISTA, default="P"
-    )
+class Investimento(models.Model):
+    codigo_conta = models.ForeignKey(Conta, on_delete=models.DO_NOTHING)
+    aporte = models.DecimalField(max_digits=10, decimal_places=2)
+    rentabilidade = models.DecimalField(max_digits=10, decimal_places=2)
+    finalizado = models.BooleanField()
 
-
-class Extrato_conta(models.Model):
-    # histórico de transações da conta
-    extrato_conta = models.ForeignKey(Tipo_transacao, on_delete=models.DO_NOTHING)
+class ClienteConta(models.Model):
+    codigo_conta = models.ForeignKey(Conta, on_delete=models.DO_NOTHING)
+    codigo_cliente = models.ForeignKey(Cliente, on_delete=models.DO_NOTHING)
