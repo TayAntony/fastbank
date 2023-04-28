@@ -4,35 +4,29 @@ import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import Swal from 'sweetalert2'
 import Input from '../components/input'
+import axios from 'axios'
 
 function Login() {
     let navigate = useNavigate()
-  
-  
+
+
     const goCadastro = () => {
-      navigate("/cadastrar");
+        navigate("/cadastrar");
     }
 
     const [email, setEmail] = useState('')
     const [senha, setSenha] = useState('')
 
     const logar = () => {
-        const data = {login: email, senha: senha};
+        const data = { 'username': email, 'password': senha };
         localStorage.setItem("dados", JSON.stringify(data));
-        
-        fetch('/api/login/', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data),
+        axios.post('http://127.0.0.1:8000/auth/jwt/create', { username: email, password: senha }).then(() => {
+            navigate("/homepage")
+
         })
-        .then(response => response.json())
-        .then (data => {
-            if(data.token){
-                navigate("/homepage")
-            }
-            else{
+        .catch((error) => {
+            console.log(error);
+            if (error.response.status == 401) {
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
@@ -40,10 +34,7 @@ function Login() {
                     confirmButtonText: 'Tentar novamente',
                     confirmButtonColor: '#D51317',
                 })
-        }
-        })
-        .catch(error => {
-            console.error('Erro ao fazer login: ', error)
+            }
         })
     }
 
@@ -54,45 +45,45 @@ function Login() {
             text: 'Infelizmente você se *****',
             confirmButtonText: 'OK 😢',
             confirmButtonColor: '#FEB800',
-          })
+        })
     }
 
     const logandoGoogle = () => {
         let timerInterval
         Swal.fire({
-        title: 'Redirecionando...',
-        html: 'Você será redirecionado para realizar o login',
-        timer: 3000,
-        timerProgressBar: true,
-        didOpen: () => {
-            Swal.showLoading()
-            const b = Swal.getHtmlContainer().querySelector('b')
-            timerInterval = setInterval(() => {
-            b.textContent = Swal.getTimerLeft()
-            }, 100)
-        },
-        willClose: () => {
-            clearInterval(timerInterval)
-        }
+            title: 'Redirecionando...',
+            html: 'Você será redirecionado para realizar o login',
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: () => {
+                Swal.showLoading()
+                const b = Swal.getHtmlContainer().querySelector('b')
+                timerInterval = setInterval(() => {
+                    b.textContent = Swal.getTimerLeft()
+                }, 100)
+            },
+            willClose: () => {
+                clearInterval(timerInterval)
+            }
         }).then((result) => {
-        /* Read more about handling dismissals below */
-        if (result.dismiss === Swal.DismissReason.timer) {
-            console.log('I was closed by the timer')
-        }
+            /* Read more about handling dismissals below */
+            if (result.dismiss === Swal.DismissReason.timer) {
+                console.log('I was closed by the timer')
+            }
         })
     }
 
     return (
         <>
             <div className="imgBackground">
-            <h1 className="font-poppins text-8xl font-bold">ToDo</h1>
-            <p className='font-michroma font-normal text-2xl '>Onde você faz acontecer!</p>
+                <h1 className="font-poppins text-8xl font-bold">ToDo</h1>
+                <p className='font-michroma font-normal text-2xl '>Onde você faz acontecer!</p>
                 <div className='flex flex-col p-6 items-center border-solid backdrop-blur-md border-2 border-white rounded-xl m-10 box-border text-center gap-8 justify-center py-14'>
-                <p className='paragrafos max-w-xs text-justify'>Insira suas informações para realizar o login!</p>
-                    <Input placeholder='E-mail' tipo='text' onChange={(e) => setEmail(e.target.value)}/>
+                    <p className='paragrafos max-w-xs text-justify'>Insira suas informações para realizar o login!</p>
+                    <Input placeholder='E-mail' tipo='text' onChange={(e) => setEmail(e.target.value)} />
                     <div className='flex items-end flex-col'>
-                    <Input  placeholder='Senha' tipo='password' onChange={(e) => setSenha(e.target.value)}/>
-                    <div className='flex items-end flex-col'/>
+                        <Input placeholder='Senha' tipo='password' onChange={(e) => setSenha(e.target.value)} />
+                        <div className='flex items-end flex-col' />
 
                         <a href="javascript:void(0)" className='esqueciSenha' onClick={esqueciSenha} >Esqueci a senha</a>
                     </div>
@@ -102,13 +93,13 @@ function Login() {
 
 
                     <BotaoGoogle onClick={logandoGoogle} texto='Entrar com Google' />
-            
-            <div className=''>
-                <p className='opacity-80 flex text-red'>Não possui uma conta? </p>
-                <a href="javascript:void(0)" onClick={goCadastro} className="text-red-600 font-semibold">Cadastre-se</a>
-            </div>
 
-            
+                    <div className=''>
+                        <p className='opacity-80 flex text-red'>Não possui uma conta? </p>
+                        <a href="javascript:void(0)" onClick={goCadastro} className="text-red-600 font-semibold">Cadastre-se</a>
+                    </div>
+
+
                 </div>
 
             </div>

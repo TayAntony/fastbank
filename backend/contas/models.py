@@ -62,7 +62,7 @@ class Endereco(models.Model):
     ]
 
     rua = models.CharField(max_length=100)
-    numero = models.IntegerField(max_length=4)
+    numero = models.IntegerField()
     bairro = models.CharField(max_length=100)
     cidade = models.CharField(max_length=100)
     estado = models.CharField(max_length=2, choices=ESTADOS, default=SAO_PAULO)
@@ -109,7 +109,7 @@ class Cliente(models.Model):
     
 class Contatos(models.Model):
     codigo_cliente = models.ForeignKey(Cliente, on_delete=models.PROTECT)
-    numero_telefone = models.IntegerField(max_length=11)
+    numero_telefone = models.IntegerField()
     email = models.EmailField()
     observacao = models.CharField(max_length=255)
 
@@ -132,10 +132,10 @@ class Conta(models.Model):
         max_length=2, choices=TIPO_CONTA, default=CONTA_CORRENTE
     )
     nome_cliente_conta = models.ForeignKey(Cliente, on_delete=models.DO_NOTHING)
-    numero_conta = models.IntegerField(max_length=5)
-    agencia = models.IntegerField(max_length=4)
-    digito = models.IntegerField(max_length=1)
-    saldo = models.IntegerField(max_length=10)
+    numero_conta = models.IntegerField()
+    agencia = models.IntegerField()
+    digito = models.IntegerField()
+    saldo = models.IntegerField()
     data_criacao = models.DateField(auto_now=True)
     conta_ativa = models.BooleanField()
 
@@ -149,7 +149,7 @@ class Conta(models.Model):
 class Cartao(models.Model):
     numero_cartao = models.CharField(max_length=20)
     conta_cartao = models.ForeignKey(Conta, on_delete=models.DO_NOTHING)
-    cvv = models.IntegerField(max_length=3)
+    cvv = models.IntegerField()
     data_vencimento = models.DateField()
     bandeira = models.CharField(max_length=20)
     nome_titular_cartao = models.CharField(max_length=100)

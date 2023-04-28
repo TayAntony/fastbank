@@ -36,7 +36,7 @@ export default function Routers() {
                     name="Inicio"
                     component={Inicio} 
     
-                    options={{ headerShown: false, tabBarIcon: ({size, color}) => {return  <AntDesign name="login" size={24} color="white" />},
+                    options={{ headerShown: false,
                     tabBarStyle: {display: 'none'}
                 }}
                 />
@@ -46,7 +46,7 @@ export default function Routers() {
                     name="Login"
                     component={Login} 
     
-                    options={{ headerShown: false, tabBarIcon: ({size, color}) => {return  <AntDesign name="login" size={24} color="white" />},
+                    options={{ headerShown: false,
                     tabBarStyle: {display: 'none'}
                 }}
                 />
