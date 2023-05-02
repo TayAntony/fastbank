@@ -31,9 +31,6 @@ const Rotas = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    {/* <div className='p-4'>
-      
-    </div> */}
     <RouterProvider router={Rotas}/>
     
   </React.StrictMode>,

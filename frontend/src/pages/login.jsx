@@ -9,33 +9,29 @@ import axios from 'axios'
 function Login() {
     let navigate = useNavigate()
 
-
     const goCadastro = () => {
         navigate("/cadastrar");
     }
 
-    const [email, setEmail] = useState('')
+    const [username, setUsername] = useState('')
     const [senha, setSenha] = useState('')
 
-    const logar = () => {
-        const data = { 'username': email, 'password': senha };
-        localStorage.setItem("dados", JSON.stringify(data));
-        axios.post('http://127.0.0.1:8000/auth/jwt/create', { username: email, password: senha }).then(() => {
+    const logar = async (evt) => {
+        evt.preventDefault()
+        const infoDoLogin = {username: username, password: senha}
+        try{
+            const res = await axios.post('http://localhost:8000/auth/token/login', infoDoLogin) //endpoint para verificar se o login está correto e gerar o token
+            localStorage.setItem('token', res.data.auth_token)
             navigate("/homepage")
-
-        })
-        .catch((error) => {
-            console.log(error);
-            if (error.response.status == 401) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'E-mail ou senha incorretos',
-                    confirmButtonText: 'Tentar novamente',
-                    confirmButtonColor: '#D51317',
-                })
-            }
-        })
+        } catch(err){
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'E-mail ou senha incorretos',
+                confirmButtonText: 'Tentar novamente',
+                confirmButtonColor: '#D51317',
+            });
+        }
     }
 
     const esqueciSenha = () => {
@@ -78,30 +74,26 @@ function Login() {
             <div className="imgBackground">
                 <h1 className="font-poppins text-8xl font-bold">ToDo</h1>
                 <p className='font-michroma font-normal text-2xl '>Onde você faz acontecer!</p>
-                <div className='flex flex-col p-6 items-center border-solid backdrop-blur-md border-2 border-white rounded-xl m-10 box-border text-center gap-8 justify-center py-14'>
+
+                    <form onSubmit={logar} className='flex flex-col p-6 items-center border-solid backdrop-blur-md border-2 border-white rounded-xl m-10 box-border text-center gap-8 justify-center py-14'>
                     <p className='paragrafos max-w-xs text-justify'>Insira suas informações para realizar o login!</p>
-                    <Input placeholder='E-mail' tipo='text' onChange={(e) => setEmail(e.target.value)} />
-                    <div className='flex items-end flex-col'>
-                        <Input placeholder='Senha' tipo='password' onChange={(e) => setSenha(e.target.value)} />
-                        <div className='flex items-end flex-col' />
 
-                        <a href="javascript:void(0)" className='esqueciSenha' onClick={esqueciSenha} >Esqueci a senha</a>
-                    </div>
+                        <Input placeholder='Nome de usuário' tipo='text' value={username} onChange={(e) => setUsername(e.target.value)} />
+                        <div className='flex items-end flex-col'>
+                            <Input placeholder='Senha' tipo='password' value={senha} onChange={(e) => setSenha(e.target.value)} />
+                            <div className='flex items-end flex-col' />
+                            <a href="javascript:void(0)" className='esqueciSenha' onClick={esqueciSenha} >Esqueci a senha</a>
+                        </div>
+                        <Botao texto='Logar' />
+                        <BotaoGoogle onClick={logandoGoogle} texto='Entrar com Google' />
 
+                        <div>
+                            <p className='opacity-80 flex text-red'>Não possui uma conta? </p>
+                            <a href="javascript:void(0)" onClick={goCadastro} className="text-red-600 font-semibold">Cadastre-se</a>
+                        </div>
+                    </form>
 
-                    <Botao onClick={logar} texto='Logar' />
-
-
-                    <BotaoGoogle onClick={logandoGoogle} texto='Entrar com Google' />
-
-                    <div className=''>
-                        <p className='opacity-80 flex text-red'>Não possui uma conta? </p>
-                        <a href="javascript:void(0)" onClick={goCadastro} className="text-red-600 font-semibold">Cadastre-se</a>
-                    </div>
-
-
-                </div>
-
+                    
             </div>
 
         </>

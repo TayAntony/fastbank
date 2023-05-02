@@ -6,14 +6,32 @@ from rest_framework.response import Response
 from .serializer import *
 from rest_framework_simplejwt.tokens import AccessToken
 from rest_framework.permissions import IsAuthenticated
+import random
+import datetime
 # Create your views here.
 
+def gerar_agencia():
+    while True:
+        agencia = str(random.randint(1000, 9999))
+        if not Conta.objects.filter(agencia=agencia).exists():
+            print(agencia)
+            return agencia
 
 #CLIENTE VIEWSET
 class ClienteViewSet(viewsets.ModelViewSet):
     permission_classes = (IsAuthenticated, )
     queryset = Cliente.objects.all()
     serializer_class = ClienteSerializer
+    
+    def criar_conta(request):
+        agencia = gerar_agencia()
+        digito = random.randint(0, 9)
+        data_criacao = datetime.date.today()
+        conta_ativa = True
+        conta = Conta(agencia=agencia, digito=digito, data_criacao = data_criacao, conta_ativa = conta_ativa)
+         
+        conta.save()
+
 
 #CONTA VIEWSET
 class ContaViewSet(viewsets.ModelViewSet):

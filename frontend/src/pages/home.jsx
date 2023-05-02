@@ -22,25 +22,34 @@ function Homepage() {
     return (
         <>
 
-            <div className='bg-fundo_home'>
-                <div className='backdrop-blur-md'>
+            <div className='bg-fundo_home bg-cover'>
+                <div className='backdrop-blur-xl opacity-100'>
                     <img src="../assets/cartao.png" alt="" className='bg-center'/>
-                    <div className='flex justify-between items-center mx-28'>
+                    <div className='flex justify-between items-center xs:mx-28 mx-12'>
                         <LogoComponent/>
-                        <a href="#" className='text-black underline decoration-solid font-medium'>
-                            <p>Download App</p>
+                        <a href="#" className='text-black underline decoration-solid font-medium '>
+                            <p className='text-sm xs:text-lg'>Download App</p>
                         </a>
                     </div>
 
-                    <div className='flex'>
-                        <div className='ml-28'>
-                            <h1 className='text-black font-michroma text-5xl w-96 leading-normal'>Para fazer acontecer</h1>
-                            <p className='text-[#8F8F8F] w-2/4 text-2xl text-justify'>Com o nosso aplicativo você pode fazer transações de contas, empréstimos, efetuar pagamentos online e pedir seu próprio cartão!</p>
+                    <div className='xs:flex '>
+                        <div className='xs:ml-28 flex flex-col gap-2 ml-12 xs:gap-14'>
+                            <h1 className='text-black font-michroma xs:text-4xl xs:w-auto leading-normal text-3xl xs:mt-36'>Para fazer acontecer</h1>
+                            <p className='text-[#8F8F8F] xs:w-2/4 text-lg text-justify w-3/4'>Com o nosso aplicativo você pode fazer transações de contas, empréstimos, efetuar pagamentos online, pedir seu próprio cartão e muito mais!</p>
                         </div>
-                        <img src={CelularImg} alt="App simulado" className='w-64 mr-28'/>
+                        <img src={CelularImg} alt="App simulado" className='w-64 xs:mr-28 m-12'/>
                     </div>
-                    <CardInformacoes/>
+                    
                 </div>
+            </div>
+
+            <CardInformacoes/>
+            
+            <div className='bg-fundo_home_invertido bg-cover'>
+                <div className='backdrop-blur-xl'>
+                    <p>conteudo de cartao</p>
+                </div>
+                    
             </div>
            
         </>);

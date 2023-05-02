@@ -164,6 +164,7 @@ class Cartao(models.Model):
         ]
         verbose_name_plural = "Cartao"
 
+
 class Movimentacao(models.Model):
     DEBITO = "D"
     CREDITO = "C"
@@ -197,6 +198,7 @@ class Investimento(models.Model):
     aporte = models.DecimalField(max_digits=10, decimal_places=2)
     rentabilidade = models.DecimalField(max_digits=10, decimal_places=2)
     finalizado = models.BooleanField()
+
 
 class ClienteConta(models.Model):
     codigo_conta = models.ForeignKey(Conta, on_delete=models.DO_NOTHING)
