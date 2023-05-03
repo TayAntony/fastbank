@@ -11,7 +11,7 @@ export default function Home({navigation}){
 
             <View style={styles.banner}>
                 <Text>
-                    Carrossel de Anúncios
+                    Carrossel de Anúncio
                 </Text>
             </View>
 

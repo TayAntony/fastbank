@@ -55,6 +55,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 20,
         backgroundColor: 'black',
+        padding: 20
     },
     link:{
         fontSize: 12,

@@ -13,6 +13,7 @@ import { TouchableOpacity } from "react-native-web";
 
 export default function Inicio({ navigation, props }) {
     const [tela, setTela] = useState(useWindowDimensions())
+
     function login() {
         navigation.navigate('Login')
     }
@@ -34,18 +35,16 @@ export default function Inicio({ navigation, props }) {
                             Onde você faz acontecer!
                         </Text>
                     </View>
-                    <View style={{ alignItems: 'center' }}>
+                    <View style={styles.card}>
                         <Text style={styles.txt1}>Olá, seja bem vindo(a) ao ToDo, minha plataforma de Digital Bank! </Text>
+                        <TouchableOpacity onPress={cadastro}>
+                            <BotaoLogin texto="Sou novo" />
+                        </TouchableOpacity>
+
+                        <Text onPress={login} style={styles.link}>
+                            Já possui uma conta?
+                        </Text>
                     </View>
-
-                    
-                    <TouchableOpacity onPress={cadastro}>
-                        <BotaoLogin texto="Sou novo" />
-                    </TouchableOpacity>
-
-                    <Text onPress={login} style={styles.link}>
-                        Já possui uma conta?
-                    </Text>
                 </View>
             </ImageBackground>
         </View>

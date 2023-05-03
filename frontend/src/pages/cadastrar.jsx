@@ -54,7 +54,6 @@ function Cadastrar() {
             });
             navigate("/login")
         } catch (err) {
-            console.log(err)
             console.log(JSON.stringify(err));
             if(err.response && err.response.status === 400){
                 Swal.fire({
