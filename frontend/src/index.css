@@ -25,12 +25,6 @@
   -webkit-text-size-adjust: 100%;
 }
 
-.fundoHomeInvertido{
-  background-image: url("./assets//imagens/fundo_vermelho_invertido.png");
-  transform: rotateX(180deg);
-  z-index: -1;
-}
-
 .imgBackground {
   display: flex;
   background-image: url("/public/fundo_inicio.png");

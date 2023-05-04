@@ -4,25 +4,25 @@ import { useNavigate } from 'react-router-dom'
 import LogoComponent from '../components/logo'
 import CelularImg from '../assets/imagens/celular.png'
 import CardInformacoes from '../components/cardInformacoes'
+import BotaoCartao from '../components/botaoCartao'
+
+import CartoesImg from '../../public/cartao.svg'
+import ComentarioVanessa from '../assets/comentarios/comentarioVanessa.svg'
+import ComentarioAmanda from '../assets/comentarios/comentarioAmanda.svg'
+import ComentarioCintia from '../assets/comentarios/comentarioCintia.svg'
+import ComentarioGustavo from '../assets/comentarios/comentarioGustavo.svg'
+import ComentarioRaissa from '../assets/comentarios/comentarioRaissa.svg'
+import ComentarioViktor from '../assets/comentarios/comentarioViktor.svg'
+import ComentarioDinheiro from '../assets/comentarios/comentarioDinheiro.svg'
+import ComentarioEmoji from '../assets/comentarios/comentarioEmoji.svg'
+import ComentarioCoracao from '../assets/comentarios/comentarioCoracao.svg'
+
 
 function Homepage() {
-    const dados = JSON.parse(localStorage.getItem("dados"))
-
-    const [lista, setLista] = useState([])
-    
-    useEffect(() => {
-        axios.get("http://127.0.0.1:8000/loja/produtos", { headers: { "Content-Type": "aplication/json" } })
-            .then((res) => {
-                setLista(res.data)
-                console.log(res.data)
-            })
-    }, [])
-    let navigate = useNavigate()
-
     return (
         <>
 
-            <div className='bg-fundo_home bg-cover'>
+            <div className='bg-fundo_home bg-center'>
                 <div className='backdrop-blur-xl opacity-100'>
                     <img src="../assets/cartao.png" alt="" className='bg-center'/>
                     <div className='flex justify-between items-center xs:mx-28 mx-12'>
@@ -39,17 +39,27 @@ function Homepage() {
                         </div>
                         <img src={CelularImg} alt="App simulado" className='w-64 xs:mr-28 m-12'/>
                     </div>
-                    
-                </div>
-            </div>
 
-            <CardInformacoes/>
-            
-            <div className='bg-fundo_home_invertido bg-cover'>
-                <div className='backdrop-blur-xl'>
-                    <p>conteudo de cartao</p>
-                </div>
+                    <CardInformacoes/>
+
+                    <div className='flex flex-wrap'>
+                        <img src={CartoesImg} alt="Cartões" />
+                        <img src={ComentarioVanessa} alt="" />
+                        <img src={ComentarioAmanda} alt="" />
+                        <img src={ComentarioCintia} alt="" />
+                        <img src={ComentarioCoracao} alt="" />
+                        <img src={ComentarioDinheiro} alt="" />
+                        <img src={ComentarioEmoji} alt="" />
+                        <img src={ComentarioGustavo} alt="" />
+                        <img src={ComentarioRaissa} alt="" />
+                        <img src={ComentarioViktor} alt="" />
+                    </div>
+                    <BotaoCartao/>
                     
+                </div>
+
+                
+                
             </div>
            
         </>);

@@ -16,8 +16,7 @@ module.exports = {
 
   backgroundImage: {
     'lampada': "url('/public/fundo_inicio.png')",
-    'fundo_home': "url('/src/assets/imagens/fundo_vermelho.png')",
-    'fundo_home_invertido': "url('/src/assets/imagens/fundo_vermelho_invertido.png')",
+    'fundo_home': "url('/src/assets/imagens/fundo_vermelho.svg')",
   }
   },
   },
