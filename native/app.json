@@ -20,9 +20,6 @@
       "adaptiveIcon": {
         "backgroundColor": "#ffffff"
       }
-    },
-    "web": {
-      "favicon": "./assets/splash.png"
     }
   }
 }

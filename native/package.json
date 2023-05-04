@@ -30,6 +30,7 @@
     "react-native-awesome-alerts": "^2.0.0",
     "react-native-elements": "^3.4.3",
     "react-native-expo-fancy-alerts": "^2.1.1",
+    "react-native-gesture-handler": "^2.9.0",
     "react-native-modal": "^13.0.1",
     "react-native-safe-area-context": "4.5.0",
     "react-native-screens": "^3.20.0",
@@ -38,7 +39,8 @@
     "styled-components": "^5.3.9"
   },
   "devDependencies": {
-    "@babel/core": "^7.20.0"
+    "@babel/core": "^7.20.0",
+    "tailwindcss": "^3.3.2"
   },
   "private": true
 }

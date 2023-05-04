@@ -7,13 +7,22 @@ import {FontAwesome} from '@expo/vector-icons'
 export default function Home({navigation}){
     return(
         <View style={styles.container}>
-            
-
+            <LinearGradient 
+                style={{
+                width: 400,  
+                flex: 1,
+                
+            }}
+                colors={['#26BAE0','#367DF7']}>
             <View style={styles.banner}>
                 <Text>
                     Carrossel de Anúncio
                 </Text>
             </View>
+            </LinearGradient>
+            
+
+            
 
             <View style={styles.menu}>
                 <View style={styles.subMenu}>
@@ -41,14 +50,7 @@ export default function Home({navigation}){
                 <View style={styles.conteudo}>
             </View>
 
-            <LinearGradient 
-                style={{
-                width: 400,  
-                flex: 1,
-                
-            }}
-                colors={['#26BAE0','#367DF7']}>
-            </LinearGradient>
+            
            
             
         </View>

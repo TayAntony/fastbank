@@ -12,54 +12,24 @@ import { AntDesign } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 
-const Tab = createBottomTabNavigator()
-const Nav = createStackNavigator()
+const Nav = createBottomTabNavigator()
+const Tab = createStackNavigator()
 
-export default function Routers() {
+function NavBar() {
     return (
-        <NavigationContainer>
-            <Nav.Navigator
-            screenOptions={{
-                tabBarStyle:{
-                    backgroundColor: 'black',
-                    backfaceVisibility: 'black',
-                    borderTopColor: 'grey',
-                    paddingBottom: 3,
-                    paddingTop: 3
-                },
-                tabBarActiveTintColor: 'white',
-                tabBarInactiveTintColor: 'grey'
-            }}
+        <Nav.Navigator
+        screenOptions={{
+            tabBarStyle:{
+                backgroundColor: 'black',
+                backfaceVisibility: 'black',
+                borderTopColor: 'grey',
+                paddingBottom: 3,
+                paddingTop: 3
+            },
+            tabBarActiveTintColor: 'white',
+            tabBarInactiveTintColor: 'grey'
+        }}
             >
-
-            <Nav.Screen
-                    name="Inicio"
-                    component={Inicio} 
-    
-                    options={{ headerShown: false,
-                    tabBarStyle: {display: 'none'}
-                }}
-                />
-
-                
-                <Nav.Screen
-                    name="Login"
-                    component={Login} 
-    
-                    options={{ headerShown: false,
-                    tabBarStyle: {display: 'none'}
-                }}
-                />
-
-                <Nav.Screen
-                    name="Cadastro"
-                    component={Cadastro} 
-    
-                    options={{ headerShown: false, tabBarIcon: ({size, color}) => {return  <AntDesign name="user" size={24} color="white" />},
-                    tabBarStyle: {display: 'none'}
-                }}
-                />
-
                 <Nav.Screen
                     name="Home"
                     component={Home}
@@ -68,18 +38,59 @@ export default function Routers() {
                         
                 }}
                 /> 
-                
-                <Nav.Screen
-                    name="BotaoLogin"
-                    component={BotaoLogin}
+
+                {/* <Nav.Screen
+                    name="Carteira"
+                    component={Home}
                     
                     options={{ headerShown: false, tabBarIcon: ({size, color}) => {return  <FontAwesome name="home" size={24} color="white" />},
                         
                 }}
+                />  */}
+                
+                <Nav.Screen
+                    name="BotaoLogin"
+                    component={BotaoLogin}
                 /> 
 
             </Nav.Navigator>
-        </NavigationContainer>
     )
     
+}
+
+export default function Routers({navigation}){
+    return(
+        <NavigationContainer>
+            <Tab.Navigator>
+
+            <Tab.Screen
+                    name="Inicio"
+                    component={Inicio} 
+    
+                    options={{ title: false,
+                    tabBarStyle: {display: 'none'}
+                }}
+                />
+
+                
+                <Tab.Screen
+                    name="Login"
+                    component={Login} 
+    
+                    options={{ title: false,
+                    tabBarStyle: {display: 'none'}
+                }}
+                />
+
+                <Tab.Screen
+                    name="Cadastro"
+                    component={Cadastro} 
+    
+                    options={{
+                    tabBarStyle: {display: 'none'}
+                }}
+                />
+            </Tab.Navigator>
+        </NavigationContainer>
+    )
 }
