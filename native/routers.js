@@ -1,96 +1,113 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import {Entypo, FontAwesome, Feather} from '@expo/vector-icons'
+import { FontAwesome5, FontAwesome, Ionicons, MaterialIcons } from '@expo/vector-icons'
+
+import { BlurView } from '@react-native-community/blur';
+
 import Login from './pages/login'
 import Cadastro from './pages/cadastro'
 import Inicio from './pages/inicio'
 import Home from './pages/home'
-import BotaoLogin from "./components/botaoLogin";
+import Carteira from "./pages/carteira";
+import Notificacoes from "./pages/notificacoes";
+import Perfil from "./pages/perfil";
 
-import { AntDesign } from '@expo/vector-icons';
-import { MaterialIcons } from '@expo/vector-icons';
-import { Ionicons } from '@expo/vector-icons';
-
-const Nav = createBottomTabNavigator()
-const Tab = createStackNavigator()
+const Tab = createBottomTabNavigator()
+const Nav = createStackNavigator()
 
 function NavBar() {
     return (
-        <Nav.Navigator
-        screenOptions={{
-            tabBarStyle:{
-                backgroundColor: 'black',
-                backfaceVisibility: 'black',
-                borderTopColor: 'grey',
-                paddingBottom: 3,
-                paddingTop: 3
-            },
-            tabBarActiveTintColor: 'white',
-            tabBarInactiveTintColor: 'grey'
-        }}
-            >
-                <Nav.Screen
-                    name="Home"
-                    component={Home}
-                    
-                    options={{ headerShown: false, tabBarIcon: ({size, color}) => {return  <FontAwesome name="home" size={24} color="white" />},
-                        
+        <Tab.Navigator
+            screenOptions={{
+                tabBarStyle: {
+                    backgroundColor: 'transparent',
+                    backfaceVisibility: 'black',
+                    borderTopColor: 'white',
+                    paddingBottom: 10,
+                    paddingTop: 0,
+                    height: 70
+                },
+                tabBarActiveTintColor: 'red',
+                tabBarInactiveTintColor: 'black',
+            }}
+            
+        >
+            <Tab.Screen
+                name="Home"
+                component={Home}
+
+                options={{
+                    headerShown: false, tabBarIcon: ({ size, color, focused }) => { return <FontAwesome name="home" size={36} color={ focused? "black" : "red"} /> },
+
                 }}
-                /> 
-
-                {/* <Nav.Screen
-                    name="Carteira"
-                    component={Home}
-                    
-                    options={{ headerShown: false, tabBarIcon: ({size, color}) => {return  <FontAwesome name="home" size={24} color="white" />},
-                        
-                }}
-                />  */}
-                
-                <Nav.Screen
-                    name="BotaoLogin"
-                    component={BotaoLogin}
-                /> 
-
-            </Nav.Navigator>
-    )
-    
-}
-
-export default function Routers({navigation}){
-    return(
-        <NavigationContainer>
-            <Tab.Navigator>
+            />
 
             <Tab.Screen
-                    name="Inicio"
-                    component={Inicio} 
-    
-                    options={{ title: false,
-                    tabBarStyle: {display: 'none'}
+                    name="Carteira"
+                    component={Carteira}
+                    
+                    options={{ 
+                        headerShown: false, tabBarIcon: ({size, color}) => {return  <FontAwesome5 name="wallet" size={24} color="black" />},   
                 }}
-                />
+                /> 
 
+            <Tab.Screen
+                name="Notificações"
+                component={Notificacoes}
                 
-                <Tab.Screen
-                    name="Login"
-                    component={Login} 
-    
-                    options={{ title: false,
-                    tabBarStyle: {display: 'none'}
+                options={{ 
+                    headerShown: false, tabBarIcon: ({size, color}) => {return  <Ionicons name="notifications" size={32} color="black" />},   
                 }}
                 />
 
-                <Tab.Screen
-                    name="Cadastro"
-                    component={Cadastro} 
-    
-                    options={{
-                    tabBarStyle: {display: 'none'}
+            <Tab.Screen
+                name="Perfil"
+                component={Perfil}
+                
+                options={{ 
+                    headerShown: false, tabBarIcon: ({size, color}) => {return  <FontAwesome name="user-circle-o" size={30} color="black" />},   
                 }}
+                /> 
+        </Tab.Navigator>
+    )
+
+}
+
+export default function Routers({ navigation }) {
+    return (
+        <NavigationContainer>
+            <Nav.Navigator
+            initialRouteName="Home"
+                screenOptions={{
+                    headerStyle: {
+                        backgroundColor: 'black',
+                    },
+                    headerTintColor: 'white',
+                }}>
+                    <Nav.Screen 
+                    name="Home"
+                    component={NavBar}
+                    options={{ title: false, headerShown: false }}
+                    />
+
+                <Nav.Screen
+                    name="Inicio"
+                    component={Inicio}
+                    options={{ title: false, headerShown: false }}
                 />
-            </Tab.Navigator>
+
+                <Nav.Screen
+                    name="Login"
+                    component={Login}
+                />
+
+                <Nav.Screen
+                    name="Cadastro"
+                    component={Cadastro}
+                />
+                
+            </Nav.Navigator>
         </NavigationContainer>
     )
 }

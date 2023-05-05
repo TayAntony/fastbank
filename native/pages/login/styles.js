@@ -13,9 +13,8 @@ const styles = StyleSheet.create({
         color:'#fff',
     },
     input:{
-        height: 40,
+        height: 50,
         width: 220,
-        borderColor: 'transparent',
         borderBottomColor: 'white',
         borderStyle: "solid", 
         borderWidth: 1,
@@ -23,12 +22,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         borderRadius:6,
         padding: 10,
-        placeholderTextColor: 'grey',
-        fontSize: 12,
-        outlineStyle: "solid",
-        outlineColor: "transparent",
-        outlineWidth: 1,
-        color: 'white'
+        fontSize: 16,
+        color: 'white',
         
     },
     txt1:{
@@ -49,38 +44,30 @@ const styles = StyleSheet.create({
         minWidth: 300,
         maxWidth: 300,
         margin: 40,
-        flex: 1,
+        flex: 0.7,
         borderColor: 'white',
         borderStyle: "solid", 
         borderWidth: 1,
         borderRadius: 20,
         backgroundColor: 'black',
-        padding: 20
     },
+
     link:{
         fontSize: 12,
         marginTop: 20,
         color: 'grey',
     },
+
     iconeInput:{
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
-    },
-    icone:{
-        alignSelf: 'center',
-
     },
     esqueceuSenha:{
         fontSize: 10,
         color: 'grey',
 
     },
-    alinhar:{
-        display: 'flex',
-        flexDirection: 'col',
-        alignItems: 'flex-end',
-    }
 
 })
 

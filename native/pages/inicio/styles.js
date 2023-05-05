@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
     },
 
     slogan:{
-        fontSize: 16,
+        fontSize: 24,
         color: 'white',
         marginTop: 20,
         marginLeft: 30,

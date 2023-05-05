@@ -1,5 +1,6 @@
 import { StyleSheet } from "react-native";
 
+
 const styles = StyleSheet.create({
     container:{
         backgroundColor: 'black' ,
@@ -13,9 +14,8 @@ const styles = StyleSheet.create({
         color:'#fff',
     },
     input:{
-        height: 40,
+        height: 50,
         width: 220,
-        borderColor: 'transparent',
         borderBottomColor: 'white',
         borderStyle: "solid", 
         borderWidth: 1,
@@ -23,18 +23,14 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         borderRadius:6,
         padding: 10,
-        fontSize: 12,
-        outlineStyle: "solid",
-        outlineColor: "transparent",
-        outlineWidth: 1,
-        color: 'white'
-        
+        fontSize: 16,
+        color: 'white',
     },
     txt1:{
-        fontSize: 14,
+        fontSize: 20,
         color: 'white',
         margin: 20,
-        width: 200,
+        width: 350,
         
     },
     logo:{
@@ -48,7 +44,7 @@ const styles = StyleSheet.create({
         minWidth: 300,
         maxWidth: 300,
         margin: 40,
-        flex: 1,
+        flex: 0.75,
         borderColor: 'white',
         borderStyle: "solid", 
         borderWidth: 1,
@@ -59,17 +55,6 @@ const styles = StyleSheet.create({
         fontSize: 12,
         marginTop: 20,
         color: 'grey',
-    },
-    google:{
-        width: 20,
-        height: 20,
-        margin: 10,
-    },
-    botaoGoogle:{
-        display: 'flex', 
-        flexDirection: 'row-reverse',
-        justifyContent: 'center',
-        alignItems: 'center',
     },
     iconeInput:{
         display: 'flex',

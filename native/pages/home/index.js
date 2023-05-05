@@ -4,41 +4,23 @@ import { LinearGradient } from 'expo-linear-gradient';
 
 import {FontAwesome} from '@expo/vector-icons'
 
-export default function Home({navigation}){
+export default function Home() {
     return(
         <View style={styles.container}>
-            <LinearGradient 
-                style={{
-                width: 400,  
-                flex: 1,
+            <View style={styles.header}>
+                <LinearGradient
+                    style={{
+                    width: 400,
+                    flex: 0.4,
                 
-            }}
-                colors={['#26BAE0','#367DF7']}>
-            <View style={styles.banner}>
-                <Text>
-                    Carrossel de Anúncio
-                </Text>
+                }}
+                    colors={['#6A3A90','#E30044']}
+                    start={{ x: 0, y: 0 }}
+                    end={{ x: 1, y: 2 }}>
+                </LinearGradient>
             </View>
-            </LinearGradient>
-            
-
-            
 
             <View style={styles.menu}>
-                <View style={styles.subMenu}>
-                    <Text>
-                        Opção 1
-                    </Text>
-
-                    <Text>
-                        Opção 2
-                    </Text>
-
-                    <Text>
-                        Opção 3
-                    </Text>
-                </View>
-
                 <View style={styles.icon}>
                     <TouchableOpacity onPress={()=> navigation.navigate('Login')}>
 
@@ -49,10 +31,6 @@ export default function Home({navigation}){
             </View>
                 <View style={styles.conteudo}>
             </View>
-
-            
-           
-            
         </View>
     )
 }

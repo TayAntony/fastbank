@@ -1,10 +1,8 @@
-import { View, Text, ImageBackground, TextInput, TouchableOpacity, Alert } from "react-native";
+import { View, Text, ImageBackground, TextInput, TouchableOpacity, Pressable } from "react-native";
 import styles from './styles'
 import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
 import React, { useState } from 'react';
-import BotaoGoogle from "../../components/botaoGoogle";
 import BotaoLogin from "../../components/botaoLogin";
-import Seta from "../../components/seta";
 import axios from "axios";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { FancyAlert } from 'react-native-expo-fancy-alerts';
@@ -26,7 +24,7 @@ export default function Login({ navigation }) {
 
     const logar = async () => {
         try {
-            const response = await axios.post("http://127.0.0.1:8000/auth/jwt/create",{ username: username, password: senha }
+            const response = await axios.post("http://192.168.155.67:8000/auth/jwt/create",{ username: username, password: senha }
             );
       
             if (response.status === 200) {
@@ -35,7 +33,7 @@ export default function Login({ navigation }) {
               await AsyncStorage.setItem("token", response.data.access);
       
               // Redirecionar para a página Home
-              navigation.navigate("Home");
+              navigation.navigate("Home")
             }
           } catch (err) {
             console.log(err);
@@ -45,12 +43,7 @@ export default function Login({ navigation }) {
               
             }setVisibleLogin(true)
           }
-    }
-
-    const btnGoogle = () => {
-        console.log('tentou cadastrar com google')
-
-    }
+        }
 
     return (
         <View style={styles.container}>
@@ -59,98 +52,96 @@ export default function Login({ navigation }) {
                 style={{ width: 800, height: 840, position: 'absolute' }}
             />
 
-        {/* ALERTA DE NÃO FOI POSSÍVEL REALIZAR O LOGIN */}
-        <FancyAlert
-            visible={visibleLogin}
-            icon={<View style={{
-            flex: 1,
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            backgroundColor: 'red',
-            borderRadius: 50,
-            width: '100%',
-            }}>
-            <Text>💤</Text></View>}
-            style={{ backgroundColor: 'white' }}>
-            <Text style={{ marginTop: -16, marginBottom: 32 }}>Não foi possível realizar o login!</Text>
-            <TouchableOpacity onPress={handleCloseAlert}>
-                <View style={{
-                    marginTop: 10,
-                    marginBottom: 10,
-                    paddingHorizontal: 16,
-                    paddingVertical: 8,
-                    backgroundColor: 'red',
-                    borderRadius: 12,
+            {/* ALERTA DE NÃO FOI POSSÍVEL REALIZAR O LOGIN */}
+            <FancyAlert
+                visible={visibleLogin}
+                icon={<View style={{
+                flex: 1,
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                backgroundColor: 'red',
+                borderRadius: 50,
+                width: '100%',
                 }}>
-                    <Text style={{ color: '#FFF' }}>Tente novamente mais tarde</Text>
-                </View>
-            </TouchableOpacity>
-        </FancyAlert>
+                <Text>💤</Text></View>}
+                style={{ backgroundColor: 'white' }}>
+                <Text style={{ marginTop: -16, marginBottom: 32 }}>Não foi possível realizar o login!</Text>
+                <TouchableOpacity onPress={handleCloseAlert}>
+                    <View style={{
+                        marginTop: 10,
+                        marginBottom: 10,
+                        paddingHorizontal: 16,
+                        paddingVertical: 8,
+                        backgroundColor: 'red',
+                        borderRadius: 12,
+                    }}>
+                        <Text style={{ color: '#FFF' }}>Tente novamente mais tarde</Text>
+                    </View>
+                </TouchableOpacity>
+            </FancyAlert>
 
-        {/* ALERTA DE LOGADO COM SUCESSO */}
-        <FancyAlert
-            visible={visibleSucesso}
-            icon={<View style={{
-            flex: 1,
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            backgroundColor: 'green',
-            borderRadius: 50,
-            width: '100%',
-            }}>
-            <Text>✔</Text></View>}
-            style={{ backgroundColor: 'white' }}>
-            <Text style={{ marginTop: -16, marginBottom: 32 }}>Parabéns! Logado com sucesso</Text>
-            <TouchableOpacity onPress={handleCloseAlert}>
-                <View style={{
-                    marginTop: 10,
-                    marginBottom: 10,
-                    paddingHorizontal: 16,
-                    paddingVertical: 8,
-                    backgroundColor: '#007AFF',
-                    borderRadius: 12,
+            {/* ALERTA DE LOGADO COM SUCESSO */}
+            <FancyAlert
+                visible={visibleSucesso}
+                icon={<View style={{
+                flex: 1,
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                backgroundColor: 'green',
+                borderRadius: 50,
+                width: '100%',
                 }}>
-                    <Text style={{ color: '#FFF' }}>OK</Text>
-                </View>
-            </TouchableOpacity>
-        </FancyAlert>
+                <Text>✔</Text></View>}
+                style={{ backgroundColor: 'white' }}>
+                <Text style={{ marginTop: -16, marginBottom: 32 }}>Parabéns! Logado com sucesso</Text>
+                <TouchableOpacity onPress={handleCloseAlert}>
+                    <View style={{
+                        marginTop: 10,
+                        marginBottom: 10,
+                        paddingHorizontal: 16,
+                        paddingVertical: 8,
+                        backgroundColor: '#007AFF',
+                        borderRadius: 12,
+                    }}>
+                        <Text style={{ color: '#FFF' }}>OK</Text>
+                    </View>
+                </TouchableOpacity>
+            </FancyAlert>
 
-        {/* ALERTA DE SENHA/USUARIO INCORRETO */}
-        <FancyAlert
-            visible={visibleErro}
-            icon={<View style={{
-            flex: 1,
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            backgroundColor: 'red',
-            borderRadius: 50,
-            width: '100%',
-            }}>
-            <Text>❕</Text></View>}
-            style={{ backgroundColor: 'white' }}>
-            <Text style={{ marginTop: -16, marginBottom: 32 }}>Usuário ou senha incorretos</Text>
-            <TouchableOpacity onPress={handleCloseAlert}>
-                <View style={{
-                    marginTop: 10,
-                    marginBottom: 10,
-                    paddingHorizontal: 16,
-                    paddingVertical: 8,
-                    backgroundColor: 'red',
-                    borderRadius: 12,
+            {/* ALERTA DE SENHA/USUARIO INCORRETO */}
+            <FancyAlert
+                visible={visibleErro}
+                icon={<View style={{
+                flex: 1,
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                backgroundColor: 'red',
+                borderRadius: 50,
+                width: '100%',
                 }}>
-                    <Text style={{ color: '#FFF' }}>Tentar novamente!</Text>
-                </View>
-            </TouchableOpacity>
-        </FancyAlert>
+                <Text>❕</Text></View>}
+                style={{ backgroundColor: 'white' }}>
+                <Text style={{ marginTop: -16, marginBottom: 32 }}>Usuário ou senha incorretos</Text>
+                <TouchableOpacity onPress={handleCloseAlert}>
+                    <View style={{
+                        marginTop: 10,
+                        marginBottom: 10,
+                        paddingHorizontal: 16,
+                        paddingVertical: 8,
+                        backgroundColor: 'red',
+                        borderRadius: 12,
+                    }}>
+                        <Text style={{ color: '#FFF' }}>Tentar novamente!</Text>
+                    </View>
+                </TouchableOpacity>
+            </FancyAlert>
 
             <View>
-                <View>
-                    <Seta />
-                    <Text style={styles.txt1}>Insira suas informações para realizar o login </Text>
-                </View>
+                {/* <Text style={styles.txt1}>Insira suas informações para realizar o login </Text> */}
+            
                 <View style={styles.card}>
                     <View style={{ flex: 1, alignItems: 'center' }}>
 
@@ -159,6 +150,7 @@ export default function Login({ navigation }) {
                             <TextInput
                                 style={styles.input}
                                 placeholder="Digite seu usuário"
+                                placeholderTextColor="gray"
                                 KeyboardType='text'
                                 value={username}
                                 onChangeText={(e) => { setUsername(e) }}
@@ -172,6 +164,7 @@ export default function Login({ navigation }) {
                                 <TextInput secureTextEntry={true}
                                     style={styles.input} 
                                     placeholder="Digite sua senha"
+                                    placeholderTextColor="gray"
                                     value={senha}
                                     onChangeText={(e) => { setSenha(e) }}
                                     
@@ -185,13 +178,9 @@ export default function Login({ navigation }) {
                             Esqueceu sua senha?
                         </Text>
 
-                        <TouchableOpacity onPress={() => logar(username,senha )} style={styles.botao} >
+                        <Pressable onPress={() => logar(username,senha)} >
                             <BotaoLogin texto='Logar' />
-                        </TouchableOpacity>
-
-                        <TouchableOpacity onPress={btnGoogle}>
-                            <BotaoGoogle texto="Logar com Google" />
-                        </TouchableOpacity>
+                        </Pressable>
                     </View>
                 </View>
             </View>

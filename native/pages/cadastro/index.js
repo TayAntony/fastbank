@@ -1,14 +1,11 @@
-import { View, Text, Alert, Image, ImageBackground, TouchableOpacity, TextInput } from "react-native";
+import { View, Text, ImageBackground, TouchableOpacity, TextInput } from "react-native";
 import styles from './styles'
 import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
 import React, { useState } from 'react';
-import BotaoGoogle from "../../components/botaoGoogle";
 import BotaoLogin from "../../components/botaoLogin";
-import Seta from "../../components/seta";
 import axios from "axios";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { FancyAlert } from 'react-native-expo-fancy-alerts';
-
 
 export default function Cadastro({ navigation }) {
     const [username, setUsername] = useState('');
@@ -42,7 +39,7 @@ export default function Cadastro({ navigation }) {
         }
 
         try{
-            const response = await axios.post("http://127.0.0.1:8000/auth/users/",{ username: username, email: email, password: senha });
+            const response = await axios.post("http://192.168.155.67:8000/auth/users/",{ username: username, email: email, password: senha });
     
             if (response.status === 201) {
                 setVisibleSucesso(true) // mostrar alerta de cadastro efetuado com sucesso
@@ -62,9 +59,6 @@ export default function Cadastro({ navigation }) {
             }   
         }
         
-    }
-    const btnGoogle = ()=> {
-        Alert.alert("Cadastrando com o Google...")
     }
 
     return (
@@ -221,11 +215,10 @@ export default function Cadastro({ navigation }) {
 
             <View>
                 <View>
-                    <Seta/>
                     <Text style={styles.txt1}>Preencha com seus dados para efetuar o cadastro!</Text>
                 </View>
                 <View style={styles.card}>
-                    <View style={{ flex: 1, alignItems: 'center' }}>
+                    <View style={{ flex: 1, alignItems: 'center'}}>
                         
                         {/* INPUT DIGITAR USUÁRIO */}
                         <View style={styles.iconeInput}>
@@ -233,17 +226,19 @@ export default function Cadastro({ navigation }) {
                                 style={styles.input}
                                 placeholder="Digite seu usuário"
                                 KeyboardType='text'
+                                placeholderTextColor="gray"
                                 value={username}
                                 onChangeText={(e) => {setUsername(e)}}
                             />
                             <MaterialCommunityIcons name={'account'} size={15} color={'#fff'} style={styles.icone} />
                         </View>
 
-                            {/* INPUT DIGITAR EMAIL */}
+                        {/* INPUT DIGITAR EMAIL */}
                         <View style={styles.iconeInput}>
                             <TextInput
                                 style={styles.input}
                                 placeholder="Digite seu E-mail"
+                                placeholderTextColor="gray"
                                 KeyboardType='email'
                                 value={email}
                                 onChangeText={(e) => {setEmail(e)}}
@@ -251,11 +246,13 @@ export default function Cadastro({ navigation }) {
                             <MaterialCommunityIcons name={'email'} size={15} color={'#fff'} style={styles.icone} />
                         </View>
 
-                            {/* INPUT DIGITAR SENHA */}
+                        {/* INPUT DIGITAR SENHA */}
                         <View style={styles.alinhar}>
                             <View style={styles.iconeInput}>
                                 <TextInput secureTextEntry={true}
-                                    style={styles.input} placeholder="Digite sua senha"
+                                    style={styles.input} 
+                                    placeholder="Digite sua senha"
+                                    placeholderTextColor="gray"
                                     value={senha}
                                     onChangeText= {(e) => { setSenha(e) }}   
                                 />
@@ -274,8 +271,6 @@ export default function Cadastro({ navigation }) {
                         <TouchableOpacity onPress={() => cadastrar(username,senha, email )} style={styles.botao} >
                             <BotaoLogin texto='Cadastrar' />
                         </TouchableOpacity>
-
-                        <BotaoGoogle texto='Cadastrar com Google' onPress={() => btnGoogle()}/>
                     </View>
                 </View>
             </View>

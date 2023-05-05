@@ -4,12 +4,11 @@ import {
     useWindowDimensions,
     Image, ImageBackground
 } from "react-native";
-// import { BlurView, VibrancyView } from "@react-native-community/blur";
-
+import { StatusBar } from 'react-native';
 import styles from './styles'
 import React, { useState } from 'react';
 import BotaoLogin from "../../components/botaoLogin";
-import { TouchableOpacity } from "react-native-web";
+import { Pressable } from "react-native";
 
 export default function Inicio({ navigation, props }) {
     const [tela, setTela] = useState(useWindowDimensions())
@@ -19,10 +18,15 @@ export default function Inicio({ navigation, props }) {
     }
     function cadastro() {
         navigation.navigate('Cadastro')
-        
     }
     return (
+        
         <View style={styles.container}>
+            <StatusBar
+                barStyle = "dark-content"
+                hidden = {true}
+                networkActivityIndicatorVisible = {true}
+/>
             <ImageBackground
                 source={require('../../assets/fundo.png')}
                 style={{ width: tela.width, height: tela.height, justifyContent: "center", display: "flex", flexDirection: "column", alignItems: "center" }}
@@ -37,13 +41,14 @@ export default function Inicio({ navigation, props }) {
                     </View>
                     <View style={styles.card}>
                         <Text style={styles.txt1}>Olá, seja bem vindo(a) ao ToDo, minha plataforma de Digital Bank! </Text>
-                        <TouchableOpacity onPress={cadastro}>
-                            <BotaoLogin texto="Sou novo" />
-                        </TouchableOpacity>
+                        <Pressable onPress={cadastro}>
+                            <BotaoLogin texto={"Sou novo"} />
+                        </Pressable>
 
-                        <Text onPress={login} style={styles.link}>
-                            Já possui uma conta?
-                        </Text>
+                        <Pressable onPress={login} >
+                            <Text style={styles.link}>Já possui uma conta?</Text>
+                        </Pressable>
+
                     </View>
                 </View>
             </ImageBackground>

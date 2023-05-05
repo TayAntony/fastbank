@@ -14,7 +14,7 @@ SECRET_KEY = "django-insecure-m2zti0r$^l13x&i$alcz8263q7@d+8xk3h03%q3h_nk+p8z5c4
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -50,6 +50,8 @@ CORS_ALLOWED_ORIGINS = [
     'http://localhost:5173',
     'http://localhost:19006'
 ]
+
+CORS_ALLOWED_ALL_ORIGINS = True
 
 ROOT_URLCONF = "banco.urls"
 
