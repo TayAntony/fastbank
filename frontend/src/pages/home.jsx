@@ -22,10 +22,13 @@ import ComentarioCoracao from '../assets/comentarios/comentarioCoracao.svg'
 function Homepage() {
 
     const gerarCartao = () => {
+        const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjgzNjYyNDIzLCJqdGkiOiJlZTM1NWEzNmNlYjE0NzQwOGIyMmExNDFjNmFhYTUzNSIsInVzZXJfaWQiOjF9.fjtq9sB0nM-5ZwCNaOfKWF30QkIzhq_YIx4uyhn_2t4"
         console.log("geranod cartao")
-        axios.post("http://127.0.0.1:8000/contas/clientes/", [{
-            
-        }])
+        axios.post("http://127.0.0.1:8000/contas/clientes/", [{}], {
+            headers: {
+                Authorization: `JWT ${token}`
+            }
+        })
     }
     return (
         <>
