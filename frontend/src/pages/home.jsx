@@ -4,7 +4,8 @@ import { useNavigate } from 'react-router-dom'
 import LogoComponent from '../components/logo'
 import CelularImg from '../assets/imagens/celular.png'
 import CardInformacoes from '../components/cardInformacoes'
-import BotaoCartao from '../components/botaoCartao'
+
+import Cartao1 from '../../public/cartoes/cartao1.svg'
 
 import CartoesImg from '../../public/cartao.svg'
 import ComentarioVanessa from '../assets/comentarios/comentarioVanessa.svg'
@@ -19,6 +20,13 @@ import ComentarioCoracao from '../assets/comentarios/comentarioCoracao.svg'
 
 
 function Homepage() {
+
+    const gerarCartao = () => {
+        console.log("geranod cartao")
+        axios.post("http://127.0.0.1:8000/contas/clientes/", [{
+            
+        }])
+    }
     return (
         <>
 
@@ -54,7 +62,8 @@ function Homepage() {
                         <img src={ComentarioRaissa} alt="" />
                         <img src={ComentarioViktor} alt="" />
                     </div>
-                    <BotaoCartao/>
+
+                    <button className="bg-gradient-to-r from-[#7611A6] to-[#DA4C5DF8] drop-shadow-[6px_5px_5px_rgba(0,0,0,0.40)] rounded-3xl p-6 font-semibold text-2xl border-2 border-solid xs:w-4/12 " onClick={gerarCartao}>Peça já o seu cartão!</button>
                     
                 </div>
 

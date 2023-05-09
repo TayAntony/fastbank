@@ -111,7 +111,7 @@ function Cadastrar() {
                     
                     <div className='flex items-end flex-col gap-4'>
                         <Input placeholder='E-mail' tipo='text' value={email} onChange={(e) => setEmail(e.target.value)}/>
-                        <Input placeholder='Nome de usuário' tipo='text' value={username} onChange={(e) => setUsername(e.target.value)}/>
+                        <Input placeholder='Nome completo' tipo='text' value={username} onChange={(e) => setUsername(e.target.value)}/>
                         <div className='flex items-end flex-col'>
                         <Input  placeholder='Senha' tipo='password' value={senha} onChange={(e) => setSenha(e.target.value)}/>
                         </div>

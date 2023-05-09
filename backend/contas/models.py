@@ -1,6 +1,7 @@
 from django.db import models
 from django.core.validators import MinValueValidator
-
+from random import randint
+from datetime import datetime
 
 class Endereco(models.Model):
     ACRE = "AC"
@@ -147,13 +148,13 @@ class Conta(models.Model):
 
 
 class Cartao(models.Model):
-    numero_cartao = models.CharField(max_length=20)
-    conta_cartao = models.ForeignKey(Conta, on_delete=models.DO_NOTHING)
-    cvv = models.IntegerField()
-    data_vencimento = models.DateField()
-    bandeira = models.CharField(max_length=20)
-    nome_titular_cartao = models.CharField(max_length=100)
-    cartao_ativo = models.BooleanField()
+    numero_cartao = models.CharField(max_length=20, blank=True, null=True)
+    conta_cartao = models.ForeignKey(Conta, on_delete=models.CASCADE)
+    cvv = models.IntegerField( blank=True, null=True)
+    data_vencimento = models.DateField( blank=True, null=True)
+    bandeira = models.CharField(max_length=20,  blank=True, null=True)
+    nome_titular_cartao = models.ForeignKey(Cliente, on_delete=models.CASCADE)
+    cartao_ativo = models.BooleanField(default=True)
 
     class Meta:
         constraints = [
@@ -163,6 +164,15 @@ class Cartao(models.Model):
             )
         ]
         verbose_name_plural = "Cartao"
+
+    def save(self, *args, **kwargs):
+        self.numero_cartao = f"{randint(1000, 9999)} {randint(1000, 9999)} {randint(1000, 9999)} {randint(1000, 9999)}"
+        self.cvv = f"{randint(100, 999)}"
+        self.data_vencimento = f"{randint(1,12)}/{randint(datetime.today().year + 5)}"
+        self.bandeira = 'Mastercard'
+        print(self.numero_cartao, self.cvv, self.data_vencimento, self.bandeira)
+
+        super(Cartao, self).save(*args, **kwargs)
 
 
 class Movimentacao(models.Model):
