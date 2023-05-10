@@ -3,8 +3,6 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { FontAwesome5, FontAwesome, Ionicons, MaterialIcons } from '@expo/vector-icons'
 
-import { BlurView } from '@react-native-community/blur';
-
 import Login from './pages/login'
 import Cadastro from './pages/cadastro'
 import Inicio from './pages/inicio'

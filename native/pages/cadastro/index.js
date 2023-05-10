@@ -39,7 +39,7 @@ export default function Cadastro({ navigation }) {
         }
 
         try{
-            const response = await axios.post("http://192.168.155.67:8000/auth/users/",{ username: username, email: email, password: senha });
+            const response = await axios.post("http://192.168.155.38:8000/auth/users/",{ username: username, email: email, password: senha });
     
             if (response.status === 201) {
                 setVisibleSucesso(true) // mostrar alerta de cadastro efetuado com sucesso

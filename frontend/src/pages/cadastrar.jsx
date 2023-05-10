@@ -14,6 +14,7 @@ function Cadastrar() {
 
     const [username, setUsername] = useState('')
     const [email, setEmail] = useState('')
+    const [cpf, setCpf] = useState('')
     const [senha, setSenha] = useState('')
 
     const goLogin = () => {
@@ -22,7 +23,7 @@ function Cadastrar() {
 
     const cadastrar = async (evt) => {
         evt.preventDefault();
-        const infoDoCadastro = {username: username, password: senha, email: email}
+        const infoDoCadastro = {username: username, password: senha, email: email, cpf:cpf}
         if(senha.length < 8){
             Swal.fire({
                 icon: 'warning',
@@ -37,6 +38,16 @@ function Cadastrar() {
                 icon: 'warning',
                 title: 'Oops...',
                 text: 'O E-mail digitado não é válido!',
+                confirmButtonText: 'Tentar novamente',
+                confirmButtonColor: '#D51317',
+            });
+            return
+        }
+        else if (!cpf.length == 11){
+            Swal.fire({
+                icon: 'warning',
+                title: 'Oops...',
+                text: 'O CPF digitado não é válido!',
                 confirmButtonText: 'Tentar novamente',
                 confirmButtonColor: '#D51317',
             });
@@ -112,7 +123,9 @@ function Cadastrar() {
                     <div className='flex items-end flex-col gap-4'>
                         <Input placeholder='E-mail' tipo='text' value={email} onChange={(e) => setEmail(e.target.value)}/>
                         <Input placeholder='Nome completo' tipo='text' value={username} onChange={(e) => setUsername(e.target.value)}/>
-                        <div className='flex items-end flex-col'>
+                        <Input placeholder='CPF' tipo='text' value={cpf} onChange={(e) => setCpf(e.target.value)}/>
+
+                        <div className='flex items-end flex-col'>/
                         <Input  placeholder='Senha' tipo='password' value={senha} onChange={(e) => setSenha(e.target.value)}/>
                         </div>
                     </div>

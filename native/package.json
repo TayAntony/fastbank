@@ -14,7 +14,6 @@
     "@fortawesome/free-solid-svg-icons": "^6.4.0",
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@react-native-async-storage/async-storage": "^1.18.1",
-    "@react-native-community/blur": "^4.3.0",
     "@react-navigation/bottom-tabs": "^6.5.7",
     "@react-navigation/native": "^6.1.6",
     "@react-navigation/stack": "^6.3.16",
@@ -22,7 +21,6 @@
     "expo": "~48.0.10",
     "expo-linear-gradient": "^12.1.2",
     "expo-status-bar": "~1.4.4",
-    "firebase": "^9.20.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-native": "0.71.6",
@@ -36,6 +34,7 @@
     "react-native-screens": "^3.20.0",
     "react-native-sweet-alert": "^3.5.0",
     "react-native-textinput-effects": "^0.6.3",
+    "react-native-tunnel": "^0.1.0",
     "react-native-web": "~0.18.10",
     "styled-components": "^5.3.9"
   },

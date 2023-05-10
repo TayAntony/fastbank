@@ -1,10 +1,15 @@
 from rest_framework import serializers
 from .models import *
 
+class LoginSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Cliente
+        fields = ['usuario', 'senha']
+
 class ClienteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cliente
-        fields = ['nome_cliente', 'contatos_cliente', 'endereco_cliente', 'tipo_cliente', 'cpf_cnpj', 'foto', 'data_nascimento_criacao', 'usuario']
+        fields = ['nome_cliente', 'contatos_cliente', 'endereco_cliente', 'cpf_cnpj', 'foto', 'data_nascimento_criacao', 'usuario']
 
 class ContaSerializer(serializers.ModelSerializer):
     class Meta:

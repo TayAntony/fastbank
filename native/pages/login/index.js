@@ -24,7 +24,7 @@ export default function Login({ navigation }) {
 
     const logar = async () => {
         try {
-            const response = await axios.post("http://192.168.155.67:8000/auth/jwt/create",{ username: username, password: senha }
+            const response = await axios.post("http://192.168.155.38:8000/auth/jwt/create",{ username: username, password: senha }
             );
       
             if (response.status === 200) {

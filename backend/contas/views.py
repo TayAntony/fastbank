@@ -19,7 +19,7 @@ def gerar_agencia():
 
 #CLIENTE VIEWSET
 class ClienteViewSet(viewsets.ModelViewSet):
-    permission_classes = (IsAuthenticated, )
+    #permission_classes = (IsAuthenticated, )
     queryset = Cliente.objects.all()
     serializer_class = ClienteSerializer
     
@@ -35,31 +35,31 @@ class ClienteViewSet(viewsets.ModelViewSet):
 
 #CONTA VIEWSET
 class ContaViewSet(viewsets.ModelViewSet):
-    permission_classes = (IsAuthenticated, )
+    #permission_classes = (IsAuthenticated, )
     queryset = Conta.objects.all()
     serializer_class = ContaSerializer
 
 #CARTAO VIEWSET
 class CartaoViewSet(viewsets.ModelViewSet):
-    permission_classes = (IsAuthenticated, )
+    #permission_classes = (IsAuthenticated, )
     queryset = Cartao.objects.all()
     serializer_class = CartaoSerializer
 
 #MOVIMENTACAO VIEWSET
 class MovimentacaoViewSet(viewsets.ModelViewSet):
-    permission_classes = (IsAuthenticated, )
+    #permission_classes = (IsAuthenticated, )
     queryset = Movimentacao.objects.all()
     serializer_class = MovimentacaoSerializer
 
 #EMPRESTIMO VIEWSET
 class EmprestimoViewSet(viewsets.ModelViewSet):
-    permission_classes = (IsAuthenticated, )
+    #permission_classes = (IsAuthenticated, )
     queryset = Emprestimo.objects.all()
     serializer_class = EmprestimoSerializer
 
 #INVESTIMENTO VIEWSET
 class InventarioViewSet(viewsets.ModelViewSet):
-    permission_classes = (IsAuthenticated, )
+    #permission_classes = (IsAuthenticated, )
     queryset = Investimento.objects.all()
     serializer_class = InvestimentoSerializer
 

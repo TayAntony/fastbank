@@ -73,25 +73,9 @@ class Endereco(models.Model):
     class Meta:
         verbose_name_plural = "Endereço"
 
-
-class TipoCliente(models.Model):
-    PESSOA_FISICA = "F"
-    PESSOA_JURIDICA = "J"
-
-    TIPO_CLIENTE = [
-        (PESSOA_FISICA, "Pessoa Física"),
-        (PESSOA_JURIDICA, "Pessoa Jurídica"),
-    ]
-
-    tipo_cliente = models.CharField(
-        max_length=1, choices=TIPO_CLIENTE, default=PESSOA_FISICA
-    )
-
-
 class Cliente(models.Model):
     nome_cliente = models.CharField(max_length=100)
     endereco_cliente = models.ForeignKey(Endereco, on_delete=models.PROTECT)
-    tipo_cliente = models.ForeignKey(TipoCliente, on_delete=models.DO_NOTHING)
     foto = models.ImageField(upload_to="foto_perfil")
     cpf_cnpj = models.CharField(max_length=20)
     data_nascimento_criacao = models.DateField()
@@ -101,7 +85,7 @@ class Cliente(models.Model):
     class Meta:
         constraints = [
             models.UniqueConstraint(
-                fields=["usuario"],
+                fields=["usuario", 'cpf_cnpj'],
                 name="unique_cliente_user",
             )
         ]
@@ -115,6 +99,12 @@ class Contatos(models.Model):
     observacao = models.CharField(max_length=255)
 
     class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=["email"],
+                name="unique_contato_user",
+            )
+        ]
         verbose_name_plural = "Contatos"
 
 
