@@ -143,7 +143,7 @@ class Cartao(models.Model):
     cvv = models.IntegerField( blank=True, null=True)
     data_vencimento = models.DateField( blank=True, null=True)
     bandeira = models.CharField(max_length=20,  blank=True, null=True)
-    nome_titular_cartao = models.ForeignKey(Cliente, on_delete=models.CASCADE)
+    titular_cartao = models.ForeignKey(Cliente, on_delete=models.CASCADE)
     cartao_ativo = models.BooleanField(default=True)
 
     class Meta:

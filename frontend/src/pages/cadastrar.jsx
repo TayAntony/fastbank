@@ -9,12 +9,9 @@ import axios from 'axios'
 function Cadastrar() {
 
     let navigate = useNavigate();
-    const goHomepage = () => {
-        navigate("/homepage")}
 
     const [username, setUsername] = useState('')
     const [email, setEmail] = useState('')
-    const [cpf, setCpf] = useState('')
     const [senha, setSenha] = useState('')
 
     const goLogin = () => {
@@ -23,7 +20,7 @@ function Cadastrar() {
 
     const cadastrar = async (evt) => {
         evt.preventDefault();
-        const infoDoCadastro = {username: username, password: senha, email: email, cpf:cpf}
+        const infoDoCadastro = {username: username, password: senha, email: email} 
         if(senha.length < 8){
             Swal.fire({
                 icon: 'warning',
@@ -43,19 +40,11 @@ function Cadastrar() {
             });
             return
         }
-        else if (!cpf.length == 11){
-            Swal.fire({
-                icon: 'warning',
-                title: 'Oops...',
-                text: 'O CPF digitado não é válido!',
-                confirmButtonText: 'Tentar novamente',
-                confirmButtonColor: '#D51317',
-            });
-            return
-        }
 
         try {
-            await axios.post('http://127.0.0.1:8000/auth/users/', infoDoCadastro);
+            const retornoRequisicao = await axios.post('http://127.0.0.1:8000/auth/users/', infoDoCadastro);
+            console.log(retornoRequisicao.data)
+
             Swal.fire({
                 icon: 'success',
                 title: 'Parabéns',
@@ -63,7 +52,8 @@ function Cadastrar() {
                 confirmButtonText: 'Redirecionar para o login...',
                 confirmButtonColor: '#00B318',
             });
-            navigate("/login")
+            //navigate("/login")
+
         } catch (err) {
             console.log(JSON.stringify(err));
             if(err.response && err.response.status === 400){
@@ -123,9 +113,8 @@ function Cadastrar() {
                     <div className='flex items-end flex-col gap-4'>
                         <Input placeholder='E-mail' tipo='text' value={email} onChange={(e) => setEmail(e.target.value)}/>
                         <Input placeholder='Nome completo' tipo='text' value={username} onChange={(e) => setUsername(e.target.value)}/>
-                        <Input placeholder='CPF' tipo='text' value={cpf} onChange={(e) => setCpf(e.target.value)}/>
 
-                        <div className='flex items-end flex-col'>/
+                        <div className='flex items-end flex-col'>
                         <Input  placeholder='Senha' tipo='password' value={senha} onChange={(e) => setSenha(e.target.value)}/>
                         </div>
                     </div>

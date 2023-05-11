@@ -7,8 +7,6 @@ from .serializer import *
 from rest_framework_simplejwt.tokens import AccessToken
 from rest_framework.permissions import IsAuthenticated
 import random
-import datetime
-# Create your views here.
 
 def gerar_agencia():
     while True:
@@ -16,21 +14,29 @@ def gerar_agencia():
         if not Conta.objects.filter(agencia=agencia).exists():
             print(agencia)
             return agencia
+        
+def gerar_conta():
+    while True:
+        conta = str(random.randint(10000, 99999))
+        digito = random.randint(0, 9)
+        if not Conta.objects.filter(conta=conta).exists():
+            print(conta, digito)
+            return conta, digito
+
+@api_view(['POST'])
+def criar_conta(request):
+        num_agencia = gerar_agencia()
+        num_conta = gerar_conta()
+        conta_ativa = True
+        saldo = 0
+        conta = Conta(agencia=num_agencia, conta=num_conta, conta_ativa=conta_ativa, saldo=saldo)
+        conta.save()
 
 #CLIENTE VIEWSET
 class ClienteViewSet(viewsets.ModelViewSet):
     #permission_classes = (IsAuthenticated, )
     queryset = Cliente.objects.all()
     serializer_class = ClienteSerializer
-    
-    def criar_conta(request):
-        agencia = gerar_agencia()
-        digito = random.randint(0, 9)
-        data_criacao = datetime.date.today()
-        conta_ativa = True
-        conta = Conta(agencia=agencia, digito=digito, data_criacao = data_criacao, conta_ativa = conta_ativa)
-         
-        conta.save()
 
 
 #CONTA VIEWSET
@@ -38,6 +44,7 @@ class ContaViewSet(viewsets.ModelViewSet):
     #permission_classes = (IsAuthenticated, )
     queryset = Conta.objects.all()
     serializer_class = ContaSerializer
+
 
 #CARTAO VIEWSET
 class CartaoViewSet(viewsets.ModelViewSet):

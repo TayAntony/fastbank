@@ -9,7 +9,7 @@ class LoginSerializer(serializers.ModelSerializer):
 class ClienteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cliente
-        fields = ['nome_cliente', 'contatos_cliente', 'endereco_cliente', 'cpf_cnpj', 'foto', 'data_nascimento_criacao', 'usuario']
+        fields = ['nome_cliente', 'endereco_cliente', 'cpf_cnpj', 'foto', 'data_nascimento_criacao', 'usuario']
 
 class ContaSerializer(serializers.ModelSerializer):
     class Meta:
@@ -19,7 +19,7 @@ class ContaSerializer(serializers.ModelSerializer):
 class CartaoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cartao
-        fields = ['numero_cartao','conta_cartao', 'cvv', 'data_vencimento','bandeira', 'nome_titular_cartao', 'cartao_ativo']
+        fields = ['numero_cartao','conta_cartao', 'cvv', 'data_vencimento','bandeira', 'titular_cartao', 'cartao_ativo']
 
 class MovimentacaoSerializer(serializers.ModelSerializer):
     class Meta:

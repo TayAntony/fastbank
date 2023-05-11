@@ -4,7 +4,6 @@ from .views import gerar_agencia
 
 class GerarAgenciaTestCase(TestCase):
     def test_agencia_unico(self):
-        
         # Cria 10 contas bancárias com agências aleatórias
         for i in range(10):
             conta = Conta(agencia=gerar_agencia())
