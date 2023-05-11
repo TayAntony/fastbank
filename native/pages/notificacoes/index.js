@@ -1,4 +1,5 @@
-import { View, Text, ImageBackground, TouchableOpacity, TextInput } from "react-native";
+import { View, Text} from "react-native";
+import styles from './styles'
 
 export default function Notificacoes({navigation}) {
     return ( 

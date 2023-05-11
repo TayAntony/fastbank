@@ -40,3 +40,8 @@ class ContatosSerializer(serializers.ModelSerializer):
     class Meta:
         model = Contatos
         fields = ['codigo_cliente', 'numero_telefone', 'email', 'observacao']
+
+class EnderecoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Endereco
+        fields = ['rua', 'numero', 'bairro', 'cidade', 'estado', 'complemento', 'cep']

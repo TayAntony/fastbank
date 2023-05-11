@@ -7,14 +7,10 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     header: {
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        right: 0,
-        backgroundColor: 'white',
-        height:'30%'
-    }
+        borderRadius: 20
+        
 
+    }
 })
 
 export default styles

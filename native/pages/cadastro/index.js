@@ -6,6 +6,7 @@ import BotaoLogin from "../../components/botaoLogin";
 import axios from "axios";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { FancyAlert } from 'react-native-expo-fancy-alerts';
+import { Pressable } from "react-native";
 
 export default function Cadastro({ navigation }) {
     const [username, setUsername] = useState('');
@@ -268,9 +269,9 @@ export default function Cadastro({ navigation }) {
                 
                         </View>
 
-                        <TouchableOpacity onPress={() => cadastrar(username,senha, email )} style={styles.botao} >
+                        <Pressable onPress={() => cadastrar(username,senha, email )} style={styles.botao} >
                             <BotaoLogin texto='Cadastrar' />
-                        </TouchableOpacity>
+                        </Pressable>
                     </View>
                 </View>
             </View>

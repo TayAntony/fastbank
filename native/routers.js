@@ -76,7 +76,7 @@ export default function Routers({ navigation }) {
     return (
         <NavigationContainer>
             <Nav.Navigator
-            initialRouteName="Home"
+            // initialRouteName="Home"
                 screenOptions={{
                     headerStyle: {
                         backgroundColor: 'black',

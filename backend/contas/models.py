@@ -72,6 +72,9 @@ class Endereco(models.Model):
 
     class Meta:
         verbose_name_plural = "Endereço"
+        
+    def __str__(self):
+        return self.rua
 
 class Cliente(models.Model):
     nome_cliente = models.CharField(max_length=100)
@@ -80,7 +83,7 @@ class Cliente(models.Model):
     cpf_cnpj = models.CharField(max_length=20)
     data_nascimento_criacao = models.DateField()
     usuario = models.CharField(max_length=20)
-    senha = models.IntegerField()
+    # senha = models.IntegerField()
 
     class Meta:
         constraints = [

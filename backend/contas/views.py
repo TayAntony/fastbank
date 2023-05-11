@@ -38,13 +38,30 @@ class ClienteViewSet(viewsets.ModelViewSet):
     queryset = Cliente.objects.all()
     serializer_class = ClienteSerializer
 
-
 #CONTA VIEWSET
 class ContaViewSet(viewsets.ModelViewSet):
     #permission_classes = (IsAuthenticated, )
     queryset = Conta.objects.all()
     serializer_class = ContaSerializer
 
+class EnderecoViewSet(viewsets.ModelViewSet):
+    #permission_classes = (IsAuthenticated, )
+    queryset = Endereco.objects.all()
+    serializer_class = EnderecoSerializer
+
+#CONTATO VIEWSET
+class ContatoViewSet(viewsets.ModelViewSet):
+    #permission_classes = (IsAuthenticated, )
+    queryset = Contatos.objects.all()
+    serializer_class = ContatosSerializer
+
+    def list(self, request, *args, **kwargs):
+        token = request.META.get('HTTP_AUTHORIZATION', '').split(' ')[1] #separa o token JWT '34frdf3145fd4322' para verificar de quem aquele token pertence
+        
+        dados = AccessToken(token)
+        usuario = dados['user_id'] #com base no id do usuário que fez a requisição é possível fazer consultas
+
+        return super().list(request, *args, **kwargs)
 
 #CARTAO VIEWSET
 class CartaoViewSet(viewsets.ModelViewSet):
