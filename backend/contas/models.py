@@ -1,7 +1,7 @@
 from django.db import models
-from django.core.validators import MinValueValidator
 from random import randint
 from datetime import datetime
+from django.contrib.auth.models import AbstractUser
 
 class Endereco(models.Model):
     ACRE = "AC"
@@ -76,27 +76,14 @@ class Endereco(models.Model):
     def __str__(self):
         return self.rua
 
-class Cliente(models.Model):
+class User(AbstractUser):
     nome_cliente = models.CharField(max_length=100)
-    endereco_cliente = models.ForeignKey(Endereco, on_delete=models.PROTECT)
-    foto = models.ImageField(upload_to="foto_perfil")
-    cpf_cnpj = models.CharField(max_length=20)
-    data_nascimento_criacao = models.DateField()
-    usuario = models.CharField(max_length=20)
-    # senha = models.IntegerField()
-
-    class Meta:
-        constraints = [
-            models.UniqueConstraint(
-                fields=["usuario", 'cpf_cnpj'],
-                name="unique_cliente_user",
-            )
-        ]
-        verbose_name_plural = "Cliente"
-
+    cpf_cnpj = models.CharField(max_length=20, unique=True)
+    data_nascimento_criacao = models.CharField(max_length=10)
+    foto = models.ImageField(upload_to="foto_perfil", blank=True)
+    endereco_cliente = models.ForeignKey(Endereco, on_delete=models.PROTECT, blank=True)
     
 class Contatos(models.Model):
-    codigo_cliente = models.ForeignKey(Cliente, on_delete=models.PROTECT)
     numero_telefone = models.IntegerField()
     email = models.EmailField()
     observacao = models.CharField(max_length=255)
@@ -125,7 +112,6 @@ class Conta(models.Model):
     tipo_conta = models.CharField(
         max_length=2, choices=TIPO_CONTA, default=CONTA_CORRENTE
     )
-    nome_cliente_conta = models.ForeignKey(Cliente, on_delete=models.DO_NOTHING)
     numero_conta = models.IntegerField()
     agencia = models.IntegerField()
     digito = models.IntegerField()
@@ -146,7 +132,6 @@ class Cartao(models.Model):
     cvv = models.IntegerField( blank=True, null=True)
     data_vencimento = models.DateField( blank=True, null=True)
     bandeira = models.CharField(max_length=20,  blank=True, null=True)
-    titular_cartao = models.ForeignKey(Cliente, on_delete=models.CASCADE)
     cartao_ativo = models.BooleanField(default=True)
 
     class Meta:
@@ -205,4 +190,3 @@ class Investimento(models.Model):
 
 class ClienteConta(models.Model):
     codigo_conta = models.ForeignKey(Conta, on_delete=models.DO_NOTHING)
-    codigo_cliente = models.ForeignKey(Cliente, on_delete=models.DO_NOTHING)

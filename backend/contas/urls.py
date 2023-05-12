@@ -4,7 +4,6 @@ from . import views
 
 router = routers.SimpleRouter()
 
-router.register('clientes', views.ClienteViewSet)
 router.register('enderecos', views.EnderecoViewSet)
 router.register('cartao', views.CartaoViewSet)
 router.register('contato', views.ContatoViewSet)

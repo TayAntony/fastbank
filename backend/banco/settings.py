@@ -26,12 +26,12 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "contas",
     "rest_framework",
     "corsheaders",
     "djoser",
     "rest_framework_simplejwt",
-    'rest_framework.authtoken'
+    'rest_framework.authtoken',
+    "contas",
 ]
 
 MIDDLEWARE = [
@@ -145,4 +145,13 @@ REST_FRAMEWORK = {
 
 SIMPLE_JWT = {
    'AUTH_HEADER_TYPES': ('JWT',),
+}
+
+#usar o nosso model de cadastro e não o model padrao do jwt
+AUTH_USER_MODEL = 'contas.User'
+
+DJOSER = {
+    'SERIALIZERS': {
+        'user_create': 'contas.serializer.UserRegistrationSerializer'
+    }
 }
