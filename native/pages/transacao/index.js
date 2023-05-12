@@ -1,5 +1,4 @@
 import { View, Text, Pressable } from "react-native";
-import {FontAwesome} from '@expo/vector-icons'
 import { useState } from "react";
 import { useRoute } from "@react-navigation/native";
 import { TextInput } from "react-native-gesture-handler";
@@ -12,37 +11,46 @@ export default function Transacao() {
 
     const [chaveTransferencia, setChaveTransferencia] = useState('')
 
-    const valorTransferencia = route.params.valor
-    const nomeDestinatario = route.params.nome
-    const emailDestinatario = route.params.email
-    const idTransferencia = route.params.id
-    const informacoesUsuario = route.params.informacoesUsuario
+    // const valorTransferencia = route.params.valor
+    // const nomeDestinatario = route.params.nome
+    // const emailDestinatario = route.params.email
+    // const idTransferencia = route.params.id
+    // const informacoesUsuario = route.params.informacoesUsuario
     
     
     return(
         <View style={styles.container}>
-            <Text>
-                Transação
-            </Text>
-
             <TextInput
                  placeholder="E-mail ou usuário"
-                 placeholderTextColor="gray"
+                 placeholderTextColor="black"
                  KeyboardType='text'
                  value={chaveTransferencia}
                  onChangeText={(e) => {setChaveTransferencia(e)}}
-            />
-            <Text>
+                 style={{backgroundColor: '#E6E6E6',
+                         padding: 12,
+                         width: '80%',
+                         marginTop:24,
+                         borderRadius: 6,
+                         borderBottomColor: 'black'
+                         }}/>
+            <Text style={{color:'#949494', fontSize: 12, }}>
                 Não tem chave? Use os dados de agência e conta.
             </Text>
+
+            <View style={{display:'flex', 
+                         flexDirection: 'row', 
+                         justifyContent: 'space-around'}}>
+                <Text style={{}}>
+                    Recentes
+                </Text>
+                <Text>
+                    Favoritos
+                </Text>
+            </View>
 
             <Pressable>
                 <BotaoAvancar texto='Avançar'/>
             </Pressable>
-
-            
-        
-            <View style={styles.header}>transação</View>
         </View>
     )
 }

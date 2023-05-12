@@ -5,12 +5,8 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
+        alignContent: 'flex-start'
     },
-    header: {
-        borderRadius: 20
-        
-
-    }
 })
 
 export default styles

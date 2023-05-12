@@ -2,7 +2,7 @@ import { View, Text, ImageBackground, TouchableOpacity, TextInput } from "react-
 
 export default function Carteira({navigation}) {
     return ( 
-    <View style={styles.container}>
+    <View>
         <Text>
             Tela carteira
         </Text>

@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
         left: 0,
         right: 0,
         backgroundColor: 'white',
-        height:'30%'
+        height:'40%'
     }
 
 })

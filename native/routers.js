@@ -10,6 +10,8 @@ import Home from './pages/home'
 import Carteira from "./pages/carteira";
 import Notificacoes from "./pages/notificacoes";
 import Perfil from "./pages/perfil";
+import Transacao from "./pages/transacao";
+import Extrato from "./pages/extrato";
 
 const Tab = createBottomTabNavigator()
 const Nav = createStackNavigator()
@@ -36,7 +38,7 @@ function NavBar() {
                 component={Home}
 
                 options={{
-                    headerShown: false, tabBarIcon: ({ size, color, focused }) => { return <FontAwesome name="home" size={36} color={ focused? "black" : "red"} /> },
+                    headerShown: false, tabBarIcon: ({ size, color, focused }) => { return <FontAwesome name="home" size={36} color='black' /> },
 
                 }}
             />
@@ -103,6 +105,14 @@ export default function Routers({ navigation }) {
                 <Nav.Screen
                     name="Cadastro"
                     component={Cadastro}
+                />
+                <Nav.Screen
+                    name="Transacao"
+                    component={Transacao}
+                />
+                <Nav.Screen
+                    name="Extrato"
+                    component={Extrato}
                 />
                 
             </Nav.Navigator>
