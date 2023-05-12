@@ -43,7 +43,7 @@ function Cadastrar() {
 
         try {
             const retornoRequisicao = await axios.post('http://127.0.0.1:8000/auth/users/', infoDoCadastro);
-            console.log(retornoRequisicao.data)
+            console.log(retornoRequisicao.data.id)
 
             Swal.fire({
                 icon: 'success',

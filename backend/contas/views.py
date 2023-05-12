@@ -32,11 +32,6 @@ def criar_conta(request):
         conta = Conta(agencia=num_agencia, conta=num_conta, conta_ativa=conta_ativa, saldo=saldo)
         conta.save()
 
-#CLIENTE VIEWSET
-class ClienteViewSet(viewsets.ModelViewSet):
-    #permission_classes = (IsAuthenticated, )
-    queryset = Cliente.objects.all()
-    serializer_class = ClienteSerializer
 
 #CONTA VIEWSET
 class ContaViewSet(viewsets.ModelViewSet):
