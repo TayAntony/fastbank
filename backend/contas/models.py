@@ -132,6 +132,10 @@ class Cartao(models.Model):
     cvv = models.IntegerField( blank=True, null=True)
     data_vencimento = models.DateField( blank=True, null=True)
     bandeira = models.CharField(max_length=20,  blank=True, null=True)
+<<<<<<< Updated upstream
+=======
+    titular_cartao = models.ForeignKey(Cliente, on_delete=models.CASCADE)
+>>>>>>> Stashed changes
     cartao_ativo = models.BooleanField(default=True)
 
     class Meta:
