@@ -5,7 +5,7 @@ import { TextInput } from "react-native-gesture-handler";
 import BotaoAvancar from "../../components/botaoAvancar";
 import styles from './styles'
 
-export default function Transacao() {
+export default function Transacao({navigation}) {
     const [listaDestinatarios, setListaDestinatarios] = useState([])
     const route = useRoute()
 
@@ -16,10 +16,17 @@ export default function Transacao() {
     // const emailDestinatario = route.params.email
     // const idTransferencia = route.params.id
     // const informacoesUsuario = route.params.informacoesUsuario
+
+    function transacaoConta(){
+        navigation.navigate('Transacao Conta')
+    }
     
     
     return(
         <View style={styles.container}>
+            <Text style={{ fontWeight: 600, fontSize: 24, color: 'black', position: 'absolute', top: 80 }}>
+                Transação
+            </Text>
             <TextInput
                  placeholder="E-mail ou usuário"
                  placeholderTextColor="black"
@@ -30,12 +37,18 @@ export default function Transacao() {
                          padding: 12,
                          width: '80%',
                          marginTop:24,
-                         borderRadius: 6,
-                         borderBottomColor: 'black'
+                         borderBottomLeftRadius: 0,
+                         borderBottomRightRadius: 0,
+                         borderWidth: 2,
+                         borderColor: '#E6E6E6',
+                         borderBottomColor: 'black',
+                         borderStyle: "solid", 
                          }}/>
-            <Text style={{color:'#949494', fontSize: 12, }}>
-                Não tem chave? Use os dados de agência e conta.
-            </Text>
+            <Pressable onPress={transacaoConta}>
+                <Text style={{color:'#949494', fontSize: 12, }}>
+                    Não tem chave? Use os dados de agência e conta.
+                </Text>
+            </Pressable>
 
             <View style={{display:'flex', 
                          flexDirection: 'row', 

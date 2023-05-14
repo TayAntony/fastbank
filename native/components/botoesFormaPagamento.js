@@ -3,7 +3,7 @@ import {FontAwesome} from '@expo/vector-icons'
 
 export default function BotoesFormaPagamento(props) {
     return ( 
-        <View style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+        <View style={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', }}>
             <View style={styles.botao}>
                 <FontAwesome name={props.icone} size={30} color={'#fff'}/>
             </View>
@@ -11,6 +11,7 @@ export default function BotoesFormaPagamento(props) {
             <Text style={{color: '#7A7A7A', 
                           fontSize: 16,
                           width: 70,
+                          textAlign: 'center'
                           }}>
                     {props.texto}
             </Text>

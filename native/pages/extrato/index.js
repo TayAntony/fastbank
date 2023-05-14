@@ -12,13 +12,9 @@ export default function Extrato() {
     
     return(
         <View style={styles.container}>
-            <TextInput
-                 placeholder="E-mail ou usuário"
-                 placeholderTextColor="gray"
-                 KeyboardType='text'
-                 value={chaveTransferencia}
-                 onChangeText={(e) => {setChaveTransferencia(e)}}
-            />
+            <Text style={{ fontWeight: 600, fontSize: 24, color: 'black', position: 'absolute', top: 80 }}>
+                Extrato
+            </Text>
         </View>
     )
 }

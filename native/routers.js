@@ -1,7 +1,7 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { FontAwesome5, FontAwesome, Ionicons, MaterialIcons } from '@expo/vector-icons'
+import { FontAwesome5, FontAwesome, Ionicons } from '@expo/vector-icons'
 
 import Login from './pages/login'
 import Cadastro from './pages/cadastro'
@@ -12,6 +12,7 @@ import Notificacoes from "./pages/notificacoes";
 import Perfil from "./pages/perfil";
 import Transacao from "./pages/transacao";
 import Extrato from "./pages/extrato";
+import TransacaoConta from "./pages/transacaoConta";
 
 const Tab = createBottomTabNavigator()
 const Nav = createStackNavigator()
@@ -21,12 +22,12 @@ function NavBar() {
         <Tab.Navigator
             screenOptions={{
                 tabBarStyle: {
-                    backgroundColor: 'transparent',
+                    backgroundColor: 'none',
                     backfaceVisibility: 'black',
-                    borderTopColor: 'white',
                     paddingBottom: 10,
-                    paddingTop: 0,
-                    height: 70
+                    height: 70,
+                    shadowColor: 'white'
+                    
                 },
                 tabBarActiveTintColor: 'red',
                 tabBarInactiveTintColor: 'black',
@@ -78,7 +79,7 @@ export default function Routers({ navigation }) {
     return (
         <NavigationContainer>
             <Nav.Navigator
-            // initialRouteName="Home"
+            initialRouteName="Home"
                 screenOptions={{
                     headerStyle: {
                         backgroundColor: 'black',
@@ -109,13 +110,21 @@ export default function Routers({ navigation }) {
                 <Nav.Screen
                     name="Transacao"
                     component={Transacao}
+                    options={{title: false, headerTransparent: true, headerTintColor: 'black'}}
                 />
                 <Nav.Screen
                     name="Extrato"
                     component={Extrato}
+                    options={{title: false, headerTransparent: true, headerTintColor: 'black'}}
+                />
+                <Nav.Screen
+                    name="Transacao Conta"
+                    component={TransacaoConta}
+                    options={{title: false, headerTransparent: true, headerTintColor: 'black'}}
                 />
                 
             </Nav.Navigator>
+            
         </NavigationContainer>
     )
 }
