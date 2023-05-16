@@ -23,9 +23,11 @@ export default function Login({ navigation }) {
       };
 
     const logar = async () => {
+        
         try {
-            const response = await axios.post("http://192.168.155.38:8000/auth/jwt/create",{ username: username, password: senha }
+            const response = await axios.post("http://127.0.0.1:8000/auth/jwt/create",{ username: username, password: senha }
             );
+            alert('fez a requisição')
       
             if (response.status === 200) {
                 setVisibleSucesso(true) // mostrar alerta de logado com sucesso
@@ -178,9 +180,14 @@ export default function Login({ navigation }) {
                             Esqueceu sua senha?
                         </Text>
 
-                        <Pressable onPress={() => logar(username,senha)} >
-                            <BotaoLogin texto='Logar' />
-                        </Pressable>
+                        <View style={{display: 'flex', alignItems: 'center', gap: 24}}>
+                            <Pressable onPress={() => logar(username,senha)} >
+                                <BotaoLogin texto='Logar' />
+                            </Pressable>
+                            <Text style={styles.esqueceuSenha}>
+                                Não possui uma conta? <Text style={{color: 'red'}}>Cadastre-se</Text>
+                            </Text>
+                        </View>
                     </View>
                 </View>
             </View>

@@ -50,7 +50,7 @@ export default function Transacao({navigation}) {
                 </Text>
             </Pressable>
 
-            <View style={{display:'flex', 
+            {/* <View style={{display:'flex', 
                          flexDirection: 'row', 
                          justifyContent: 'space-around'}}>
                 <Text style={{}}>
@@ -59,7 +59,7 @@ export default function Transacao({navigation}) {
                 <Text>
                     Favoritos
                 </Text>
-            </View>
+            </View> */}
 
             <Pressable>
                 <BotaoAvancar texto='Avançar'/>

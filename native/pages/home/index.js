@@ -33,9 +33,6 @@ export default function Home({ navigation }) {
     function transacao() {
         navigation.navigate('Transacao')
     }
-    function pix() {
-        alert('pix')
-    }
     function qrCode() {
         alert('qrcode')
     }
@@ -45,6 +42,16 @@ export default function Home({ navigation }) {
     function pedirCartao() {
         alert('pedir cartao')
     }
+    function emprestimos() {
+        navigation.navigate('Emprestimo')
+    }
+    function cashback() {
+        alert('Operação indisponível no momento!')
+    }
+    function pix() {
+        alert('Operação indisponível no momento!')
+    }
+    
 
     return (
         <View style={styles.container}>
@@ -148,9 +155,9 @@ export default function Home({ navigation }) {
                     <Text style={{ fontWeight: 700, fontSize: 16, }}>
                         Formas de pagamento
                     </Text>
-                    <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', gap: 20}}>
-                        <Pressable onPress={pix}>
-                            <BotoesFormaPagamento icone='paypal' texto='Pix' />
+                    <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
+                        <Pressable onPress={emprestimos}>
+                            <BotoesFormaPagamento icone='money' texto='Empréstimo' />
                         </Pressable>
                         <Pressable onPress={qrCode}>
                             <BotoesFormaPagamento icone='qrcode' texto='QR Code' />
@@ -174,6 +181,23 @@ export default function Home({ navigation }) {
                         </Text>
                         <Pressable onPress={pedirCartao}>
                             <BotoesFormaPagamento icone='plus' texto='' />
+                        </Pressable>
+                    </View>
+                </View>
+
+                <View style={{ margin: 12 }}>
+                    <Text style={{ fontWeight: 700, fontSize: 16, }}>
+                        Sugestões para você!
+                    </Text>
+                    <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', gap: 20}}>
+                        <Pressable onPress={pix}>
+                            <BotoesFormaPagamento icone='paypal' texto='Pix' />
+                        </Pressable>
+                        <Pressable onPress={pedirCartao}>
+                            <BotoesFormaPagamento icone="barcode" texto='Pedir cartão' />
+                        </Pressable>
+                        <Pressable onPress={cashback}>
+                            <BotoesFormaPagamento icone='users' texto='Cashback' />
                         </Pressable>
                     </View>
                 </View>

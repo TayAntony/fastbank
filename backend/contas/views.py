@@ -31,15 +31,12 @@ def criar_conta(request):
         saldo = 0
         conta = Conta(agencia=num_agencia, conta=num_conta, conta_ativa=conta_ativa, saldo=saldo)
         conta.save()
-<<<<<<< Updated upstream
-=======
 
 #CLIENTE VIEWSET
 class ClienteViewSet(viewsets.ModelViewSet):
     #permission_classes = (IsAuthenticated, )
-    queryset = Cliente.objects.all()
+    queryset = User.objects.all()
     serializer_class = ClienteSerializer
->>>>>>> Stashed changes
 
 
 #CONTA VIEWSET
@@ -48,7 +45,6 @@ class ContaViewSet(viewsets.ModelViewSet):
     queryset = Conta.objects.all()
     serializer_class = ContaSerializer
 
-<<<<<<< Updated upstream
 class EnderecoViewSet(viewsets.ModelViewSet):
     #permission_classes = (IsAuthenticated, )
     queryset = Endereco.objects.all()
@@ -67,8 +63,6 @@ class ContatoViewSet(viewsets.ModelViewSet):
         usuario = dados['user_id'] #com base no id do usuário que fez a requisição é possível fazer consultas
 
         return super().list(request, *args, **kwargs)
-=======
->>>>>>> Stashed changes
 
 #CARTAO VIEWSET
 class CartaoViewSet(viewsets.ModelViewSet):

@@ -64,8 +64,9 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     esqueceuSenha:{
-        fontSize: 10,
+        fontSize: 12,
         color: 'grey',
+        fontWeight: 700
 
     },
 

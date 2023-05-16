@@ -10,7 +10,7 @@ export default function BotoesFormaPagamento(props) {
 
             <Text style={{color: '#7A7A7A', 
                           fontSize: 16,
-                          width: 70,
+                          width: 90,
                           textAlign: 'center'
                           }}>
                     {props.texto}

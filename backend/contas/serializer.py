@@ -2,21 +2,32 @@ from rest_framework import serializers
 from .models import *
 from djoser.serializers import UserCreateSerializer as BaseUserRegistrationSerializer
 
-<<<<<<< Updated upstream
+
 class UserRegistrationSerializer(BaseUserRegistrationSerializer):
     class Meta(BaseUserRegistrationSerializer.Meta):
-        fields = ('nome_cliente', 'cpf_cnpj', 'email', 'endereco_cliente', 'data_nascimento_criacao', 'foto', 'password', 'username')
-=======
+        fields = ('nome_cliente', 'cpf_cnpj', 'email', 'data_nascimento_criacao', 'foto', 'password', 'username','rua',
+        'numero',
+        'bairro',
+        'cidade',
+        'estado',
+        'complemento',
+        'cep',)
+
 class LoginSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Cliente
+        model = User
         fields = ['usuario', 'senha']
 
 class ClienteSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Cliente
-        fields = ['nome_cliente', 'endereco_cliente', 'cpf_cnpj', 'foto', 'data_nascimento_criacao', 'usuario']
->>>>>>> Stashed changes
+        model = User
+        fields = ['nome_cliente', 'cpf_cnpj', 'foto', 'data_nascimento_criacao', 'usuario','rua',
+        'numero',
+        'bairro',
+        'cidade',
+        'estado',
+        'complemento',
+        'cep',]
 
 class ContaSerializer(serializers.ModelSerializer):
     class Meta:

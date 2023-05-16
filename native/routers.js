@@ -13,6 +13,7 @@ import Perfil from "./pages/perfil";
 import Transacao from "./pages/transacao";
 import Extrato from "./pages/extrato";
 import TransacaoConta from "./pages/transacaoConta";
+import Emprestimo from "./pages/emprestimo";
 
 const Tab = createBottomTabNavigator()
 const Nav = createStackNavigator()
@@ -120,6 +121,11 @@ export default function Routers({ navigation }) {
                 <Nav.Screen
                     name="Transacao Conta"
                     component={TransacaoConta}
+                    options={{title: false, headerTransparent: true, headerTintColor: 'black'}}
+                />
+                <Nav.Screen
+                    name="Emprestimo"
+                    component={Emprestimo}
                     options={{title: false, headerTransparent: true, headerTintColor: 'black'}}
                 />
                 
