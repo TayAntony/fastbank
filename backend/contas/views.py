@@ -1,101 +1,116 @@
-
 from django.contrib.auth import authenticate
 from rest_framework import viewsets, status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from rest_framework.request import Request
 from .serializer import *
 from rest_framework_simplejwt.tokens import AccessToken
 from rest_framework.permissions import IsAuthenticated
 import random
 
-def gerar_agencia():
-    while True:
-        agencia = str(random.randint(1000, 9999))
-        if not Conta.objects.filter(agencia=agencia).exists():
-            print(agencia)
-            return agencia
-        
-def gerar_conta():
-    while True:
-        conta = str(random.randint(10000, 99999))
-        digito = random.randint(0, 9)
-        if not Conta.objects.filter(conta=conta).exists():
-            print(conta, digito)
-            return conta, digito
 
-@api_view(['POST'])
-def criar_conta(request):
-        num_agencia = gerar_agencia()
-        num_conta = gerar_conta()
-        conta_ativa = True
-        saldo = 0
-        conta = Conta(agencia=num_agencia, conta=num_conta, conta_ativa=conta_ativa, saldo=saldo)
+def gerar_conta():
+    conta = str(random.randint(10000, 99999))
+    agencia = str(random.randint(1000, 9999))
+    digito = random.randint(0, 9)
+    return conta, agencia, digito
+
+
+@api_view(["POST"])
+def criar_conta(request: Request):
+    id_user = request.data["id"]
+    conta_num, agencia, digito = gerar_conta()
+
+    try:
+        user = User.objects.get(pk=id_user)
+
+        conta = Conta(user=user, numero_conta=conta_num, agencia=agencia, digito=digito)
         conta.save()
 
-#CLIENTE VIEWSET
+        conta_serializada = ContaSerializer(conta)
+
+        return Response(
+            {"mensagem": "Criei a conta com sucesso", "conta": conta_serializada.data},
+            status=status.HTTP_200_OK,
+        )
+    except User.DoesNotExist:
+        return Response(
+            {"erro": "nao existe user com esse id cara"},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
+
+
+# CLIENTE VIEWSET
 class ClienteViewSet(viewsets.ModelViewSet):
-    #permission_classes = (IsAuthenticated, )
+    # permission_classes = (IsAuthenticated, )
     queryset = User.objects.all()
     serializer_class = ClienteSerializer
 
 
-#CONTA VIEWSET
+# CONTA VIEWSET
 class ContaViewSet(viewsets.ModelViewSet):
-    #permission_classes = (IsAuthenticated, )
+    # permission_classes = (IsAuthenticated, )
     queryset = Conta.objects.all()
     serializer_class = ContaSerializer
 
-class EnderecoViewSet(viewsets.ModelViewSet):
-    #permission_classes = (IsAuthenticated, )
-    queryset = Endereco.objects.all()
-    serializer_class = EnderecoSerializer
 
-#CONTATO VIEWSET
+# CONTATO VIEWSET
 class ContatoViewSet(viewsets.ModelViewSet):
-    #permission_classes = (IsAuthenticated, )
+    # permission_classes = (IsAuthenticated, )
     queryset = Contatos.objects.all()
     serializer_class = ContatosSerializer
 
     def list(self, request, *args, **kwargs):
-        token = request.META.get('HTTP_AUTHORIZATION', '').split(' ')[1] #separa o token JWT '34frdf3145fd4322' para verificar de quem aquele token pertence
-        
+        token = request.META.get("HTTP_AUTHORIZATION", "").split(" ")[
+            1
+        ]  # separa o token JWT '34frdf3145fd4322' para verificar de quem aquele token pertence
+
         dados = AccessToken(token)
-        usuario = dados['user_id'] #com base no id do usuário que fez a requisição é possível fazer consultas
+        usuario = dados[
+            "user_id"
+        ]  # com base no id do usuário que fez a requisição é possível fazer consultas
 
         return super().list(request, *args, **kwargs)
 
-#CARTAO VIEWSET
+
+# CARTAO VIEWSET
 class CartaoViewSet(viewsets.ModelViewSet):
-    #permission_classes = (IsAuthenticated, )
+    # permission_classes = (IsAuthenticated, )
     queryset = Cartao.objects.all()
     serializer_class = CartaoSerializer
 
-#MOVIMENTACAO VIEWSET
+
+# MOVIMENTACAO VIEWSET
 class MovimentacaoViewSet(viewsets.ModelViewSet):
-    #permission_classes = (IsAuthenticated, )
+    # permission_classes = (IsAuthenticated, )
     queryset = Movimentacao.objects.all()
     serializer_class = MovimentacaoSerializer
 
-#EMPRESTIMO VIEWSET
+
+# EMPRESTIMO VIEWSET
 class EmprestimoViewSet(viewsets.ModelViewSet):
-    #permission_classes = (IsAuthenticated, )
+    # permission_classes = (IsAuthenticated, )
     queryset = Emprestimo.objects.all()
     serializer_class = EmprestimoSerializer
 
-#INVESTIMENTO VIEWSET
+
+# INVESTIMENTO VIEWSET
 class InventarioViewSet(viewsets.ModelViewSet):
-    #permission_classes = (IsAuthenticated, )
+    # permission_classes = (IsAuthenticated, )
     queryset = Investimento.objects.all()
     serializer_class = InvestimentoSerializer
 
-@api_view(['POST'])
+
+@api_view(["POST"])
 def login(request):
-    email = request.data.get('login')
-    senha = request.data.get('senha')
+    email = request.data.get("login")
+    senha = request.data.get("senha")
     user = authenticate(request, username=email, password=senha)
-  
+
     if user is not None:
         token = AccessToken.for_user(user)
-        return Response({'token': str(token)})
+        return Response({"token": str(token)})
     else:
-        return Response({'error': 'Credenciais inválidas.'}, status=status.HTTP_401_UNAUTHORIZED)
+        return Response(
+            {"error": "Credenciais inválidas."}, status=status.HTTP_401_UNAUTHORIZED
+        )

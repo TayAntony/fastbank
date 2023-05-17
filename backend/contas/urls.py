@@ -4,12 +4,13 @@ from . import views
 
 router = routers.SimpleRouter()
 
-router.register('enderecos', views.EnderecoViewSet)
-router.register('cartao', views.CartaoViewSet)
-router.register('contato', views.ContatoViewSet)
-router.register('emprestimo', views.EmprestimoViewSet)
-router.register('movimentacao', views.ContatoViewSet)
+router.register("conta", views.ContaViewSet)
+router.register("cartao", views.CartaoViewSet)
+router.register("contato", views.ContatoViewSet)
+router.register("emprestimo", views.EmprestimoViewSet)
+router.register("movimentacao", views.ContatoViewSet)
 
 urlpatterns = [
-    path('api/login/', views.login, name='login'),
+    path("api/login/", views.login, name="login"),
+    path("create-conta/", views.criar_conta, name="criar_conta"),
 ] + router.urls
