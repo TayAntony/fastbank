@@ -1,13 +1,21 @@
 import { View, Text, Pressable } from "react-native";
 import { useState } from "react";
-import { useRoute } from "@react-navigation/native";
 import { TextInput } from "react-native-gesture-handler";
 import BotaoAvancar from "../../components/botaoAvancar";
 import styles from './styles'
+import { useEffect } from "react";
 
 export default function Transacao({navigation}) {
     const [listaDestinatarios, setListaDestinatarios] = useState([])
-    const route = useRoute()
+
+    const [validarCampos, setValidarCampos] = useState(false)
+    useEffect(() => {
+        if (chaveTransferencia != ""){
+            setValidarCampos(true)
+        }else{
+            setValidarCampos(false)
+        }
+    }, [chaveTransferencia])
 
     const [chaveTransferencia, setChaveTransferencia] = useState('')
 
@@ -27,8 +35,9 @@ export default function Transacao({navigation}) {
             <Text style={{ fontWeight: 600, fontSize: 24, color: 'black', position: 'absolute', top: 80 }}>
                 Transação
             </Text>
+             {/* pesquisar no banco de dados se existe algum usuário com aquela chave de transferência, descontar do saldo se existir e aumentar o saldo do outro usuário */}
             <TextInput
-                 placeholder="E-mail ou usuário"
+                 placeholder="CPF ou e-mail"
                  placeholderTextColor="black"
                  KeyboardType='text'
                  value={chaveTransferencia}
@@ -50,20 +59,9 @@ export default function Transacao({navigation}) {
                 </Text>
             </Pressable>
 
-            {/* <View style={{display:'flex', 
-                         flexDirection: 'row', 
-                         justifyContent: 'space-around'}}>
-                <Text style={{}}>
-                    Recentes
-                </Text>
-                <Text>
-                    Favoritos
-                </Text>
-            </View> */}
-
             <Pressable>
-                <BotaoAvancar texto='Avançar'/>
+                <BotaoAvancar texto='Avançar' validacao={validarCampos}/>
             </Pressable>
-        </View>
+        </View> 
     )
 }

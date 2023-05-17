@@ -1,6 +1,5 @@
 import { View, Text, Pressable, StyleSheet } from "react-native";
-import { useState } from "react";
-import { useRoute } from "@react-navigation/native";
+import { useState, useEffect } from "react";
 import { TextInput } from "react-native-gesture-handler";
 import BotaoAvancar from "../../components/botaoAvancar";
 import styles from './styles'
@@ -8,13 +7,21 @@ import { Picker } from '@react-native-picker/picker';
 
 export default function TransacaoConta() {
     const [listaDestinatarios, setListaDestinatarios] = useState([])
-    const route = useRoute()
+
+    const [validarCampos, setValidarCampos] = useState(false)
+    useEffect(() => {
+        if (agencia != "" && conta != ""){
+            setValidarCampos(true)
+        }else{
+            setValidarCampos(false)
+        }
+    }, [agencia, conta])
 
     const [agencia, setAgencia] = useState()
     const [conta, setConta] = useState()
     const [tipoConta, setTipoConta] = useState();
 
-    const [chaveTransferencia, setChaveTransferencia] = useState('')
+
 
     // const valorTransferencia = route.params.valor
     // const nomeDestinatario = route.params.nome
@@ -39,6 +46,8 @@ export default function TransacaoConta() {
                 <Picker.Item label="Conta salário" value="cs" />
             </Picker>
 
+            {/* pesquisar no banco de dados se existe algum usuário os dados bancários a seguir e realizar a transação caso exista*/}
+
             <TextInput
                 placeholder="Agência"
                 placeholderTextColor="black"
@@ -56,7 +65,7 @@ export default function TransacaoConta() {
                 style={styles.input} />
 
             <Pressable>
-                <BotaoAvancar texto='Avançar' />
+                <BotaoAvancar texto='Avançar' validacao={validarCampos}/>
             </Pressable>
         </View>
     )

@@ -33,14 +33,20 @@ export default function Home({ navigation }) {
     function transacao() {
         navigation.navigate('Transacao')
     }
+
+
+
     function qrCode() {
         alert('qrcode')
     }
     function boleto() {
         alert('boleto')
     }
+
+
+
     function pedirCartao() {
-        alert('pedir cartao')
+        navigation.navigate('Cartao')
     }
     function emprestimos() {
         navigation.navigate('Emprestimo')
@@ -83,10 +89,12 @@ export default function Home({ navigation }) {
                             <Pressable onPress={perfil}>
                                 <FontAwesome name={'user-circle-o'} size={40} color={'#fff'} />
                             </Pressable>
+                            {/* colocar o nome de verdade do usuário logado */}
                             <Text style={{ marginLeft: 30, color: 'white' }}>
                                 Nome do Usuário
                             </Text>
                         </View>
+                        {/* deslogar e impedir de usar a seta voltar */}
                         <View style={styles.icon}>
                             <Pressable onPress={login}>
                                 <FontAwesome name={'sign-out'} size={30} color={'#fff'} />
@@ -114,6 +122,7 @@ export default function Home({ navigation }) {
                             <Text style={{ margin: 6 }}>
                                 Saldo em conta
                             </Text>
+                            {/* colocar o saldo de verdade do usuário logado */}
                             <Text style={{ margin: 6 }}>
                                 R$ {saldoExibido}
                             </Text>
@@ -159,6 +168,7 @@ export default function Home({ navigation }) {
                         <Pressable onPress={emprestimos}>
                             <BotoesFormaPagamento icone='money' texto='Empréstimo' />
                         </Pressable>
+                        {/* criar a tela de scanear o qrcode e boleto e descontar do saldo o valor do pagamento */}
                         <Pressable onPress={qrCode}>
                             <BotoesFormaPagamento icone='qrcode' texto='QR Code' />
                         </Pressable>
@@ -176,6 +186,9 @@ export default function Home({ navigation }) {
                         Seus cartões
                     </Text>
                     <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+
+                         {/* puxar o cartão se tiver sido solicitado pelo site, ou se tiver sido solicitado com sucesso pelos botões do app */}
+
                         <Text style={{ fontWeight: 500, fontSize: 16, }}>
                             Você não possui nenhum cartão!
                         </Text>
@@ -194,7 +207,7 @@ export default function Home({ navigation }) {
                             <BotoesFormaPagamento icone='paypal' texto='Pix' />
                         </Pressable>
                         <Pressable onPress={pedirCartao}>
-                            <BotoesFormaPagamento icone="barcode" texto='Pedir cartão' />
+                            <BotoesFormaPagamento icone="credit-card" texto='Pedir cartão' />
                         </Pressable>
                         <Pressable onPress={cashback}>
                             <BotoesFormaPagamento icone='users' texto='Cashback' />

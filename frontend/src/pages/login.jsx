@@ -13,12 +13,12 @@ function Login() {
         navigate("/cadastrar");
     }
 
-    const [username, setUsername] = useState('')
+    const [email, setEmail] = useState('')
     const [senha, setSenha] = useState('')
 
     const logar = async (evt) => {
         evt.preventDefault()
-        const infoDoLogin = {username: username, password: senha}
+        const infoDoLogin = {email: email, password: senha}
         try{
             const res = await axios.post('http://localhost:8000/auth/token/login', infoDoLogin) //endpoint para verificar se o login está correto e gerar o token
             localStorage.setItem('token', res.data.auth_token)
@@ -78,7 +78,7 @@ function Login() {
                     <form onSubmit={logar} className='flex flex-col p-6 items-center border-solid backdrop-blur-md border-2 border-white rounded-xl m-10 box-border text-center gap-8 justify-center py-14'>
                     <p className='paragrafos max-w-xs text-justify'>Insira suas informações para realizar o login!</p>
 
-                        <Input placeholder='Nome de usuário' tipo='text' value={username} onChange={(e) => setUsername(e.target.value)} />
+                        <Input placeholder='Nome de usuário' tipo='text' value={email} onChange={(e) => setEmail(e.target.value)} />
                         <div className='flex items-end flex-col'>
                             <Input placeholder='Senha' tipo='password' value={senha} onChange={(e) => setSenha(e.target.value)} />
                             <div className='flex items-end flex-col' />

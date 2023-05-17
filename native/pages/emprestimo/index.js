@@ -13,6 +13,10 @@ export default function Emprestimo() {
     const [valorParcela, setValorParcela] = useState()
     const [totalPagarJuros, setTotalPagarJuros] = useState()
     const [porcentagemJuros, setPorcentagemJuros] = useState()
+
+    //puxar saldo real do usuario
+    const saldoConta = 1234
+
     //criar use state para sempre atualizar os inputs quando o usuário digitar algo (recalcular os valores)
 
     useEffect(() => {
@@ -24,33 +28,39 @@ export default function Emprestimo() {
     }, [valorEmprestado, mesesPagar])
 
     function juros() {
-        valorP = valorEmprestado / mesesPagar
-        if(valorP < 1000 ){
-            valorJuros = (valorP / 100) * 5
-            setPorcentagemJuros = 5
-        }else if(valorP > 1000 && valorP < 5000){
-            valorJuros = (valorP / 100) * 10
-            setPorcentagemJuros = 10
-        }
-        else if(valorP > 5000 && valorP < 15000){
-            valorJuros = (valorP / 100) * 15
-            setPorcentagemJuros = 15
-        }
-        else if(valorP > 15000 && valorP < 50000){
-            valorJuros = (valorP / 100) * 25
-            setPorcentagemJuros = 25
-        }
-        else if(valorP > 50000 && valorP < 200000){
-            valorJuros = (valorP / 100) * 30
-            setPorcentagemJuros = 30
-        }
-        else {
-            alorJuros = (valorP / 100) * 40
-            setPorcentagemJuros = 40
-        }
 
-        totalPagarJuros = valorP + valorJuros  
+        if(valorEmprestado > saldoConta){
+            alert("Seu empéstimo não foi aprovado devido a saldo insuficiente")
+        }
+        else{
+            alert("Seu empéstimo foi solicitado com sucesso")
+            // valorP = valorEmprestado / mesesPagar
+            // if(valorP < 1000 ){
+            //     valorJuros = (valorP / 100) * 5
+            //     setPorcentagemJuros = 5
+            // }else if(valorP > 1000 && valorP < 5000){
+            //     valorJuros = (valorP / 100) * 10
+            //     setPorcentagemJuros = 10
+            // }
+            // else if(valorP > 5000 && valorP < 15000){
+            //     valorJuros = (valorP / 100) * 15
+            //     setPorcentagemJuros = 15
+            // }
+            // else if(valorP > 15000 && valorP < 50000){
+            //     valorJuros = (valorP / 100) * 25
+            //     setPorcentagemJuros = 25
+            // }
+            // else if(valorP > 50000 && valorP < 200000){
+            //     valorJuros = (valorP / 100) * 30
+            //     setPorcentagemJuros = 30
+            // }
+            // else {
+            //     alorJuros = (valorP / 100) * 40
+            //     setPorcentagemJuros = 40
+            // }
 
+            // totalPagarJuros = valorP + valorJuros  
+        }
     }
 
     return (
@@ -106,7 +116,7 @@ export default function Emprestimo() {
                 </Text>
             </View>
 
-            <Pressable>
+            <Pressable onPress={juros}>
                 <BotaoAvancar texto='Avançar'  validacao={validarCampos}/>
             </Pressable>
         </View>

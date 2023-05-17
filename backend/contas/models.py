@@ -85,21 +85,12 @@ class User(AbstractUser):
     cpf_cnpj = models.CharField(max_length=20, unique=True)
     data_nascimento_criacao = models.DateField()
     foto = models.ImageField(upload_to="foto_perfil")
-    # endereco_cliente = models.ForeignKey(Endereco, on_delete=models.PROTECT, blank=True, null=True)
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = [
         "nome_cliente",
         "cpf_cnpj",
-        "foto",
         "data_nascimento_criacao",
-        # 'endereco_cliente',
-        "rua",
-        "numero",
-        "bairro",
-        "cidade",
-        "estado",
-        "complemento",
         "cep",
     ]
 

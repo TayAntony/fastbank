@@ -4,7 +4,6 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { FontAwesome5, FontAwesome, Ionicons } from '@expo/vector-icons'
 
 import Login from './pages/login'
-import Cadastro from './pages/cadastro'
 import Inicio from './pages/inicio'
 import Home from './pages/home'
 import Carteira from "./pages/carteira";
@@ -14,6 +13,7 @@ import Transacao from "./pages/transacao";
 import Extrato from "./pages/extrato";
 import TransacaoConta from "./pages/transacaoConta";
 import Emprestimo from "./pages/emprestimo";
+import Cartao from "./pages/cartao";
 
 const Tab = createBottomTabNavigator()
 const Nav = createStackNavigator()
@@ -105,10 +105,6 @@ export default function Routers({ navigation }) {
                 />
 
                 <Nav.Screen
-                    name="Cadastro"
-                    component={Cadastro}
-                />
-                <Nav.Screen
                     name="Transacao"
                     component={Transacao}
                     options={{title: false, headerTransparent: true, headerTintColor: 'black'}}
@@ -126,6 +122,11 @@ export default function Routers({ navigation }) {
                 <Nav.Screen
                     name="Emprestimo"
                     component={Emprestimo}
+                    options={{title: false, headerTransparent: true, headerTintColor: 'black'}}
+                />
+                <Nav.Screen
+                    name="Cartao"
+                    component={Cartao}
                     options={{title: false, headerTransparent: true, headerTintColor: 'black'}}
                 />
                 

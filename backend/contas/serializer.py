@@ -11,15 +11,8 @@ class UserRegistrationSerializer(BaseUserRegistrationSerializer):
             "cpf_cnpj",
             "email",
             "data_nascimento_criacao",
-            "foto",
             "password",
             "username",
-            "rua",
-            "numero",
-            "bairro",
-            "cidade",
-            "estado",
-            "complemento",
             "cep",
         )
 
