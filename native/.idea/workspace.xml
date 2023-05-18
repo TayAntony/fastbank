@@ -6,22 +6,14 @@
   <component name="ChangeListManager">
     <list default="true" id="977f9700-4e70-4aaf-a864-a8a577b34696" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/../backend/contas/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/contas/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backend/contas/serializer.py" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/contas/serializer.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../backend/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/pages/cadastrar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/pages/cadastrar.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/cadastro/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/cadastro/styles.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/carteira/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/pages/carteira/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/cartao/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/pages/cartao/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pages/emprestimo/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/pages/emprestimo/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/extrato/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/pages/extrato/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/home/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/pages/home/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/notificacoes/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/pages/notificacoes/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/perfil/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/pages/perfil/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/perfil/styles.js" beforeDir="false" afterPath="$PROJECT_DIR$/pages/perfil/styles.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/transacao/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/pages/transacao/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/transacaoConta/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/pages/transacaoConta/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routers.js" beforeDir="false" afterPath="$PROJECT_DIR$/routers.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

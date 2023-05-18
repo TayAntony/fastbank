@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import BotaoLogin from "../../components/botaoLogin";
 import axios from "axios";
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { FancyAlert } from 'react-native-expo-fancy-alerts';
+// import { FancyAlert } from 'react-native-expo-fancy-alerts';
 
 
 export default function Login({ navigation }) {
@@ -55,7 +55,7 @@ export default function Login({ navigation }) {
             />
 
             {/* ALERTA DE NÃO FOI POSSÍVEL REALIZAR O LOGIN */}
-            <FancyAlert
+            {/* <FancyAlert
                 visible={visibleLogin}
                 icon={<View style={{
                 flex: 1,
@@ -81,10 +81,10 @@ export default function Login({ navigation }) {
                         <Text style={{ color: '#FFF' }}>Tente novamente mais tarde</Text>
                     </View>
                 </TouchableOpacity>
-            </FancyAlert>
+            </FancyAlert> */}
 
             {/* ALERTA DE LOGADO COM SUCESSO */}
-            <FancyAlert
+            {/* <FancyAlert
                 visible={visibleSucesso}
                 icon={<View style={{
                 flex: 1,
@@ -110,10 +110,10 @@ export default function Login({ navigation }) {
                         <Text style={{ color: '#FFF' }}>OK</Text>
                     </View>
                 </TouchableOpacity>
-            </FancyAlert>
+            </FancyAlert> */}
 
             {/* ALERTA DE SENHA/USUARIO INCORRETO */}
-            <FancyAlert
+            {/* <FancyAlert
                 visible={visibleErro}
                 icon={<View style={{
                 flex: 1,
@@ -139,7 +139,7 @@ export default function Login({ navigation }) {
                         <Text style={{ color: '#FFF' }}>Tentar novamente!</Text>
                     </View>
                 </TouchableOpacity>
-            </FancyAlert>
+            </FancyAlert> */}
 
             <View>
                 {/* <Text style={styles.txt1}>Insira suas informações para realizar o login </Text> */}

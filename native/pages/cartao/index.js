@@ -42,17 +42,18 @@ export default function Cartao() {
                 onChangeText={(e) => { setCpf(e) }}
                 style={styles.input} />
 
-            <Text style={{ fontWeight: 300, fontSize: 16, color: 'black'}}>
-               Escolha o limite do seu cartão
-            </Text>
-
-            <TextInput
-                placeholder="Limite"
-                placeholderTextColor="black"
-                KeyboardType='number'
-                value={limite}
-                onChangeText={(e) => { setLimite(e) }}
-                style={styles.input} />
+            <View style={{display: 'flex', justifyContent: 'space-evenly', }}>
+                <Text style={{ fontWeight: 300, fontSize: 16, color: 'black'}}>
+                   Escolha o limite do seu cartão
+                </Text>
+                <TextInput
+                    placeholder="Limite"
+                    placeholderTextColor="black"
+                    KeyboardType='number'
+                    value={limite}
+                    onChangeText={(e) => { setLimite(e) }}
+                    style={styles.input} />
+            </View>
 
             <Pressable onPress={solicitarCartao}>
                 <BotaoAvancar texto='Avançar'  validacao={validarCampos}/>

@@ -66,12 +66,12 @@ class User(AbstractUser):
         (DISTRITO_FEDERAL, "Distrito Federal"),
     ]
 
-    rua = models.CharField(max_length=100)
-    numero = models.IntegerField()
-    bairro = models.CharField(max_length=100)
-    cidade = models.CharField(max_length=100)
-    estado = models.CharField(max_length=2, choices=ESTADOS, default=SAO_PAULO)
-    complemento = models.CharField(max_length=100)
+    rua = models.CharField(max_length=100, blank=True, null=True)
+    numero = models.IntegerField( blank=True, null=True)
+    bairro = models.CharField(max_length=100, blank=True, null=True)
+    cidade = models.CharField(max_length=100, blank=True, null=True)
+    estado = models.CharField(max_length=2, choices=ESTADOS, default=SAO_PAULO, blank=True, null=True)
+    complemento = models.CharField(max_length=100, blank=True, null=True)
     cep = models.CharField(max_length=8)
 
     username = None
@@ -84,7 +84,7 @@ class User(AbstractUser):
     nome_cliente = models.CharField(max_length=100)
     cpf_cnpj = models.CharField(max_length=20, unique=True)
     data_nascimento_criacao = models.DateField()
-    foto = models.ImageField(upload_to="foto_perfil")
+    foto = models.ImageField(upload_to="foto_perfil", blank=True, null=True)
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = [

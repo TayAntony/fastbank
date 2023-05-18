@@ -15,7 +15,7 @@ export default function BotaoAvancar(props) {
             borderWidth: 1,
             alignItems: 'center',
             justifyContent: 'center',
-            backgroundColor: props.validacao ? 'green' : 'gray',
+            backgroundColor: props.validacao ? 'green' : 'grey',
             padding: 12}}>
             <Text style={{ color: '#FFF', fontSize: 20, alignItems: 'center'}}>
                 {props.texto}

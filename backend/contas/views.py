@@ -39,6 +39,22 @@ def criar_conta(request: Request):
             status=status.HTTP_400_BAD_REQUEST,
         )
 
+def gerar_cartao():
+    numero_cartao = f"{random.randint(1000, 9999)},{random.randint(1000, 9999)},{random.randint(1000, 9999)},{random.randint(1000, 9999)}"
+    cvv = str({randint(100, 999)})
+    data_vencimento = f"{randint(1,12)}/{randint(datetime.today().year + 8)}"
+    bandeira = "Mastercard"
+    print(numero_cartao, cvv, data_vencimento, bandeira)
+
+
+@api_view(["POST"])
+def criar_cartao(request:Request):
+    id_user = request.data["id"]
+    numero_cartao, cvv, data_vencimento, bandeira = gerar_cartao()
+
+    try:
+    user = User.
+
 
 # CLIENTE VIEWSET
 class ClienteViewSet(viewsets.ModelViewSet):
