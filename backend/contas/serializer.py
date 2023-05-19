@@ -68,6 +68,7 @@ class CartaoSerializer(serializers.ModelSerializer):
             "bandeira",
             "titular_cartao",
             "cartao_ativo",
+            "nome",
         ]
 
 

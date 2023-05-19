@@ -76,8 +76,11 @@ function Cadastrar() {
 
         try {
             console.log("tentou cadastrar")
-            const retornoRequisicao = await axios.post('http://127.0.0.1:8000/auth/users/', infoDoCadastro);
-            console.log(retornoRequisicao.data.id)
+            const retornoRequisicaoCadastro = await axios.post('http://127.0.0.1:8000/auth/users/', infoDoCadastro);
+            const idUserCadastrado = retornoRequisicaoCadastro.data.id;
+
+            const retornoRequisicaoCriarConta = await axios.post("http://127.0.0.1:8000/contas/create-conta/", { id: idUserCadastrado });
+            console.log(retornoRequisicaoCriarConta.data);
 
             Swal.fire({
                 icon: 'success',
@@ -86,7 +89,7 @@ function Cadastrar() {
                 confirmButtonText: 'Redirecionar para o login...',
                 confirmButtonColor: '#00B318',
             });
-
+            goLogin();
         } catch (err) {
             console.log(JSON.stringify(err));
             if(err.response && err.response.status === 400){

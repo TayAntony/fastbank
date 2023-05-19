@@ -11,6 +11,6 @@ router.register("emprestimo", views.EmprestimoViewSet)
 router.register("movimentacao", views.ContatoViewSet)
 
 urlpatterns = [
-    path("api/login/", views.login, name="login"),
     path("create-conta/", views.criar_conta, name="criar_conta"),
+    path("create-cartao/", views.criar_cartao, name="criar_cartao"),
 ] + router.urls

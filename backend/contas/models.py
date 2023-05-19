@@ -67,10 +67,12 @@ class User(AbstractUser):
     ]
 
     rua = models.CharField(max_length=100, blank=True, null=True)
-    numero = models.IntegerField( blank=True, null=True)
+    numero = models.IntegerField(blank=True, null=True)
     bairro = models.CharField(max_length=100, blank=True, null=True)
     cidade = models.CharField(max_length=100, blank=True, null=True)
-    estado = models.CharField(max_length=2, choices=ESTADOS, default=SAO_PAULO, blank=True, null=True)
+    estado = models.CharField(
+        max_length=2, choices=ESTADOS, default=SAO_PAULO, blank=True, null=True
+    )
     complemento = models.CharField(max_length=100, blank=True, null=True)
     cep = models.CharField(max_length=8)
 
@@ -148,7 +150,8 @@ class Cartao(models.Model):
     numero_cartao = models.CharField(max_length=20, blank=True, null=True)
     conta_cartao = models.ForeignKey(Conta, on_delete=models.CASCADE)
     cvv = models.IntegerField(blank=True, null=True)
-    data_vencimento = models.DateField(blank=True, null=True)
+    data_vencimento = models.CharField(max_length=10)
+    nome = models.CharField(max_length=100)
     bandeira = models.CharField(max_length=20, blank=True, null=True)
     titular_cartao = models.ForeignKey(User, on_delete=models.CASCADE)
     cartao_ativo = models.BooleanField(default=True)
@@ -161,15 +164,6 @@ class Cartao(models.Model):
             )
         ]
         verbose_name_plural = "Cartao"
-
-    def save(self, *args, **kwargs):
-        self.numero_cartao = f"{randint(1000, 9999)} {randint(1000, 9999)} {randint(1000, 9999)} {randint(1000, 9999)}"
-        self.cvv = f"{randint(100, 999)}"
-        self.data_vencimento = f"{randint(1,12)}/{randint(datetime.today().year + 5)}"
-        self.bandeira = "Mastercard"
-        print(self.numero_cartao, self.cvv, self.data_vencimento, self.bandeira)
-
-        super(Cartao, self).save(*args, **kwargs)
 
 
 class Movimentacao(models.Model):
