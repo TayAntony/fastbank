@@ -5,6 +5,7 @@ import CardInformacoes from '../components/cardInformacoes'
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { useEffect, useState } from 'react';
+import Swal from 'sweetalert2'
 
 import CartoesImg from '../../public/cartao.svg'
 import ComentarioVanessa from '../assets/comentarios/comentarioVanessa.svg'
@@ -58,8 +59,14 @@ function Homepage() {
         if (!user) return;
         const idUsuario = user.id;
         const res = await axios.post("http://127.0.0.1:8000/contas/create-cartao/", { id: idUsuario });
-
         console.log(res.data);
+        Swal.fire({
+            icon: 'success',
+            title: 'Parabéns',
+            text: 'Seu cartão de débito foi gerado com sucesso!',
+            confirmButtonText: 'Quero ver!',
+            confirmButtonColor: '#700097',
+        });
     }
 
     return (
@@ -69,7 +76,7 @@ function Homepage() {
                     <div className='flex justify-between items-center xs:mx-28 mx-12'>
                         <LogoComponent/>
                         <div className='flex gap-4'>
-                            <p className='text-black text-sm xs:text-lg'>Bem-vindo, {user ? user.nome_cliente :"Carregando..."}</p>
+                            <p className='text-black text-sm xs:text-lg'>Bem-vindo(a), {user ? user.nome_cliente :"Carregando..."}</p>
                             <a href="#" className='text-black underline decoration-solid font-medium '>
                                 <p className='text-sm xs:text-lg'>Download App</p>
                             </a>
@@ -108,7 +115,16 @@ function Homepage() {
                         <img src={ComentarioViktor} alt="" data-aos="zoom-in" data-aos-duration="3500" className='relative w-2/5 xs:w-1/5'/>
                     </div>
 
+
                     <button className="bg-gradient-to-r from-[#7611A6] to-[#DA4C5DF8] drop-shadow-[6px_5px_5px_rgba(0,0,0,0.40)] rounded-3xl p-6 font-semibold text-2xl border-2 border-solid" onClick={gerarCartao}>Peça já o seu cartão!</button>
+
+                    {/*  */}
+                    <div className='text-black'>
+                        <p>Número cartão: {user ? user.numero_cartao :"Carregando número..."}</p>
+                        <p>CVV: {user ? user.cvv : "Carregando cvv..."}</p>
+                        <p>Data de vencimento: {user? user.data_vencimento : "Carregando data de vencimento"}</p>
+                        <p>Nome do titular: {user ? user.nome : "Carregando nome..."}</p>
+                    </div>
                     
                 </div>
 

@@ -78,7 +78,7 @@ function Login() {
                     <form onSubmit={logar} className='flex flex-col p-6 items-center border-solid backdrop-blur-md border-2 border-white rounded-xl m-10 box-border text-center gap-8 justify-center py-14'>
                     <p className='paragrafos max-w-xs text-justify'>Insira suas informações para realizar o login!</p>
 
-                        <Input placeholder='Nome de usuário' tipo='text' value={email} onChange={(e) => setEmail(e.target.value)} />
+                        <Input placeholder='E-mail' tipo='text' value={email} onChange={(e) => setEmail(e.target.value)} />
                         <div className='flex items-end flex-col'>
                             <Input placeholder='Senha' tipo='password' value={senha} onChange={(e) => setSenha(e.target.value)} />
                             <div className='flex items-end flex-col' />
@@ -92,8 +92,6 @@ function Login() {
                             <a href="javascript:void(0)" onClick={goCadastro} className="text-red-600 font-semibold">Cadastre-se</a>
                         </div>
                     </form>
-
-                    
             </div>
 
         </>
