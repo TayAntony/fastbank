@@ -5,15 +5,20 @@ import React, { useState } from 'react';
 import BotaoLogin from "../../components/botaoLogin";
 import axios from "axios";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
 // import { FancyAlert } from 'react-native-expo-fancy-alerts';
 
 
 export default function Login({ navigation }) {
-    const [username, setUsername] = useState('')
+    const [email, setEmail] = useState('')
     const [senha, setSenha] = useState('');
     const [visibleSucesso, setVisibleSucesso] = useState(false);
     const [visibleErro, setVisibleErro] = useState(false);
     const [visibleLogin, setVisibleLogin] = useState(false);
+
+    const goCadastro = () => {
+        alert("Para se cadastrar acesse nosso site: https://todobank.com.br")
+    }
 
     //função para fechar o alerta quando apertar no botão
     const handleCloseAlert = () => {
@@ -22,30 +27,28 @@ export default function Login({ navigation }) {
         setVisibleLogin(false);
       };
 
+
     const logar = async () => {
-        
-        try {
-            const response = await axios.post("http://127.0.0.1:8000/auth/jwt/create",{ username: username, password: senha }
-            );
-            alert('fez a requisição')
-      
+        //LEMBRAR DE TROCAR A URL SE FOR RODAR EM OUTRO PC (MUDAR O IP)
+        axios.post("http://10.109.72.3:8000/auth/jwt/create",{ email: email, password: senha})
+        .then((response) => {
+            console.log(response)
             if (response.status === 200) {
-                setVisibleSucesso(true) // mostrar alerta de logado com sucesso
               // Salvar token no AsyncStorage
-              await AsyncStorage.setItem("token", response.data.access);
-      
+              AsyncStorage.setItem("token", response.data.access);
               // Redirecionar para a página Home
               navigation.navigate("Home")
             }
-          } catch (err) {
-            console.log(err);
-      
+        })
+        .catch (err => {
             if (err.response.status === 401) {
-                setVisibleErro(true) // mostrar alerta de senha/email incorretos
-              
-            }setVisibleLogin(true)
-          }
-        }
+                alert('E-mail ou senha incorretos!')  
+            }else{
+                alert('nao foi possível logar')
+            }
+        })  
+    }
+    
 
     return (
         <View style={styles.container}>
@@ -151,11 +154,11 @@ export default function Login({ navigation }) {
                         <View style={styles.iconeInput}>
                             <TextInput
                                 style={styles.input}
-                                placeholder="Digite seu usuário"
+                                placeholder="Digite seu e-mail"
                                 placeholderTextColor="gray"
                                 KeyboardType='text'
-                                value={username}
-                                onChangeText={(e) => { setUsername(e) }}
+                                value={email}
+                                onChangeText={(e) => { setEmail(e) }}
                             />
                             <MaterialCommunityIcons name={'account'} size={15} color={'#fff'} style={styles.icone} />
                         </View>
@@ -180,13 +183,26 @@ export default function Login({ navigation }) {
                             Esqueceu sua senha?
                         </Text>
 
-                        <View style={{display: 'flex', alignItems: 'center', gap: 24}}>
-                            <Pressable onPress={() => logar(username,senha)} >
+                        <View style={{display: 'flex', alignItems: 'center', gap: 24, justifyContent: 'space-between'}}>
+                            <Pressable onPress={() => logar(email,senha)} >
                                 <BotaoLogin texto='Logar' />
                             </Pressable>
-                            <Text style={styles.esqueceuSenha}>
-                                Não possui uma conta? <Text style={{color: 'red'}}>Cadastre-se</Text>
-                            </Text>
+                            <View style={{display: 'flex',
+                                            justifyContent: 'space-between',
+                                            alignItems: 'center',
+                                            flexDirection: 'row'}}>
+
+                                <Text style={{fontSize: 12,
+                                              color: 'grey',
+                                              fontWeight: 700,
+                                              
+                                              }}>
+                                    Não possui uma conta?
+                                </Text>
+                                <Pressable onPress={goCadastro}>
+                                        <Text style={{color: 'red', marginLeft: 10}}>Cadastre-se</Text>
+                                </Pressable>
+                            </View>
                         </View>
                     </View>
                 </View>

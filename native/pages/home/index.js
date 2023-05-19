@@ -210,7 +210,7 @@ export default function Home({ navigation }) {
                             <BotoesFormaPagamento icone="credit-card" texto='Pedir cartão' />
                         </Pressable>
                         <Pressable onPress={cashback}>
-                            <BotoesFormaPagamento icone='users' texto='Cashback' />
+                            <BotoesFormaPagamento icone='arrow-down' texto='Cashback' />
                         </Pressable>
                     </View>
                 </View>

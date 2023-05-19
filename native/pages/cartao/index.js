@@ -2,13 +2,20 @@ import { View, Text, TextInput, Pressable } from "react-native";
 import styles from './styles'
 import { useState } from "react";
 import BotaoAvancar from "../../components/botaoAvancar";
+import Slider from '@react-native-community/slider';
+import { useEffect } from "react";
 
 export default function Cartao() {
     const [rendaMensal, setRendaMensal] = useState('')
-    const [cpf, setCpf] = useState('')
-    const [limite, setLimite] = useState('')
+    const [limite, setLimite] = useState(0)
+    const [mexeuLimite, setMexeuLimite] = useState(0)
 
     const [validarCampos, setValidarCampos] = useState(false)
+
+
+    function mexeuNoLimite(limite){
+        setLimite(limite)
+    }
 
     function solicitarCartao(){
         if (rendaMensal < limite){
@@ -34,25 +41,36 @@ export default function Cartao() {
                 onChangeText={(e) => { setRendaMensal(e) }}
                 style={styles.input} />
 
-            <TextInput
-                placeholder="CPF"
-                placeholderTextColor="black"
-                KeyboardType='number'
-                value={cpf}
-                onChangeText={(e) => { setCpf(e) }}
-                style={styles.input} />
 
-            <View style={{display: 'flex', justifyContent: 'space-evenly', }}>
-                <Text style={{ fontWeight: 300, fontSize: 16, color: 'black'}}>
-                   Escolha o limite do seu cartão
+            <View style={{display: 'flex', justifyContent: 'space-around', gap: 24}}>
+                {/* CRIAR UM USE EFFECT PARA ATUALIZAR O LIMITE DO CARTÃO SEMPRE QUE MEXER NO SLIDER */}
+                <Text style={{ fontWeight: 400, fontSize: 16, color: 'black', marginTop: 48}}>
+                   Escolha o limite do seu cartão: {limite.toFixed(0)}
                 </Text>
-                <TextInput
-                    placeholder="Limite"
-                    placeholderTextColor="black"
-                    KeyboardType='number'
-                    value={limite}
-                    onChangeText={(e) => { setLimite(e) }}
-                    style={styles.input} />
+                    <View style={{display:'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
+                        <Text>
+                            R$0
+                        </Text>
+                        <Text>
+                            R$5000
+                        </Text>
+                    </View>
+                <Slider
+                    style={{width: 315, height: 20, backgroundColor: 'white', borderRadius: 12}}
+                    value={mexeuLimite}
+                    onValueChange = {(limite) => mexeuNoLimite(limite)}
+                    minimumValue={0}
+                    maximumValue={5000}
+                    thumbTintColor= "red"
+                    minimumTrackTintColor="red"
+                    maximumTrackTintColor="black"
+                    trackStyle = {{height: 30, borderRadius: 12}}
+                    thumbStyle = {{ height: 40,
+                                    width: 40,
+                                    color: 'red'}}
+                    
+                />
+
             </View>
 
             <Pressable onPress={solicitarCartao}>

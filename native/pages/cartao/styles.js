@@ -18,7 +18,6 @@ const styles = StyleSheet.create({
         borderBottomColor: 'black',
         borderStyle: "solid",
     },
-    
 })
 
 export default styles

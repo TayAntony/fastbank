@@ -4,9 +4,18 @@ import { TextInput } from "react-native-gesture-handler";
 import BotaoAvancar from "../../components/botaoAvancar";
 import styles from './styles'
 import { useEffect } from "react";
+import { BottomSheet } from "react-native-bottom-sheet";
 
 export default function Transacao({navigation}) {
     const [listaDestinatarios, setListaDestinatarios] = useState([])
+    const [modalVisivel, setModalVisivel] = useState(false)
+
+    const abrirModalPagamento = () => {
+        setModalVisivel(true)
+    }
+    const fecharModelPagamento = () => {
+        setModalVisivel(false)
+    }
 
     const [validarCampos, setValidarCampos] = useState(false)
     useEffect(() => {
@@ -19,12 +28,17 @@ export default function Transacao({navigation}) {
 
     const [chaveTransferencia, setChaveTransferencia] = useState('')
 
-    // const valorTransferencia = route.params.valor
-    // const nomeDestinatario = route.params.nome
-    // const emailDestinatario = route.params.email
-    // const idTransferencia = route.params.id
-    // const informacoesUsuario = route.params.informacoesUsuario
 
+    const modalPagamento = ({isVisible, onClose}) => {
+        const [valorPagamento, setValorPagamento] = useState('')
+
+        const processarPagamento = ()=> {
+            alert('valor do pagamento', valorPagamento);
+            fechar();
+        }
+    }
+
+    
     function transacaoConta(){
         navigation.navigate('Transacao Conta')
     }
@@ -32,6 +46,43 @@ export default function Transacao({navigation}) {
     
     return(
         <View style={styles.container}>
+
+            {/* CONSERTAR O MODEL PARA DIGITAR O VALOR DO PAGAMENTO */}
+            <BottomSheet
+                isVisible={isVisible}
+                onClose={onClose}
+            >
+                <View>
+                    <Text style={{ fontWeight: 600, fontSize: 24, color: 'black', position: 'absolute', top: 80 }}>
+                        Digite o valor do pagamento
+                    </Text>
+                    <TextInput
+                        placeholder="R$ "
+                        placeholderTextColor="black"
+                        KeyboardType='text'
+                        value={valorPagamento}
+                        onChangeText={(e) => setValorPagamento(e)}
+                        style={{backgroundColor: '#E9FFF2',
+                         padding: 12,
+                         width: '80%',
+                         marginTop:24,
+                         borderBottomLeftRadius: 0,
+                         borderBottomRightRadius: 0,
+                         borderWidth: 2,
+                         borderColor: '#E9FFF2',
+                         borderBottomColor: 'black',
+                         borderStyle: "solid", 
+                         }}/>
+                         <Text>
+                            Saldo dispoível: R$ 
+                         </Text>
+                         <Pressable onPress={fecharModelPagamento}>
+                             <BotaoAvancar texto="Confirmar valor"/>
+                         </Pressable>
+                </View>
+            </BottomSheet>
+
+            
             <Text style={{ fontWeight: 600, fontSize: 24, color: 'black', position: 'absolute', top: 80 }}>
                 Transação
             </Text>
@@ -59,8 +110,8 @@ export default function Transacao({navigation}) {
                 </Text>
             </Pressable>
 
-            <Pressable>
-                <BotaoAvancar texto='Avançar' validacao={validarCampos}/>
+            <Pressable onPress={abrirModalPagamento}>
+                <BotaoAvancar texto='Avançar' validacao={validarCampos} />
             </Pressable>
         </View> 
     )
