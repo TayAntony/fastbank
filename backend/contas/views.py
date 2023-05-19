@@ -31,7 +31,7 @@ def criar_conta(request: Request):
 
         return Response(
             {"mensagem": "Criei a conta com sucesso", "conta": conta_serializada.data},
-            status=status.HTTP_200_OK,
+            status=status.HTTP_201_CREATED,
         )
     except User.DoesNotExist:
         return Response(
@@ -39,21 +39,56 @@ def criar_conta(request: Request):
             status=status.HTTP_400_BAD_REQUEST,
         )
 
+
 def gerar_cartao():
-    numero_cartao = f"{random.randint(1000, 9999)},{random.randint(1000, 9999)},{random.randint(1000, 9999)},{random.randint(1000, 9999)}"
-    cvv = str({randint(100, 999)})
-    data_vencimento = f"{randint(1,12)}/{randint(datetime.today().year + 8)}"
+    numero_cartao = f"{random.randint(1000, 9999)} {random.randint(1000, 9999)} {random.randint(1000, 9999)} {random.randint(1000, 9999)}"
+    cvv = random.randint(100, 999)
+    data_vencimento = f"{random.randint(1,12)}/{datetime.today().year + 8}"
     bandeira = "Mastercard"
-    print(numero_cartao, cvv, data_vencimento, bandeira)
+    return numero_cartao, cvv, data_vencimento, bandeira
 
 
 @api_view(["POST"])
-def criar_cartao(request:Request):
+def criar_cartao(request: Request):
     id_user = request.data["id"]
     numero_cartao, cvv, data_vencimento, bandeira = gerar_cartao()
 
     try:
-    user = User.
+        user = User.objects.get(pk=id_user)
+
+        conta = Conta.objects.get(user=user)
+
+        cartao = Cartao(
+            conta_cartao=conta,
+            numero_cartao=numero_cartao,
+            cvv=cvv,
+            data_vencimento=data_vencimento,
+            bandeira=bandeira,
+            titular_cartao=user,
+            nome=user.nome_cliente,
+        )
+        cartao.save()
+
+        cartao_serializado = CartaoSerializer(cartao)
+
+        return Response(
+            {
+                "mensagem": "Cartao criado com sucesso",
+                "cartao": cartao_serializado.data,
+            },
+            status=status.HTTP_201_CREATED,
+        )
+    except User.DoesNotExist:
+        return Response(
+            {"erro": "Nao existe usuário com este id"},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
+    except Exception as e:
+        print(e)
+        return Response(
+            {"erro": "Erro interno do servidor"},
+            status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+        )
 
 
 # CLIENTE VIEWSET
@@ -115,18 +150,3 @@ class InventarioViewSet(viewsets.ModelViewSet):
     # permission_classes = (IsAuthenticated, )
     queryset = Investimento.objects.all()
     serializer_class = InvestimentoSerializer
-
-
-@api_view(["POST"])
-def login(request):
-    email = request.data.get("login")
-    senha = request.data.get("senha")
-    user = authenticate(request, username=email, password=senha)
-
-    if user is not None:
-        token = AccessToken.for_user(user)
-        return Response({"token": str(token)})
-    else:
-        return Response(
-            {"error": "Credenciais inválidas."}, status=status.HTTP_401_UNAUTHORIZED
-        )

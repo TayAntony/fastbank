@@ -4,7 +4,7 @@ import CelularImg from '../assets/imagens/celular.png'
 import CardInformacoes from '../components/cardInformacoes'
 import AOS from "aos";
 import "aos/dist/aos.css";
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import CartoesImg from '../../public/cartao.svg'
 import ComentarioVanessa from '../assets/comentarios/comentarioVanessa.svg'
@@ -16,10 +16,13 @@ import ComentarioViktor from '../assets/comentarios/comentarioViktor.svg'
 import ComentarioDinheiro from '../assets/comentarios/comentarioDinheiro.svg'
 import ComentarioEmoji from '../assets/comentarios/comentarioEmoji.svg'
 import ComentarioCoracao from '../assets/comentarios/comentarioCoracao.svg'
+import { useNavigate } from 'react-router-dom';
 
 
 
 function Homepage() {
+    const [user, setUser] = useState();
+    const navigate = useNavigate();
     useEffect(() => {
         AOS.init({
           duration: 1000, // tempo de duração da animação
@@ -27,27 +30,50 @@ function Homepage() {
           once: true, // animação acontece apenas uma vez
           mirror: true, // animação acontece na ida e na volta
         });
-      }, []);
+    }, []);
 
-    const gerarCartao = () => {
-        const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjgzNjYyNDIzLCJqdGkiOiJlZTM1NWEzNmNlYjE0NzQwOGIyMmExNDFjNmFhYTUzNSIsInVzZXJfaWQiOjF9.fjtq9sB0nM-5ZwCNaOfKWF30QkIzhq_YIx4uyhn_2t4"
-        console.log("geranod cartao")
-        axios.post("http://127.0.0.1:8000/contas/clientes/", [{}], {
+    const getSession = async () => {
+        const token = localStorage.getItem('token');
+
+        if (!token) {
+            return navigate("/login");
+        }
+
+        const res = await axios.get("http://127.0.0.1:8000/auth/users/me/", {
             headers: {
-                Authorization: `JWT ${token}`
+                "Authorization": `Token ${token}`
             }
-        })
+        });
+
+        return res.data;
     }
+
+    useEffect(() => {
+        getSession()
+            .then(user => setUser(user))
+            .catch(_err => navigate("/login"));
+    }, []);
+
+    const gerarCartao = async () => {
+        if (!user) return;
+        const idUsuario = user.id;
+        const res = await axios.post("http://127.0.0.1:8000/contas/create-cartao/", { id: idUsuario });
+
+        console.log(res.data);
+    }
+
     return (
         <>
-
             <div className='bg-fundo_home bg-center'>
                 <div className='backdrop-blur-xl opacity-100'>
                     <div className='flex justify-between items-center xs:mx-28 mx-12'>
                         <LogoComponent/>
-                        <a href="#" className='text-black underline decoration-solid font-medium '>
-                            <p className='text-sm xs:text-lg'>Download App</p>
-                        </a>
+                        <div className='flex gap-4'>
+                            <p className='text-black text-sm xs:text-lg'>Bem-vindo, {user ? user.nome_cliente :"Carregando..."}</p>
+                            <a href="#" className='text-black underline decoration-solid font-medium '>
+                                <p className='text-sm xs:text-lg'>Download App</p>
+                            </a>
+                        </div>
                     </div>
 
                     <div className='xs:flex '>
