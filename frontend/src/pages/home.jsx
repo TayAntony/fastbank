@@ -93,26 +93,27 @@ function Homepage() {
 
                     <CardInformacoes/>
 
-                    <div className='flex flex-wrap relative'>
-                        <img src={CartoesImg} alt="Cartões" data-aos="flip-right" data-aos-duration="1500" className='xs:w-2/6 w-3/5'/>
+                    <div className='relative'>
+                        <div className='absolute w-3/5 xs:w-3/6 left-[30vw] top-[20vh]'><img src={CartoesImg} alt="Cartões" data-aos="flip-right" data-aos-duration="1500"/></div>
 
-                        <img src={ComentarioVanessa} alt="" data-aos="zoom-in" data-aos-duration="2000" className='relative w-2/5 xs:w-1/5 top-2/3'/>
+                        {/* COMENTÁRIOS */}
 
-                        <img src={ComentarioAmanda} alt="" data-aos="zoom-in" 
-                        data-aos-duration="4000" className='relative w-2/5 xs:w-1/5'/>
-
-                        <img src={ComentarioCintia} alt="" data-aos="zoom-in" data-aos-duration="2000" className='relative w-2/5 xs:w-1/5'/>
-
-                        <img src={ComentarioCoracao} alt="" data-aos="zoom-in" data-aos-duration="1000" className='relative w-1/12'/>
-
-                        <img src={ComentarioDinheiro} alt="" data-aos="zoom-in" data-aos-duration="4500" className='relative w-1/12'/>
-
-                        <img src={ComentarioEmoji} alt="" data-aos="zoom-in" data-aos-duration="2500" className='relative w-1/12'/>
-
-                        <img src={ComentarioGustavo} alt="" data-aos="zoom-in" data-aos-duration="1500" className='relative w-2/5 xs:w-1/5'/>
+                    <div className='absolute top-0 left-0 right-0 bottom-0'>
+                        <div className='absolute top-12 left-64 xs:w-64 hidden xs:block'><img src={ComentarioVanessa} alt="" data-aos="zoom-in" data-aos-duration="2000"/></div>
+                        <div className='absolute top-72 right-12 xs:w-64  hidden xs:block '>
+                        <img src={ComentarioAmanda} alt="" data-aos="zoom-in"
+                                data-aos-duration="4000"/>
+                        </div>
+                        <div className='absolute top-96 left-64 xs:w-64  hidden xs:block'><img src={ComentarioCintia} alt="" data-aos="zoom-in" data-aos-duration="2000"/></div>
+                        <div className='hidden xs:block xs:w-64 top-56'><img src={ComentarioCoracao} alt="" data-aos="zoom-in" data-aos-duration="1000"/></div>
+                            <div className='hidden xs:block xs:w-64'><img src={ComentarioDinheiro} alt="" data-aos="zoom-in" data-aos-duration="4500"/></div>
+                            <div className='hidden xs:block xs:w-64 '><img src={ComentarioEmoji} alt="" data-aos="zoom-in" data-aos-duration="2500"/></div>
+                            <div className='absolute top-72 left-16 xs:w-64  hidden xs:block '><img src={ComentarioGustavo} alt="" data-aos="zoom-in" data-aos-duration="1500"/></div>
                         
-                        <img src={ComentarioRaissa} alt="" data-aos="zoom-in" data-aos-duration="1500" className='relative w-2/5 xs:w-1/5'/>
-                        <img src={ComentarioViktor} alt="" data-aos="zoom-in" data-aos-duration="3500" className='relative w-2/5 xs:w-1/5'/>
+                            <div className='absolute top-32 right-0 xs:w-64  hidden xs:block'><img src={ComentarioRaissa} alt="" data-aos="zoom-in" data-aos-duration="1500" /></div>
+
+                            <div className='absolute top-32 left-0 xs:w-64  hidden xs:block'><img src={ComentarioViktor} alt="" data-aos="zoom-in" data-aos-duration="3500"/></div>
+                    </div>
                     </div>
 
 
