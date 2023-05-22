@@ -1,4 +1,4 @@
-import { View, Text, ImageBackground, TextInput, TouchableOpacity, Pressable } from "react-native";
+import { View, Text, ImageBackground, TextInput, Pressable } from "react-native";
 import styles from './styles'
 import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
 import React, { useState } from 'react';
@@ -8,30 +8,19 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // import { FancyAlert } from 'react-native-expo-fancy-alerts';
 
-
 export default function Login({ navigation }) {
     const [email, setEmail] = useState('')
     const [senha, setSenha] = useState('');
-    const [visibleSucesso, setVisibleSucesso] = useState(false);
-    const [visibleErro, setVisibleErro] = useState(false);
-    const [visibleLogin, setVisibleLogin] = useState(false);
-
+   
     const goCadastro = () => {
-        alert("Para se cadastrar acesse nosso site: https://todobank.com.br")
+        navigation.navigate("Cadastro")
     }
 
-    //função para fechar o alerta quando apertar no botão
-    const handleCloseAlert = () => {
-        setVisibleSucesso(false);
-        setVisibleErro(false);
-        setVisibleLogin(false);
-      };
-
-
     const logar = async () => {
-        //LEMBRAR DE TROCAR A URL SE FOR RODAR EM OUTRO PC (MUDAR O IP)
-        axios.post("http://10.109.72.3:8000/auth/jwt/create",{ email: email, password: senha})
+        //LEMBRAR DE TROCAR A URL SE FOR RODAR EM OUTRO PC OU SE O IP DO PC ATUAL TROCAR (MUDAR O IP) LEMBRAR DE RODAR O BACKEND COM O IP E A PORTA
+        axios.post("http://10.109.72.4:8000/auth/jwt/create",{ email: email, password: senha})
         .then((response) => {
+            
             console.log(response)
             if (response.status === 200) {
               // Salvar token no AsyncStorage
@@ -57,95 +46,8 @@ export default function Login({ navigation }) {
                 style={{ width: 800, height: 840, position: 'absolute' }}
             />
 
-            {/* ALERTA DE NÃO FOI POSSÍVEL REALIZAR O LOGIN */}
-            {/* <FancyAlert
-                visible={visibleLogin}
-                icon={<View style={{
-                flex: 1,
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                backgroundColor: 'red',
-                borderRadius: 50,
-                width: '100%',
-                }}>
-                <Text>💤</Text></View>}
-                style={{ backgroundColor: 'white' }}>
-                <Text style={{ marginTop: -16, marginBottom: 32 }}>Não foi possível realizar o login!</Text>
-                <TouchableOpacity onPress={handleCloseAlert}>
-                    <View style={{
-                        marginTop: 10,
-                        marginBottom: 10,
-                        paddingHorizontal: 16,
-                        paddingVertical: 8,
-                        backgroundColor: 'red',
-                        borderRadius: 12,
-                    }}>
-                        <Text style={{ color: '#FFF' }}>Tente novamente mais tarde</Text>
-                    </View>
-                </TouchableOpacity>
-            </FancyAlert> */}
-
-            {/* ALERTA DE LOGADO COM SUCESSO */}
-            {/* <FancyAlert
-                visible={visibleSucesso}
-                icon={<View style={{
-                flex: 1,
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                backgroundColor: 'green',
-                borderRadius: 50,
-                width: '100%',
-                }}>
-                <Text>✔</Text></View>}
-                style={{ backgroundColor: 'white' }}>
-                <Text style={{ marginTop: -16, marginBottom: 32 }}>Parabéns! Logado com sucesso</Text>
-                <TouchableOpacity onPress={handleCloseAlert}>
-                    <View style={{
-                        marginTop: 10,
-                        marginBottom: 10,
-                        paddingHorizontal: 16,
-                        paddingVertical: 8,
-                        backgroundColor: '#007AFF',
-                        borderRadius: 12,
-                    }}>
-                        <Text style={{ color: '#FFF' }}>OK</Text>
-                    </View>
-                </TouchableOpacity>
-            </FancyAlert> */}
-
-            {/* ALERTA DE SENHA/USUARIO INCORRETO */}
-            {/* <FancyAlert
-                visible={visibleErro}
-                icon={<View style={{
-                flex: 1,
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                backgroundColor: 'red',
-                borderRadius: 50,
-                width: '100%',
-                }}>
-                <Text>❕</Text></View>}
-                style={{ backgroundColor: 'white' }}>
-                <Text style={{ marginTop: -16, marginBottom: 32 }}>Usuário ou senha incorretos</Text>
-                <TouchableOpacity onPress={handleCloseAlert}>
-                    <View style={{
-                        marginTop: 10,
-                        marginBottom: 10,
-                        paddingHorizontal: 16,
-                        paddingVertical: 8,
-                        backgroundColor: 'red',
-                        borderRadius: 12,
-                    }}>
-                        <Text style={{ color: '#FFF' }}>Tentar novamente!</Text>
-                    </View>
-                </TouchableOpacity>
-            </FancyAlert> */}
-
             <View>
-                {/* <Text style={styles.txt1}>Insira suas informações para realizar o login </Text> */}
+                <Text style={styles.txt1}>Insira suas informações para realizar o login </Text>
             
                 <View style={styles.card}>
                     <View style={{ flex: 1, alignItems: 'center' }}>

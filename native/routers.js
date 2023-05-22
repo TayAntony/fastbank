@@ -3,6 +3,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { FontAwesome5, FontAwesome, Ionicons } from '@expo/vector-icons'
 
+
 import Login from './pages/login'
 import Inicio from './pages/inicio'
 import Home from './pages/home'
@@ -14,6 +15,7 @@ import Extrato from "./pages/extrato";
 import TransacaoConta from "./pages/transacaoConta";
 import Emprestimo from "./pages/emprestimo";
 import Cartao from "./pages/cartao";
+import Cadastro from "./pages/cadastro";
 
 const Tab = createBottomTabNavigator()
 const Nav = createStackNavigator()
@@ -128,6 +130,10 @@ export default function Routers({ navigation }) {
                     name="Cartao"
                     component={Cartao}
                     options={{title: false, headerTransparent: true, headerTintColor: 'black'}}
+                />
+                <Nav.Screen
+                    name="Cadastro"
+                    component={Cadastro}
                 />
                 
             </Nav.Navigator>

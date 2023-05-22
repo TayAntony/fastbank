@@ -8,7 +8,9 @@ import { BottomSheet } from "react-native-bottom-sheet";
 
 export default function Transacao({navigation}) {
     const [listaDestinatarios, setListaDestinatarios] = useState([])
+    const [camposValidados, setCamposValidados] = useState(false)
     const [modalVisivel, setModalVisivel] = useState(false)
+    
 
     const abrirModalPagamento = () => {
         setModalVisivel(true)
@@ -17,12 +19,11 @@ export default function Transacao({navigation}) {
         setModalVisivel(false)
     }
 
-    const [validarCampos, setValidarCampos] = useState(false)
     useEffect(() => {
-        if (chaveTransferencia != ""){
-            setValidarCampos(true)
+        if (chaveTransferencia == ""){
+            setCamposValidados(false)
         }else{
-            setValidarCampos(false)
+            setCamposValidados(true)
         }
     }, [chaveTransferencia])
 
@@ -48,7 +49,7 @@ export default function Transacao({navigation}) {
         <View style={styles.container}>
 
             {/* CONSERTAR O MODEL PARA DIGITAR O VALOR DO PAGAMENTO */}
-            <BottomSheet
+            {/* <BottomSheet
                 isVisible={isVisible}
                 onClose={onClose}
             >
@@ -80,7 +81,7 @@ export default function Transacao({navigation}) {
                              <BotaoAvancar texto="Confirmar valor"/>
                          </Pressable>
                 </View>
-            </BottomSheet>
+            </BottomSheet> */}
 
             
             <Text style={{ fontWeight: 600, fontSize: 24, color: 'black', position: 'absolute', top: 80 }}>
@@ -111,7 +112,7 @@ export default function Transacao({navigation}) {
             </Pressable>
 
             <Pressable onPress={abrirModalPagamento}>
-                <BotaoAvancar texto='Avançar' validacao={validarCampos} />
+                <BotaoAvancar texto='Avançar' validacao={camposValidados} />
             </Pressable>
         </View> 
     )
