@@ -135,7 +135,7 @@ class Conta(models.Model):
     numero_conta = models.IntegerField()
     agencia = models.IntegerField()
     digito = models.IntegerField()
-    saldo = models.IntegerField(default=0)
+    saldo = models.IntegerField(default=1200)
     data_criacao = models.DateField(auto_now=True)
     conta_ativa = models.BooleanField(default=True)
 
