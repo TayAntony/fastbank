@@ -20,7 +20,7 @@ function Login() {
         evt.preventDefault()
         const infoDoLogin = {email: email, password: senha}
         try{
-            const res = await axios.post('http://localhost:8000/auth/token/login', infoDoLogin) //endpoint para verificar se o login está correto e gerar o token
+            const res = await axios.post('http://10.109.72.4:8000/auth/token/login', infoDoLogin) //endpoint para verificar se o login está correto e gerar o token
             localStorage.setItem('token', res.data.auth_token)
             navigate("/homepage")
         } catch(err){
@@ -75,7 +75,7 @@ function Login() {
                 <h1 className="font-poppins text-8xl font-bold">ToDo</h1>
                 <p className='font-michroma font-normal text-2xl '>Onde você faz acontecer!</p>
 
-                    <form onSubmit={logar} className='flex flex-col p-6 items-center border-solid backdrop-blur-md border-2 border-white rounded-xl m-10 box-border text-center gap-8 justify-center py-14'>
+                    <form onSubmit={logar} className='flex flex-col p-6 items-center border-solid backdrop-filter backdrop-blur-lg border-2 border-white rounded-xl m-10 box-border text-center gap-8 justify-center py-14'>
                     <p className='paragrafos max-w-xs text-justify'>Insira suas informações para realizar o login!</p>
 
                         <Input placeholder='E-mail' tipo='text' value={email} onChange={(e) => setEmail(e.target.value)} />
