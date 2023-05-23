@@ -75,7 +75,7 @@ class CartaoSerializer(serializers.ModelSerializer):
 class MovimentacaoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Movimentacao
-        fields = ["codigo_cartao", "data_hora", "operacao", "valor"]
+        fields = ["conta_recv", "conta_sender", "data_hora", "operacao", "valor"]
 
 
 class EmprestimoSerializer(serializers.ModelSerializer):
