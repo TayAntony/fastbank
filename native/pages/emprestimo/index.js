@@ -13,13 +13,10 @@ export default function Emprestimo() {
     const [camposValidados, setCamposValidados] = useState(false)
 
     const [valorEmprestado, setValorEmprestado] = useState(0)
-    const [mesesPagar, setMesesPagar] = useState(1)
+    const [mesesPagar, setMesesPagar] = useState(0)
     const [valorParcela, setValorParcela] = useState(0)
-    const [totalPagarJuros, setTotalPagarJuros] = useState()
-    const [porcentagemJuros, setPorcentagemJuros] = useState()
-
-    const [botaoHabilitado, setBotaoHabilitado] = useState(true)
-
+    const [totalPagarJuros, setTotalPagarJuros] = useState(0)
+    const [porcentagemJuros, setPorcentagemJuros] = useState(0)
     
     //criar função que desabilita o clique do botao quando ele está com os campos não preenchidos, e arrumar o preenchimento
 
@@ -78,7 +75,6 @@ export default function Emprestimo() {
             setTotalPagarJuros(totalPagarComJuros)
 
             //passando o valor da parcela com juros dividido pela quantidade de meses
-            valorParcelaComJuros = parseFloat(totalPagarComJuros) / parseFloat(mesesPagar)
             let calcPJ = parseFloat(totalPagarComJuros) / parseFloat(mesesPagar)
             setValorParcela(calcPJ)
         }
@@ -135,7 +131,7 @@ export default function Emprestimo() {
                     Valor das parcelas: <Text style={{fontWeight: 700, color: 'green'}}> {parseFloat(valorParcela.toFixed(2))}</Text>
                 </Text>
             </View>
-            <Pressable onPress={solicitarEmprestimo} >
+            <Pressable disabled={!camposValidados} onPress={solicitarEmprestimo} >
                 <BotaoAvancar texto='Avançar'  validacao={camposValidados} />
             </Pressable>
         </View>
