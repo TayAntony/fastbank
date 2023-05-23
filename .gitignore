@@ -1,5 +1,6 @@
 __pycache__
 env
 node_modules
-cpython-311.pyc
+pyc
 db.sqlite3
+
