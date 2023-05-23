@@ -91,6 +91,49 @@ def criar_cartao(request: Request):
         )
 
 
+@api_view(["POST"])
+def movimentacao(request: Request):
+    id_conta_sender = request.data["id_conta_sender"]
+    numero_conta = request.data["numero_conta"]
+    agencia = request.data["agencia"]
+    valor = request.data["valor"]
+
+    try:
+        conta_sender = Conta.objects.get(pk=id_conta_sender)
+        conta_recv = Conta.objects.get(numero_conta=numero_conta, agencia=agencia)
+
+        if conta_sender.saldo < valor:
+            return Response(
+                {"erro": "Saldo insuficiente"}, status=status.HTTP_403_FORBIDDEN
+            )
+
+        conta_sender.saldo -= valor
+        conta_recv.saldo += valor
+
+        conta_sender.save()
+        conta_recv.save()
+
+        movimentacao = Movimentacao(
+            conta_sender=conta_sender, conta_recv=conta_recv, valor=valor
+        )
+        movimentacao.save()
+
+        movimentacao_serializada = MovimentacaoSerializer(movimentacao)
+
+        return Response(
+            {
+                "mensagem": "Movimentação realizada com sucesso",
+                "movimentacao": movimentacao_serializada,
+            },
+            status=status.HTTP_202_ACCEPTED,
+        )
+    except Conta.DoesNotExist:
+        return Response(
+            {"erro": "Conta que você está tentando enviar não existe"},
+            status=status.HTTP_404_NOT_FOUND,
+        )
+
+
 # CLIENTE VIEWSET
 class ClienteViewSet(viewsets.ModelViewSet):
     # permission_classes = (IsAuthenticated, )

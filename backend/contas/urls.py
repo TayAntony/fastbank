@@ -8,9 +8,9 @@ router.register("conta", views.ContaViewSet)
 router.register("cartao", views.CartaoViewSet)
 router.register("contato", views.ContatoViewSet)
 router.register("emprestimo", views.EmprestimoViewSet)
-router.register("movimentacao", views.ContatoViewSet)
 
 urlpatterns = [
     path("create-conta/", views.criar_conta, name="criar_conta"),
     path("create-cartao/", views.criar_cartao, name="criar_cartao"),
+    path("movimentacao/", views.movimentacao, name="movimentacao"),
 ] + router.urls

@@ -177,9 +177,14 @@ class Movimentacao(models.Model):
         (TRANSFERENCIA, "Operação de transferência"),
     ]
 
-    codigo_cartao = models.ForeignKey(Cartao, on_delete=models.PROTECT)
+    conta_sender = models.ForeignKey(
+        Conta, on_delete=models.CASCADE, related_name="sender"
+    )
+    conta_recv = models.ForeignKey(Conta, on_delete=models.CASCADE, related_name="recv")
     data_hora = models.DateTimeField(auto_now=True)
-    operacao = models.CharField(max_length=1, choices=TIPO_OPERACAO, default=DEBITO)
+    operacao = models.CharField(
+        max_length=1, choices=TIPO_OPERACAO, default=TRANSFERENCIA
+    )
     valor = models.DecimalField(max_digits=10, decimal_places=2)
 
 
