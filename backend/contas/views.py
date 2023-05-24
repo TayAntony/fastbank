@@ -35,7 +35,7 @@ def criar_conta(request: Request):
         )
     except User.DoesNotExist:
         return Response(
-            {"erro": "nao existe user com esse id cara"},
+            {"erro": "nao existe user com esse id"},
             status=status.HTTP_400_BAD_REQUEST,
         )
 
