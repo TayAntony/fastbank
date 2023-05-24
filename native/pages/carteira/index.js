@@ -1,9 +1,10 @@
 import { View, Text } from "react-native";
 import styles from './styles'
 import { LinearGradient } from 'expo-linear-gradient';
+import { useSession } from "../home";
 
-export default function Carteira() {
-    const saldo = '632,22'
+export default function Carteira(navigation) {
+    const { user } = useSession(navigation);
 
     return ( 
     <View style={styles.container}>
@@ -57,9 +58,8 @@ export default function Carteira() {
                             <Text style={{ margin: 6 }}>
                                 Saldo em conta
                             </Text>
-                            {/* colocar o saldo de verdade do usuário logado */}
                             <Text style={{ margin: 6 }}>
-                                R$ {saldo}
+                                R$ {user.conta.saldo}
                             </Text>
                     </View>
 
