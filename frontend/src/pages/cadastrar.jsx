@@ -5,6 +5,7 @@ import { useState } from 'react'
 import Swal from 'sweetalert2'
 import Input from '../components/input'
 import axios from 'axios'
+import { ip } from "./login";
 
 function Cadastrar() {
 
@@ -76,10 +77,10 @@ function Cadastrar() {
 
         try {
             console.log("tentou cadastrar")
-            const retornoRequisicaoCadastro = await axios.post('http://10.109.72.4:8000/auth/users/', infoDoCadastro);
+            const retornoRequisicaoCadastro = await axios.post(`http://${ip}/auth/users/`, infoDoCadastro);
             const idUserCadastrado = retornoRequisicaoCadastro.data.id;
 
-            const retornoRequisicaoCriarConta = await axios.post("http://10.109.72.4:8000/contas/create-conta/", { id: idUserCadastrado });
+            const retornoRequisicaoCriarConta = await axios.post(`http://${ip}/contas/create-conta/`, { id: idUserCadastrado });
             console.log(retornoRequisicaoCriarConta.data);
 
             Swal.fire({
