@@ -147,6 +147,10 @@ class ContaViewSet(viewsets.ModelViewSet):
     queryset = Conta.objects.all()
     serializer_class = ContaSerializer
 
+    def retrieve(self, request, pk=None):
+        user = User.objects.get(pk=pk)
+        return super().retrieve(request, user=user)
+
 
 # CONTATO VIEWSET
 class ContatoViewSet(viewsets.ModelViewSet):

@@ -5,30 +5,57 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { FontAwesome } from '@expo/vector-icons'
 import { useEffect, useState } from "react";
 import BotoesFormaPagamento from "../../components/botoesFormaPagamento";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
+import { useFocusEffect } from "@react-navigation/native";
+
+
+export function useSession(navigation) {
+    const [user, setUser] = useState({
+        nome_cliente: "Carregando...",
+        conta: { 
+            saldo: "Carregando..."
+        }
+    });
+    useFocusEffect(() => {
+        AsyncStorage.getItem("token")
+            .then(token => {
+                if (!token) {
+                    alert('Oops você não está logado!');
+                    return navigation.navigate('Login');
+                }
+
+                axios.get("http://192.168.15.79:8000/auth/users/me/", {
+                    headers: {
+                        "Authorization": `Token ${token}`
+                    }
+                })
+                .then(res => {
+                    axios.get(`http://192.168.15.79:8000/contas/conta/${res.data.id}/`)
+                    .then(resConta => {
+                        setUser({...res.data, conta: {...resConta.data}});
+                    })
+                })
+            })
+    });
+
+    return { user };
+}
 
 export default function Home({ navigation }) {
-    function login() {
+    const { user } = useSession(navigation);
+    async function login() {
+        await AsyncStorage.removeItem("token");
         navigation.navigate('Login')
     }
     function perfil() {
         navigation.navigate('Perfil')
     }
     const [olhoAberto, setOlhoAberto] = useState(false)
-    const saldo = '632,22'
-    const [saldoExibido, setSaldoExibido] = useState(saldo)
 
     const verExtrato = () => {
         navigation.navigate('Extrato')
     }
-
-    useEffect(() => {
-        if (olhoAberto) {
-            setSaldoExibido(saldo)
-        }
-        else {
-            setSaldoExibido('*******')
-        }
-    }, [olhoAberto])
 
     function transacao() {
         navigation.navigate('Transacao')
@@ -91,7 +118,7 @@ export default function Home({ navigation }) {
                             </Pressable>
                             {/* colocar o nome de verdade do usuário logado */}
                             <Text style={{ marginLeft: 30, color: 'white' }}>
-                                Nome do Usuário
+                                {user.nome_cliente}
                             </Text>
                         </View>
                         {/* deslogar e impedir de usar a seta voltar */}
@@ -124,7 +151,7 @@ export default function Home({ navigation }) {
                             </Text>
                             {/* colocar o saldo de verdade do usuário logado */}
                             <Text style={{ margin: 6 }}>
-                                R$ {saldoExibido}
+                                R$ {olhoAberto ? user.conta.saldo : "*******"}
                             </Text>
                         </View>
 

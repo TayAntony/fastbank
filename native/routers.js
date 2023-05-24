@@ -104,6 +104,7 @@ export default function Routers({ navigation }) {
                 <Nav.Screen
                     name="Login"
                     component={Login}
+                    options={{ headerLeft: null }}
                 />
 
                 <Nav.Screen
