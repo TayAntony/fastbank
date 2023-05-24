@@ -5,12 +5,22 @@ import React, { useState } from 'react';
 import BotaoLogin from "../../components/botaoLogin";
 import axios from "axios";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { ip } from "../home";
+import { useEffect } from "react";
 
-// import { FancyAlert } from 'react-native-expo-fancy-alerts';
 
 export default function Login({ navigation }) {
     const [email, setEmail] = useState('')
     const [senha, setSenha] = useState('');
+
+    const [camposValidados, setCamposValidados] = useState(false)
+
+    useEffect(() => {
+    if (email == "" || senha == ""){
+        setCamposValidados(false)
+    }else{
+        setCamposValidados(true)
+    }})
    
     const goCadastro = () => {
         navigation.navigate("Cadastro")
@@ -18,8 +28,8 @@ export default function Login({ navigation }) {
 
     const logar = async () => {
         try {
-            //LEMBRAR DE TROCAR A URL SE FOR RODAR EM OUTRO PC OU SE O IP DO PC ATUAL TROCAR (MUDAR O IP) LEMBRAR DE RODAR O BACKEND COM O IP E A PORTA
-            const response = await axios.post("http://192.168.15.79:8000/auth/token/login",{ email: email, password: senha});
+            //LEMBRAR DE TROCAR A CONST IP QUANDO RODAR NO SEU COMPUTADOR
+            const response = await axios.post(`http://${ip}/auth/token/login`,{ email: email, password: senha});
 
             if (response.status === 200) {
               // Salvar token no AsyncStorage
@@ -28,15 +38,15 @@ export default function Login({ navigation }) {
               navigation.navigate("Home")
             }
         } catch (err) {
-            if (err.response && err.response.status === 401) {
+            if (err.response && err.response.status === 401 || err.response.status === 400) {
                 alert('E-mail ou senha incorretos!')  
             }else{
-                alert('nao foi possível logar')
+                console.log(err.response.data);
+                alert('Não foi possível logar')
             }
         }
     }
     
-
     return (
         <View style={styles.container}>
             <ImageBackground
@@ -84,8 +94,8 @@ export default function Login({ navigation }) {
                         </Text>
 
                         <View style={{display: 'flex', alignItems: 'center', gap: 24, justifyContent: 'space-between'}}>
-                            <Pressable onPress={() => logar()} >
-                                <BotaoLogin texto='Logar' />
+                            <Pressable disabled={!camposValidados} onPress={() => logar()} >
+                                <BotaoLogin texto='Logar' validacao={camposValidados}/>
                             </Pressable>
                             <View style={{display: 'flex',
                                             justifyContent: 'space-between',

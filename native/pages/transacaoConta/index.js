@@ -8,26 +8,28 @@ import { Picker } from '@react-native-picker/picker';
 export default function TransacaoConta() {
     const [listaDestinatarios, setListaDestinatarios] = useState([])
 
-    const [validarCampos, setValidarCampos] = useState(false)
+    const [camposValidados, setCamposValidados] = useState(false)
+
+    const [agencia, setAgencia] = useState(0)
+    const [conta, setConta] = useState(0)
+    const [tipoConta, setTipoConta] = useState();
+
     useEffect(() => {
-        if (agencia != "" && conta != ""){
-            setValidarCampos(true)
+        if (agencia == "" || conta == ""){
+            setCamposValidados(false)
         }else{
-            setValidarCampos(false)
+            setCamposValidados(true)
         }
     }, [agencia, conta])
 
-    const [agencia, setAgencia] = useState()
-    const [conta, setConta] = useState()
-    const [tipoConta, setTipoConta] = useState();
 
-
-
-    // const valorTransferencia = route.params.valor
-    // const nomeDestinatario = route.params.nome
-    // const emailDestinatario = route.params.email
-    // const idTransferencia = route.params.id
-    // const informacoesUsuario = route.params.informacoesUsuario
+    function fazerTransação(){
+        if (agencia == "1111" || conta == "111111"){
+            alert("transação concluída com sucesso")
+        }else{
+            alert("Não existe nenhuma conta com essas credenciais")
+        }
+    }
 
 
     return (
@@ -46,7 +48,7 @@ export default function TransacaoConta() {
                 <Picker.Item label="Conta salário" value="cs" />
             </Picker>
 
-            {/* pesquisar no banco de dados se existe algum usuário os dados bancários a seguir e realizar a transação caso exista*/}
+            {/* pesquisar no banco de dados se existe algum usuário com os dados bancários a seguir e realizar a transação caso exista*/}
 
             <TextInput
                 placeholder="Agência"
@@ -64,8 +66,8 @@ export default function TransacaoConta() {
                 onChangeText={(e) => { setConta(e) }}
                 style={styles.input} />
 
-            <Pressable>
-                <BotaoAvancar texto='Avançar' validacao={validarCampos}/>
+            <Pressable disabled={!camposValidados} onPress={fazerTransação}>
+                <BotaoAvancar texto='Avançar' validacao={camposValidados}/>
             </Pressable>
         </View>
     )

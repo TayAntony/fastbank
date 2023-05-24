@@ -28,11 +28,6 @@ export default function Emprestimo() {
             alert('Seu empréstimo foi solicitado com sucesso!')
 
             //fazer os campos ficarem vazios após o empréstimo ter sido solicitado
-            // setValorEmprestado("")
-            // setMesesPagar("")
-            // setValorParcela("")
-            // setTotalPagarJuros("")
-            // setPorcentagemJuros("")
         }        
     }
 

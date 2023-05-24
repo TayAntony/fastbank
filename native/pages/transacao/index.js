@@ -10,6 +10,8 @@ export default function Transacao({navigation}) {
     const [listaDestinatarios, setListaDestinatarios] = useState([])
     const [camposValidados, setCamposValidados] = useState(false)
     const [modalVisivel, setModalVisivel] = useState(false)
+
+    const [chaveTransferencia, setChaveTransferencia] = useState('')
     
 
     const abrirModalPagamento = () => {
@@ -25,9 +27,7 @@ export default function Transacao({navigation}) {
         }else{
             setCamposValidados(true)
         }
-    }, [chaveTransferencia])
-
-    const [chaveTransferencia, setChaveTransferencia] = useState('')
+    })
 
 
     const modalPagamento = ({isVisible, onClose}) => {
@@ -37,6 +37,10 @@ export default function Transacao({navigation}) {
             alert('valor do pagamento', valorPagamento);
             fechar();
         }
+    }
+
+    function transferir (){
+        alert("tentando transferir")
     }
 
     
@@ -111,7 +115,7 @@ export default function Transacao({navigation}) {
                 </Text>
             </Pressable>
 
-            <Pressable onPress={abrirModalPagamento}>
+            <Pressable disabled={!camposValidados} onPress={abrirModalPagamento}>
                 <BotaoAvancar texto='Avançar' validacao={camposValidados} />
             </Pressable>
         </View> 
