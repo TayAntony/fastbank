@@ -9,14 +9,24 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import { useFocusEffect } from "@react-navigation/native";
 
+export const ip = "10.109.72.4:8000"
 
 export function useSession(navigation) {
     const [user, setUser] = useState({
         nome_cliente: "Carregando...",
         conta: { 
-            saldo: "Carregando..."
-        }
+            saldo: "Carregando...",
+            numero_conta: "Carregando...",
+            digito: "Carregando...",
+            agencia: "Carregando...",
+        },
+        email: "Carregando...",
+        cpf_cnpj: "Carregando...",
+        data_nascimento_criacao: "Carregando...",
+        foto: "Carregando..."
+
     });
+
     useFocusEffect(() => {
         AsyncStorage.getItem("token")
             .then(token => {
@@ -25,13 +35,13 @@ export function useSession(navigation) {
                     return navigation.navigate('Login');
                 }
 
-                axios.get("http://192.168.15.79:8000/auth/users/me/", {
+                axios.get(`http://${ip}/auth/users/me/`, {
                     headers: {
                         "Authorization": `Token ${token}`
                     }
                 })
                 .then(res => {
-                    axios.get(`http://192.168.15.79:8000/contas/conta/${res.data.id}/`)
+                    axios.get(`http://${ip}/contas/conta/${res.data.id}/`)
                     .then(resConta => {
                         setUser({...res.data, conta: {...resConta.data}});
                     })
@@ -116,12 +126,11 @@ export default function Home({ navigation }) {
                             <Pressable onPress={perfil}>
                                 <FontAwesome name={'user-circle-o'} size={40} color={'#fff'} />
                             </Pressable>
-                            {/* colocar o nome de verdade do usuário logado */}
                             <Text style={{ marginLeft: 30, color: 'white' }}>
-                                {user.nome_cliente}
+                                {user.nome_cliente.toUpperCase()}
                             </Text>
                         </View>
-                        {/* deslogar e impedir de usar a seta voltar */}
+        
                         <View style={styles.icon}>
                             <Pressable onPress={login}>
                                 <FontAwesome name={'sign-out'} size={30} color={'#fff'} />
@@ -149,7 +158,6 @@ export default function Home({ navigation }) {
                             <Text style={{ margin: 6 }}>
                                 Saldo em conta
                             </Text>
-                            {/* colocar o saldo de verdade do usuário logado */}
                             <Text style={{ margin: 6 }}>
                                 R$ {olhoAberto ? user.conta.saldo : "*******"}
                             </Text>
