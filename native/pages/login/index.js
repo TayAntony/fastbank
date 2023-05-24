@@ -17,25 +17,23 @@ export default function Login({ navigation }) {
     }
 
     const logar = async () => {
-        //LEMBRAR DE TROCAR A URL SE FOR RODAR EM OUTRO PC OU SE O IP DO PC ATUAL TROCAR (MUDAR O IP) LEMBRAR DE RODAR O BACKEND COM O IP E A PORTA
-        axios.post("http://10.109.72.4:8000/auth/jwt/create",{ email: email, password: senha})
-        .then((response) => {
-            
-            console.log(response)
+        try {
+            //LEMBRAR DE TROCAR A URL SE FOR RODAR EM OUTRO PC OU SE O IP DO PC ATUAL TROCAR (MUDAR O IP) LEMBRAR DE RODAR O BACKEND COM O IP E A PORTA
+            const response = await axios.post("http://192.168.15.79:8000/auth/token/login",{ email: email, password: senha});
+
             if (response.status === 200) {
               // Salvar token no AsyncStorage
-              AsyncStorage.setItem("token", response.data.access);
+              await AsyncStorage.setItem("token", response.data.auth_token);
               // Redirecionar para a página Home
               navigation.navigate("Home")
             }
-        })
-        .catch (err => {
-            if (err.response.status === 401) {
+        } catch (err) {
+            if (err.response && err.response.status === 401) {
                 alert('E-mail ou senha incorretos!')  
             }else{
                 alert('nao foi possível logar')
             }
-        })  
+        }
     }
     
 
@@ -86,7 +84,7 @@ export default function Login({ navigation }) {
                         </Text>
 
                         <View style={{display: 'flex', alignItems: 'center', gap: 24, justifyContent: 'space-between'}}>
-                            <Pressable onPress={() => logar(email,senha)} >
+                            <Pressable onPress={() => logar()} >
                                 <BotaoLogin texto='Logar' />
                             </Pressable>
                             <View style={{display: 'flex',

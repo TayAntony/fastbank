@@ -54,6 +54,7 @@ class ContaSerializer(serializers.ModelSerializer):
             "saldo",
             "data_criacao",
             "conta_ativa",
+            "user",
         ]
 
 
