@@ -55,16 +55,16 @@ export default function Cadastro({ navigation }) {
         }
 
         try {
-            const retornoRequisicaoCadastro = await axios.post('http://127.0.0.1:8000/auth/users/', infoDoCadastro);
+            const retornoRequisicaoCadastro = await axios.post(`http://${ip}/auth/users/`, infoDoCadastro);
             const idUserCadastrado = retornoRequisicaoCadastro.data.id;
 
-            const retornoRequisicaoCriarConta = await axios.post("http://127.0.0.1:8000/contas/create-conta/", { id: idUserCadastrado });
+            const retornoRequisicaoCriarConta = await axios.post(`http://${ip}/contas/create-conta/`, { id: idUserCadastrado });
 
             alert("Você foi cadastrado com sucesso e sua conta do banco criada. Aproveite!")
             navigation.navigate("Login");
         } catch (error) {
             if (error.response.status === 404) {
-                alert("Esse e-mail já pertence a um usuário...")
+                alert("Esse E-mail já pertence a um usuário...")
             } else {
                 alert("Não foi possível realizar o cadastro!")
             }
