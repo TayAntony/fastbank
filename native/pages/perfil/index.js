@@ -1,11 +1,38 @@
 import { View, Text,Pressable} from "react-native";
 import styles from './styles'
 import { FontAwesome } from '@expo/vector-icons'
+import { useSession } from "../home";
+import ImagePicker from 'react-native-image-picker';
+import React, { useState } from 'react';
 
-export default function Perfil() {
-    function editarFoto(){
-        alert("Editar")
-    }
+
+export default function Perfil(navigation) {
+    const { user } = useSession(navigation);
+
+    const [imagemPerfil, setImagemPerfil] = useState(null);
+
+    //arrumar a função de escolher imagem
+
+    const escolherImagemPerfil = () => {
+        const options = {
+            mediaType: 'photo',
+            maxWidth: 200,
+            maxHeight: 200,
+            quality: 1,
+          };
+      
+        ImagePicker.launchImageLibrary(options, (response) => {
+            if (response.didCancel) {
+                console.log('Seleção de foto cancelada');
+            } else if (response.error) {
+                console.log('Erro: ', response.error);
+            } else {
+                const source = { uri: response.uri };
+                setImagemPerfil(source);
+            }
+        });
+    };
+
     return ( 
     <View style={styles.container}>
         <Text style={{ fontWeight: 600, fontSize: 24, color: 'black', position: 'absolute', top: 80, left: "40%" }}>
@@ -17,26 +44,29 @@ export default function Perfil() {
                 <Text style={{ fontWeight: 300, fontSize: 20, color: '#505050' }}>
                     Conta
                 </Text> 
-                {/* colocar a conta de verdade do usuário logado */}
                 <Text>
-                    1234-5
+                    {user.conta.numero_conta}-{user.conta.digito}
                 </Text>
             </View>
+
             <View>
                 <Text style={{ fontWeight: 300, fontSize: 20, color: '#505050'  }}>
                     Agência
                 </Text>
-                {/* colocar a agencia de verdade do usuário logado */}
                 <Text>
-                    1234
+                    {user.conta.agencia}
                 </Text>
             </View>
         </View>
 
+        {/* MUDAR FOTO DE PERFIL */}
         <View style={{backgroundColor: 'grey', borderRadius:100, width: 200, height: 200, position: 'absolute', top: '35%', left: "25%"}}>
-        <Pressable style={{alignItems: 'center', top: '80%', left: '40%'}} onPress={editarFoto}>
-            <FontAwesome name="pencil" size={40} color={'#000'}/>
-        </Pressable>
+            {imagemPerfil && (
+                <Image source={imagemPerfil} style={{width: 200, height: 200, borderRadius:100 }}/>
+            )}
+            <Pressable style={{alignItems: 'center', top: '80%', left: '40%'}} onPress={escolherImagemPerfil}>
+                <FontAwesome name="pencil" size={40} color={'#000'}/>
+            </Pressable>
         </View>
 
         <View style={{display: 'flex', flexDirection: 'column', justifyContent: 'space-around', top: "60%", gap: 24, left: '16%'}}>
@@ -44,27 +74,28 @@ export default function Perfil() {
                 <Text style={{ fontWeight: 300, fontSize: 20, color: '#505050' }}>
                     E-mail
                 </Text>
-                {/* colocar o email de verdade do usuário logado */}
+                
                 <Text>
-                    tayssaantoniasse123@gmail.com
+                    {user.email}
                 </Text>
+
             </View>
             <View style={{display: 'flex', flexDirection: 'column', }}>
                 <Text style={{ fontWeight: 300, fontSize: 20, color: '#505050' }}>
                     Data de nascimento
                 </Text>
-                {/* colocar a data de nascimento de verdade do usuário logado */}
+                
                 <Text>
-                    02/12/2003
+                    {user.data_nascimento_criacao}
                 </Text>
             </View>
             <View style={{display: 'flex', flexDirection: 'column', }}>
                 <Text style={{ fontWeight: 300, fontSize: 20, color: '#505050' }}>
                     CPF
                 </Text>
-                {/* colocar o CPF de verdade do usuário logado */}
+                
                 <Text>
-                    123.123.123-12
+                    {user.cpf_cnpj}
                 </Text>
             </View>
         </View>
