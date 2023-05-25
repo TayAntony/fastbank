@@ -1,6 +1,7 @@
 {
   "expo": {
     "name": "Fastbank",
+    "jsEngine": "hermes",
     "slug": "fastbank",
     "version": "1.0.0",
     "orientation": "portrait",

@@ -1,38 +1,28 @@
 import BotaoLogin from "../../components/botaoLogin";
 import axios from "axios";
-// import { FancyAlert } from 'react-native-expo-fancy-alerts';
 import { View, ImageBackground, TextInput, Pressable } from "react-native";
 import styles from './styles'
 import { useState } from "react";
-import { MaterialCommunityIcons } from "react-native-vector-icons/MaterialCommunityIcons";
-import DatePicker from 'react-native-datepicker';
+import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
+import { useEffect } from "react";
+import {ip} from '../home'
 
 export default function Cadastro({ navigation }) {
-    const dataAtual = new Date();
-
     const [nome, setNome] = useState('');
-    const [username, setUsername] = useState('');
     const [email, setEmail] = useState('')
     const [senha, setSenha] = useState('');
     const [cpf, setCpf] = useState('');
     const [dataNascimento, setDataNascimento] = useState('');
     const [cep, setCep] = useState('');
 
-    const handleNome = (text) => {
-        setNome(text)
-    }
-    // FAZER LÓGICA QUE SEMPRE DESLOGA DO BANCO QUANDO SE FECHA O APP (USAR TOKEN?)
+    const [camposValidados, setCamposValidados] = useState(false)
 
-    const cadastrar = async () => {
-        if (senha.length < 8) {
-            alert('A senha deve ser maior que 8 dígitos')
-            return
-        }
-        else if (!email.includes("@") || !email.includes(".com")) {
-            alert('O e-mail é inválido')
-            return
-        }
-    }
+    useEffect(() => {
+    if (email == "" || senha == "" || cpf == "" || dataNascimento == "" || cep == "" || nome == ""){
+        setCamposValidados(false)
+    }else{
+        setCamposValidados(true)
+    }})
 
     const btnCadastro = async () => {
         const infoDoCadastro = { nome_cliente: nome, cpf_cnpj: cpf, email: email, data_nascimento_criacao: dataNascimento, password: senha, cep: cep }
@@ -43,7 +33,7 @@ export default function Cadastro({ navigation }) {
         else if (!email.includes("@") || !email.includes(".com")) {
             alert('O e-mail é inválido')
             return
-        } else if (cpf.length != 8) {
+        } else if (cpf.length != 11) {
             alert('O CPF é inválido')
             return
         } else if (cep.length != 8) {
@@ -55,15 +45,18 @@ export default function Cadastro({ navigation }) {
         }
 
         try {
-            const retornoRequisicaoCadastro = await axios.post(`http://${ip}/auth/users/`, infoDoCadastro);
+            const retornoRequisicaoCadastro = await axios.post(`http://${ip}/auth/users/`, infoDoCadastro)
+
             const idUserCadastrado = retornoRequisicaoCadastro.data.id;
 
             const retornoRequisicaoCriarConta = await axios.post(`http://${ip}/contas/create-conta/`, { id: idUserCadastrado });
+            console.log(retornoRequisicaoCriarConta)
 
             alert("Você foi cadastrado com sucesso e sua conta do banco criada. Aproveite!")
             navigation.navigate("Login");
+            
         } catch (error) {
-            if (error.response.status === 404) {
+            if (error.response.status === 401) {
                 alert("Esse E-mail já pertence a um usuário...")
             } else {
                 alert("Não foi possível realizar o cadastro!")
@@ -87,11 +80,12 @@ export default function Cadastro({ navigation }) {
                         <TextInput
                             style={styles.input}
                             placeholder="Digite seu nome completo"
+                            placeholderTextColor="gray"
                             KeyboardType='text'
                             value={nome}
                             onChangeText={(e) => { setNome(e) }}
                         />
-                        <MaterialCommunityIcons name={'user'} size={15} color={'#fff'} style={styles.icone} />
+                        <MaterialCommunityIcons name={'account'} size={15} color={'#fff'} style={styles.icone} />
                     </View>
 
                     {/* INPUT DIGITAR EMAIL */}
@@ -99,6 +93,7 @@ export default function Cadastro({ navigation }) {
                         <TextInput
                             style={styles.input}
                             placeholder="Digite seu E-mail"
+                            placeholderTextColor="gray"
                             KeyboardType='email'
                             value={email}
                             onChangeText={(e) => { setEmail(e) }}
@@ -111,40 +106,40 @@ export default function Cadastro({ navigation }) {
                         <TextInput
                             style={styles.input}
                             placeholder="Digite seu CPF"
+                            placeholderTextColor="gray"
                             KeyboardType='number'
                             value={cpf}
                             onChangeText={(e) => { setCpf(e) }}
                         />
-                        <MaterialCommunityIcons name={'email'} size={15} color={'#fff'} style={styles.icone} />
+                        <MaterialCommunityIcons name={'numeric'} size={15} color={'#fff'} style={styles.icone} />
                     </View>
 
                     {/* INPUT DIGITAR DATA DE NASCIMENTO */}
                     <View style={styles.iconeInput}>
-                        <DatePicker
+                        <TextInput
                             style={styles.input}
-                            date={dataNascimento}
-                            mode="date"
-                            placeholder="Selecione sua data de nascimento"
-                            // MUDAR O FORMATO DA DATA DE ACORDO COM O BANCO
-                            format="DD-MM-YYYY"
-                            minDate="01-01-1950"
-                            maxDate={dataAtual.toISOString().split("T"[0])}
-                            confirmBtnText="Confirmar"
-                            cancelBtnText="Cancelar"
+                            placeholder="DD-MM-AAAA"
+                            placeholderTextColor="gray"
+                            
+                            value={dataNascimento}
+                            onChangeText={(e) => { setDataNascimento(e) }}
                         />
-                        <MaterialCommunityIcons name={'calendar'} size={15} color={'#fff'} style={styles.icone} />
+                        <MaterialCommunityIcons name={'calendar-blank'} size={15} color={'#fff'} style={styles.icone} />
+                        
                     </View>
+
 
                     {/* INPUT DIGITAR CEP */}
                     <View style={styles.iconeInput}>
                         <TextInput
                             style={styles.input}
                             placeholder="Digite seu CEP"
+                            placeholderTextColor="gray"
                             KeyboardType='number'
                             value={cep}
                             onChangeText={(e) => { setCep(e) }}
                         />
-                        <MaterialCommunityIcons name={'email'} size={15} color={'#fff'} style={styles.icone} />
+                        <MaterialCommunityIcons name={'home'} size={15} color={'#fff'} style={styles.icone} />
                     </View>
 
                     {/* INPUT DIGITAR SENHA */}
@@ -152,6 +147,7 @@ export default function Cadastro({ navigation }) {
                         <View style={styles.iconeInput}>
                             <TextInput secureTextEntry={true}
                                 style={styles.input} placeholder="Digite sua senha"
+                                placeholderTextColor="gray"
                                 value={senha}
                                 onChange={(e) => { setSenha(e) }}
                                 onChangeText={(e) => { setSenha(e) }}
@@ -160,8 +156,8 @@ export default function Cadastro({ navigation }) {
                         </View>
                     </View>
 
-                    <Pressable onPress={() => cadastrar(username, senha, email)} style={styles.botao} >
-                        <BotaoLogin texto="Cadastrar" onPress={() => btnCadastro(nome, email, senha)} />
+                    <Pressable onPress={() => btnCadastro()} disabled={!camposValidados}>
+                        <BotaoLogin texto="Cadastrar" validacao={camposValidados} />
                     </Pressable>
                 </View>
             </View>

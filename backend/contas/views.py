@@ -134,6 +134,7 @@ def movimentacao(request: Request):
         )
 
 
+
 # CLIENTE VIEWSET
 class ClienteViewSet(viewsets.ModelViewSet):
     # permission_classes = (IsAuthenticated, )

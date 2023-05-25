@@ -1,123 +1,106 @@
 import { View, Text, Pressable } from "react-native";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { TextInput } from "react-native-gesture-handler";
 import BotaoAvancar from "../../components/botaoAvancar";
 import styles from './styles'
-import { useEffect } from "react";
-import { BottomSheet } from "react-native-bottom-sheet";
+import BotaoPagar from "../../components/botaoPagar";
+import { useSession } from "../home";
 
-export default function Transacao({navigation}) {
-    const [listaDestinatarios, setListaDestinatarios] = useState([])
+export default function TransacaoConta(navigation) {
+    const { user } = useSession(navigation);
+
     const [camposValidados, setCamposValidados] = useState(false)
-    const [modalVisivel, setModalVisivel] = useState(false)
+    const [campoPagamentoValidado, setCampoPagamentoValidado] = useState(false)
 
-    const [chaveTransferencia, setChaveTransferencia] = useState('')
-    
+    const [sessaoInfosConta, setSessaoInfosConta] = useState(true)
+    const [sessaoPagamento, setSessaoPagamento] = useState(false)
 
-    const abrirModalPagamento = () => {
-        setModalVisivel(true)
-    }
-    const fecharModelPagamento = () => {
-        setModalVisivel(false)
-    }
+    const [agencia, setAgencia] = useState(0)
+    const [conta, setConta] = useState(0)
+    const [valorTranferencia, setValorTransferencia] = useState(0)
 
     useEffect(() => {
-        if (chaveTransferencia == ""){
+        if (agencia == "" || conta == ""){
             setCamposValidados(false)
         }else{
             setCamposValidados(true)
         }
-    })
+    }, [agencia, conta])
+
+    useEffect(() => {
+        if (valorTranferencia == ""){
+            setCampoPagamentoValidado(false)
+        }else{
+            setCampoPagamentoValidado(true)
+        }
+    }, [valorTranferencia])
 
 
-    const modalPagamento = ({isVisible, onClose}) => {
-        const [valorPagamento, setValorPagamento] = useState('')
-
-        const processarPagamento = ()=> {
-            alert('valor do pagamento', valorPagamento);
-            fechar();
+    function verificarConta(){
+        // CRIAR LÓGICA PARA PESQUISAR NO BANCO DE DADOS SE EXISTE UM USUÁRIO COM ESSA AGENCIA E CONTA
+        if (agencia != "1111" || conta != "111111"){
+            alert("Não existe nenhuma conta com essas credenciais")
+        }else{
+            setSessaoPagamento(true)
+            setSessaoInfosConta(false)
+            // validar o pagamento e alterar os valores nas contas
+            if(valorTranferencia > user.conta.saldo){
+                alert("Pagamento não efetuado! Saldo insuficiente")
+            } else{
+                alert("Pagamento efetuado com sucesso!")
+            }
         }
     }
 
-    function transferir (){
-        alert("tentando transferir")
-    }
 
-    
-    function transacaoConta(){
-        navigation.navigate('Transacao Conta')
-    }
-    
-    
-    return(
+    return (
         <View style={styles.container}>
-
-            {/* CONSERTAR O MODEL PARA DIGITAR O VALOR DO PAGAMENTO */}
-            {/* <BottomSheet
-                isVisible={isVisible}
-                onClose={onClose}
-            >
-                <View>
-                    <Text style={{ fontWeight: 600, fontSize: 24, color: 'black', position: 'absolute', top: 80 }}>
-                        Digite o valor do pagamento
-                    </Text>
-                    <TextInput
-                        placeholder="R$ "
-                        placeholderTextColor="black"
-                        KeyboardType='text'
-                        value={valorPagamento}
-                        onChangeText={(e) => setValorPagamento(e)}
-                        style={{backgroundColor: '#E9FFF2',
-                         padding: 12,
-                         width: '80%',
-                         marginTop:24,
-                         borderBottomLeftRadius: 0,
-                         borderBottomRightRadius: 0,
-                         borderWidth: 2,
-                         borderColor: '#E9FFF2',
-                         borderBottomColor: 'black',
-                         borderStyle: "solid", 
-                         }}/>
-                         <Text>
-                            Saldo dispoível: R$ 
-                         </Text>
-                         <Pressable onPress={fecharModelPagamento}>
-                             <BotaoAvancar texto="Confirmar valor"/>
-                         </Pressable>
-                </View>
-            </BottomSheet> */}
-
-            
             <Text style={{ fontWeight: 600, fontSize: 24, color: 'black', position: 'absolute', top: 80 }}>
-                Transação
+                Dados bancários
             </Text>
-             {/* pesquisar no banco de dados se existe algum usuário com aquela chave de transferência, descontar do saldo se existir e aumentar o saldo do outro usuário */}
-            <TextInput
-                 placeholder="CPF ou e-mail"
-                 placeholderTextColor="black"
-                 KeyboardType='text'
-                 value={chaveTransferencia}
-                 onChangeText={(e) => {setChaveTransferencia(e)}}
-                 style={{backgroundColor: '#E6E6E6',
-                         padding: 12,
-                         width: '80%',
-                         marginTop:24,
-                         borderBottomLeftRadius: 0,
-                         borderBottomRightRadius: 0,
-                         borderWidth: 2,
-                         borderColor: '#E6E6E6',
-                         borderBottomColor: 'black',
-                         borderStyle: "solid", 
-                         }}/>
-            <Pressable onPress={transacaoConta}>
-                <Text style={{color:'#949494', fontSize: 12, }}>
-                    Não tem chave? Use os dados de agência e conta.
-                </Text>
-            </Pressable>
 
-            <Pressable disabled={!camposValidados} onPress={abrirModalPagamento}>
-                <BotaoAvancar texto='Avançar' validacao={camposValidados} />
-            </Pressable>
-        </View> 
+            {/* pesquisar no banco de dados se existe algum usuário com os dados bancários a seguir e realizar a transação caso exista*/}
+            {sessaoInfosConta && (
+                <View>
+                    <TextInput
+                        placeholder="Agência"
+                        placeholderTextColor="black"
+                        KeyboardType='number'
+                        value={agencia}
+                        onChangeText={(e) => { setAgencia(e) }}
+                        style={styles.input} />
+                    <TextInput
+                        placeholder="Conta com dígito"
+                        placeholderTextColor="black"
+                        KeyboardType='number'
+                        value={conta}
+                        onChangeText={(e) => { setConta(e) }}
+                        style={styles.input} />
+                    <Pressable disabled={!camposValidados} onPress={verificarConta}>
+                        <BotaoAvancar texto='Avançar' validacao={camposValidados}/>
+                    </Pressable>
+                </View>
+            )}
+            
+            {sessaoPagamento && (
+                <View style>
+                    {/* COLOCAR O NOME DO USUÁRIO DA CONTA DESTINATÁRIA */}
+                    <Text>Transferir para: {conta}</Text>
+                    <View style={{display: 'flex', flexDirection: "row", justifyContent: 'space-around', alignItems: 'center',}}>
+                        <TextInput
+                            placeholder="Valor da transferência"
+                            placeholderTextColor="black"
+                            KeyboardType='number'
+                            value={valorTranferencia}
+                            onChangeText={(e) => { setValorTransferencia(e) }}
+                            style={styles.input} />
+
+                        <Pressable disabled={!campoPagamentoValidado} style={{ margin: 24}}>
+                            <BotaoPagar validacao={campoPagamentoValidado} icone={"paper-plane"}/>
+                        </Pressable>
+                    </View>
+                </View>
+            )}
+        </View>
     )
 }

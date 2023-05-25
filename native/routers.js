@@ -12,7 +12,6 @@ import Notificacoes from "./pages/notificacoes";
 import Perfil from "./pages/perfil";
 import Transacao from "./pages/transacao";
 import Extrato from "./pages/extrato";
-import TransacaoConta from "./pages/transacaoConta";
 import Emprestimo from "./pages/emprestimo";
 import Cartao from "./pages/cartao";
 import Cadastro from "./pages/cadastro";
@@ -115,11 +114,6 @@ export default function Routers({ navigation }) {
                 <Nav.Screen
                     name="Extrato"
                     component={Extrato}
-                    options={{title: false, headerTransparent: true, headerTintColor: 'black'}}
-                />
-                <Nav.Screen
-                    name="Transacao Conta"
-                    component={TransacaoConta}
                     options={{title: false, headerTransparent: true, headerTintColor: 'black'}}
                 />
                 <Nav.Screen

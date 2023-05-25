@@ -44,12 +44,13 @@ const styles = StyleSheet.create({
         minWidth: 300,
         maxWidth: 300,
         margin: 40,
-        flex: 0.7,
+        flex: 0.9,
         borderColor: 'white',
         borderStyle: "solid", 
         borderWidth: 1,
         borderRadius: 20,
         backgroundColor: 'black',
+        height: 700
     },
 
     link:{

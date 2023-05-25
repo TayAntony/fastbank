@@ -5,7 +5,12 @@ from django.contrib.auth.models import AbstractUser
 from django.utils.translation import gettext_lazy as _
 from .managers import ClienteManager
 from django.utils import timezone
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+import random
+import string
 
+# 10.109.72.4:8000 IP SENAI
 
 class User(AbstractUser):
     ACRE = "AC"
@@ -66,6 +71,7 @@ class User(AbstractUser):
         (DISTRITO_FEDERAL, "Distrito Federal"),
     ]
 
+
     rua = models.CharField(max_length=100, blank=True, null=True)
     numero = models.IntegerField(blank=True, null=True)
     bairro = models.CharField(max_length=100, blank=True, null=True)
@@ -84,7 +90,7 @@ class User(AbstractUser):
     date_joined = models.DateTimeField(default=timezone.now)
 
     nome_cliente = models.CharField(max_length=100)
-    cpf_cnpj = models.CharField(max_length=20, unique=True)
+    cpf_cnpj = models.CharField(max_length=11, unique=True)
     data_nascimento_criacao = models.DateField()
     foto = models.ImageField(upload_to="foto_perfil", blank=True, null=True)
 
@@ -118,6 +124,7 @@ class Contatos(models.Model):
 
 
 class Conta(models.Model):
+    SALDO_ALEATORIO = random.randint(1000, 5000)
     CONTA_CORRENTE = "CC"
     CONTA_SALARIO = "CS"
     CONTA_POUPANCA = "CP"
@@ -128,6 +135,8 @@ class Conta(models.Model):
         (CONTA_POUPANCA, "Conta Poupança"),
     ]
 
+    SALDO_ALEATORIO = random.randint(1000, 5000)
+
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     tipo_conta = models.CharField(
         max_length=2, choices=TIPO_CONTA, default=CONTA_CORRENTE
@@ -135,7 +144,7 @@ class Conta(models.Model):
     numero_conta = models.IntegerField()
     agencia = models.IntegerField()
     digito = models.IntegerField()
-    saldo = models.IntegerField(default=1200)
+    saldo = models.IntegerField(default=(SALDO_ALEATORIO))
     data_criacao = models.DateField(auto_now=True)
     conta_ativa = models.BooleanField(default=True)
 

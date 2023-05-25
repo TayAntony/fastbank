@@ -23,7 +23,8 @@ export function useSession(navigation) {
         email: "Carregando...",
         cpf_cnpj: "Carregando...",
         data_nascimento_criacao: "Carregando...",
-        foto: "Carregando..."
+        foto: "Carregando...",
+        chaveTransferencia: "Carregando..."
 
     });
 
@@ -126,7 +127,7 @@ export default function Home({ navigation }) {
                             <Pressable onPress={perfil}>
                                 <FontAwesome name={'user-circle-o'} size={40} color={'#fff'} />
                             </Pressable>
-                            <Text style={{ marginLeft: 30, color: 'white' }}>
+                            <Text style={{ marginLeft: 10, color: 'white' }}>
                                 {user.nome_cliente.toUpperCase()}
                             </Text>
                         </View>
@@ -159,6 +160,7 @@ export default function Home({ navigation }) {
                                 Saldo em conta
                             </Text>
                             <Text style={{ margin: 6 }}>
+                                {/* COLOCAR toFixed NO SALDO */}
                                 R$ {olhoAberto ? user.conta.saldo : "*******"}
                             </Text>
                         </View>

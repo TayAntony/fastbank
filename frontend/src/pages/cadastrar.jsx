@@ -25,6 +25,7 @@ function Cadastrar() {
     const cadastrar = async (evt) => {
         evt.preventDefault();
         const infoDoCadastro = {nome_cliente: nome, cpf_cnpj:cpf, email: email, data_nascimento_criacao: dataNascimento, password: senha, cep: cep  } 
+
         if(senha.length < 8){
             Swal.fire({
                 icon: 'warning',
@@ -81,6 +82,7 @@ function Cadastrar() {
             const idUserCadastrado = retornoRequisicaoCadastro.data.id;
 
             const retornoRequisicaoCriarConta = await axios.post(`http://${ip}/contas/create-conta/`, { id: idUserCadastrado });
+
             console.log(retornoRequisicaoCriarConta.data);
 
             Swal.fire({

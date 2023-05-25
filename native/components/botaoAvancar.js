@@ -5,7 +5,6 @@ export default function BotaoAvancar(props) {
     return (
         
         <View style={{
-            opacity: 1,
             height: 60,
             width: 240,
             marginTop: 20,
