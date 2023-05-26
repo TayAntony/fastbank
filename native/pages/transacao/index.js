@@ -8,6 +8,7 @@ import { useSession } from "../home";
 
 export default function TransacaoConta(navigation) {
     const { user } = useSession(navigation);
+    const [nomeRecebedor, setNomeRecebedor] = useState("")
 
     const [camposValidados, setCamposValidados] = useState(false)
     const [campoPagamentoValidado, setCampoPagamentoValidado] = useState(false)
@@ -38,18 +39,9 @@ export default function TransacaoConta(navigation) {
 
     function verificarConta(){
         // CRIAR LÓGICA PARA PESQUISAR NO BANCO DE DADOS SE EXISTE UM USUÁRIO COM ESSA AGENCIA E CONTA
-        if (agencia != "1111" || conta != "111111"){
-            alert("Não existe nenhuma conta com essas credenciais")
-        }else{
-            setSessaoPagamento(true)
-            setSessaoInfosConta(false)
-            // validar o pagamento e alterar os valores nas contas
-            if(valorTranferencia > user.conta.saldo){
-                alert("Pagamento não efetuado! Saldo insuficiente")
-            } else{
-                alert("Pagamento efetuado com sucesso!")
-            }
-        }
+        axios.get(`https://${ip}/contas/info-conta/?agencia=${agencia}&numero_conta=${conta}`)
+        //erros e acertos
+        
     }
 
 
@@ -85,7 +77,7 @@ export default function TransacaoConta(navigation) {
             {sessaoPagamento && (
                 <View style>
                     {/* COLOCAR O NOME DO USUÁRIO DA CONTA DESTINATÁRIA */}
-                    <Text>Transferir para: {conta}</Text>
+                    <Text>Transferir para: {nomeRecebedor}</Text>
                     <View style={{display: 'flex', flexDirection: "row", justifyContent: 'space-around', alignItems: 'center',}}>
                         <TextInput
                             placeholder="Valor da transferência"

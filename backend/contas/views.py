@@ -90,6 +90,29 @@ def criar_cartao(request: Request):
             status=status.HTTP_500_INTERNAL_SERVER_ERROR,
         )
 
+@api_view(["GET"])
+def info_conta(request: Request):
+    agencia = request.query_params.get("agencia")
+    numero_conta = request.query_params.get("numero_conta")
+    
+
+    if agencia == None or numero_conta == None:
+        return Response(
+            {"erro" : "Precisa-se de dois parâmetros: agencia e conta"}, status=status.HTTP_400_BAD_REQUEST
+        )
+    
+    try:
+        conta = Conta.objects.get(numero_conta=numero_conta, agencia=agencia)
+        return Response(
+            {"nome" : conta.user.nome_cliente}, status=status.HTTP_200_OK
+        )
+        
+    except Conta.DoesNotExist:
+        return Response(
+            {"erro": "Conta que você está tentando enviar não existe"},
+            status=status.HTTP_404_NOT_FOUND,
+        )
+
 
 @api_view(["POST"])
 def movimentacao(request: Request):
@@ -132,8 +155,7 @@ def movimentacao(request: Request):
             {"erro": "Conta que você está tentando enviar não existe"},
             status=status.HTTP_404_NOT_FOUND,
         )
-
-
+    
 
 # CLIENTE VIEWSET
 class ClienteViewSet(viewsets.ModelViewSet):

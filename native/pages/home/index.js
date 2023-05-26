@@ -9,7 +9,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import { useFocusEffect } from "@react-navigation/native";
 
-export const ip = "10.109.72.4:8000"
+export const ip = "127.0.0.1:5173"
 
 export function useSession(navigation) {
     const [user, setUser] = useState({
