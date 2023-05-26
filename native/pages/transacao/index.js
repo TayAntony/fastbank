@@ -4,7 +4,8 @@ import { TextInput } from "react-native-gesture-handler";
 import BotaoAvancar from "../../components/botaoAvancar";
 import styles from './styles'
 import BotaoPagar from "../../components/botaoPagar";
-import { useSession } from "../home";
+import { useSession, ip } from "../home";
+import axios from 'axios';
 
 export default function TransacaoConta(navigation) {
     const { user } = useSession(navigation);
@@ -37,11 +38,40 @@ export default function TransacaoConta(navigation) {
     }, [valorTranferencia])
 
 
-    function verificarConta(){
-        // CRIAR LÓGICA PARA PESQUISAR NO BANCO DE DADOS SE EXISTE UM USUÁRIO COM ESSA AGENCIA E CONTA
-        axios.get(`https://${ip}/contas/info-conta/?agencia=${agencia}&numero_conta=${conta}`)
-        //erros e acertos
-        
+    const verificarConta = async ()  => {
+        try{
+            const response = await axios.get(`https://${ip}/contas/info-conta/?agencia=${agencia}&numero_conta=${conta}`)
+
+            if (response.status===200){
+                setSessaoInfosConta(false)
+                setSessaoPagamento(true)
+            }
+        } catch (err){
+            if (err.response && err.response.status === 401 || err.response.status === 404) {
+                alert('Não existe nenhuma conta com essas informações!')  
+            }else{
+                alert('Não foi possível completar a transação!')
+            }
+        }    
+    }
+
+    const transferir = async () => {
+        try {
+            const response = await axios.get(`https://${ip}/contas/movimentacao`)
+
+            if(response.status === 200){
+                alert("Transação realizada com sucesso!")
+            }
+
+        }catch (err){
+            if (err.response.status === 403){
+                alert("Saldo insuficiente!")
+            }else{
+                console.log(err.response.status)
+                //está com erro 405 NOT ALLOWED
+                alert("Não foi possível realizar a transação")
+            }
+        }
     }
 
 
@@ -50,8 +80,6 @@ export default function TransacaoConta(navigation) {
             <Text style={{ fontWeight: 600, fontSize: 24, color: 'black', position: 'absolute', top: 80 }}>
                 Dados bancários
             </Text>
-
-            {/* pesquisar no banco de dados se existe algum usuário com os dados bancários a seguir e realizar a transação caso exista*/}
             {sessaoInfosConta && (
                 <View>
                     <TextInput
@@ -62,7 +90,7 @@ export default function TransacaoConta(navigation) {
                         onChangeText={(e) => { setAgencia(e) }}
                         style={styles.input} />
                     <TextInput
-                        placeholder="Conta com dígito"
+                        placeholder="Número da conta"
                         placeholderTextColor="black"
                         KeyboardType='number'
                         value={conta}
@@ -77,7 +105,7 @@ export default function TransacaoConta(navigation) {
             {sessaoPagamento && (
                 <View style>
                     {/* COLOCAR O NOME DO USUÁRIO DA CONTA DESTINATÁRIA */}
-                    <Text>Transferir para: {nomeRecebedor}</Text>
+                    <Text>Transferir para: {user.conta_recv}</Text>
                     <View style={{display: 'flex', flexDirection: "row", justifyContent: 'space-around', alignItems: 'center',}}>
                         <TextInput
                             placeholder="Valor da transferência"
@@ -87,7 +115,8 @@ export default function TransacaoConta(navigation) {
                             onChangeText={(e) => { setValorTransferencia(e) }}
                             style={styles.input} />
 
-                        <Pressable disabled={!campoPagamentoValidado} style={{ margin: 24}}>
+                        {/* VALIDAR O SALDO PARA REALIZAR A TRANSAÇÃO */}
+                        <Pressable disabled={!campoPagamentoValidado} style={{ margin: 24}} onPress={transferir}>
                             <BotaoPagar validacao={campoPagamentoValidado} icone={"paper-plane"}/>
                         </Pressable>
                     </View>
