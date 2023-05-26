@@ -4,12 +4,12 @@ import { TextInput } from "react-native-gesture-handler";
 import BotaoAvancar from "../../components/botaoAvancar";
 import styles from './styles'
 import { useEffect } from "react";
-// import { FancyAlert } from 'react-native-expo-fancy-alerts';
+import { useSession, ip } from "../home";
 
 
-export default function Emprestimo() {
-    //puxar saldo real do usuario
-    const saldoConta = 1234
+export default function Emprestimo(navigation) {
+    const { user } = useSession(navigation);
+    
     const [camposValidados, setCamposValidados] = useState(false)
 
     const [valorEmprestado, setValorEmprestado] = useState(0)
@@ -17,15 +17,19 @@ export default function Emprestimo() {
     const [valorParcela, setValorParcela] = useState(0)
     const [totalPagarJuros, setTotalPagarJuros] = useState(0)
     const [porcentagemJuros, setPorcentagemJuros] = useState(0)
-    
-    //criar função que desabilita o clique do botao quando ele está com os campos não preenchidos, e arrumar o preenchimento
 
     function solicitarEmprestimo(){
-        if (valorEmprestado > saldoConta*3 ){
+        if (valorEmprestado > user.conta.saldo){
             alert('Sua conta não cumpre os requisitos para solicitar um empréstimo desse porte!')
         }
         else{
             alert('Seu empréstimo foi solicitado com sucesso!')
+            // setMesesPagar("")
+            // setPorcentagemJuros("")
+            // setTotalPagarJuros("")
+            // setValorEmprestado("")
+            //converter o valor do saldo para int, aumentar o valor do saldo da conta e criar o extrato de dinheiro recebido
+            user.conta.saldo += valorEmprestado
 
             //fazer os campos ficarem vazios após o empréstimo ter sido solicitado
         }        
