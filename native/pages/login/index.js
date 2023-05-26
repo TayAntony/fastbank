@@ -13,7 +13,19 @@ export default function Login({ navigation }) {
     const [email, setEmail] = useState('')
     const [senha, setSenha] = useState('');
 
+    const [ senhaIncorreta, setSenhaIncorreta ] = useState(3)
+    const [tempoBloqueio, setTempoBloqueio] = useState(0); 
+    const [tempoDecorrido, setTempoDecorrido] = useState(0);
+
     const [camposValidados, setCamposValidados] = useState(false)
+
+    useEffect(() => {
+        // Verificar se o tempo decorrido atingiu o tempo de bloqueio
+        if (tempoDecorrido >= tempoBloqueio) {
+            setSenhaIncorreta(0); 
+            setTempoDecorrido(0);
+        }
+      }, [tempoDecorrido, tempoBloqueio]);
 
     useEffect(() => {
     if (email == "" || senha == ""){
@@ -28,7 +40,6 @@ export default function Login({ navigation }) {
 
     const logar = async () => {
         try {
-            //LEMBRAR DE TROCAR A CONST IP QUANDO RODAR NO SEU COMPUTADOR
             const response = await axios.post(`http://${ip}/auth/token/login`,{ email: email, password: senha});
 
             if (response.status === 200) {
@@ -39,7 +50,12 @@ export default function Login({ navigation }) {
             }
         } catch (err) {
             if (err.response && err.response.status === 401 || err.response.status === 400) {
-                alert('E-mail ou senha incorretos!')  
+                setSenhaIncorreta(senhaIncorreta-1)
+                alert(`E-mail ou senha incorretos! ${senhaIncorreta} tentativas restantes`)
+                if(senhaIncorreta == 0){
+                    alert("Seu acesso está bloqueado por ")
+                }
+                 
             }else{
                 console.log(err.response.data);
                 alert('Não foi possível logar')
