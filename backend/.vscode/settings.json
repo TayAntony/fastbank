@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "undefined/subscriptions/62ead3aa-72eb-4d61-803f-22e5cb55d46e/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/todobank",
+    "appService.deploySubpath": "."
+}
