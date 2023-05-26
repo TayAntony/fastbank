@@ -190,6 +190,7 @@ class Movimentacao(models.Model):
         Conta, on_delete=models.CASCADE, related_name="sender"
     )
     conta_recv = models.ForeignKey(Conta, on_delete=models.CASCADE, related_name="recv")
+
     data_hora = models.DateTimeField(auto_now=True)
     operacao = models.CharField(
         max_length=1, choices=TIPO_OPERACAO, default=TRANSFERENCIA
@@ -199,12 +200,12 @@ class Movimentacao(models.Model):
 
 class Emprestimo(models.Model):
     codigo_conta = models.ForeignKey(Conta, on_delete=models.DO_NOTHING)
-    data_solicitacao = models.DateField()
     valor_solicitado = models.DecimalField(max_digits=10, decimal_places=2)
-    juros = models.DecimalField(max_digits=10, decimal_places=2)
+    porcentagem_juros = models.DecimalField(max_digits=10, decimal_places=2)
     aprovado = models.BooleanField()
-    numero_parcela = models.IntegerField()
-    data_aprovacao = models.DateField()
+    data_aprovacao = models.DateField(auto_now=True)
+    num_parcelas = models.IntegerField()
+    quantidade_parcelas = models.IntegerField()
     observacao = models.TextField()
 
 
@@ -217,3 +218,7 @@ class Investimento(models.Model):
 
 class ClienteConta(models.Model):
     codigo_conta = models.ForeignKey(Conta, on_delete=models.DO_NOTHING)
+
+class Extrato(models.Model):
+    codigo_conta = models.ForeignKey(Conta, on_delete=models.DO_NOTHING)
+    data_movimentacao = models.DateField()
