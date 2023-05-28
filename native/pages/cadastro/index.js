@@ -3,7 +3,7 @@ import axios from "axios";
 import { View, ImageBackground, TextInput, Pressable } from "react-native";
 import styles from './styles'
 import { useState } from "react";
-import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useEffect } from "react";
 import {ip} from '../home'
 
@@ -42,6 +42,8 @@ export default function Cadastro({ navigation }) {
         } else if (nome.length === 0) {
             alert('Digite seu nome')
             return
+        } else if(dataNascimento.length != 10 || dataNascimento.includes("-")){
+            alert("Escreva a data de nascimento em um formato válido: AAAA-MM-DD")
         }
 
         try {
@@ -50,7 +52,7 @@ export default function Cadastro({ navigation }) {
             const idUserCadastrado = retornoRequisicaoCadastro.data.id;
 
             const retornoRequisicaoCriarConta = await axios.post(`http://${ip}/contas/create-conta/`, { id: idUserCadastrado });
-            console.log(retornoRequisicaoCriarConta)
+            
 
             alert("Você foi cadastrado com sucesso e sua conta do banco criada. Aproveite!")
             navigation.navigate("Login");
@@ -118,7 +120,7 @@ export default function Cadastro({ navigation }) {
                     <View style={styles.iconeInput}>
                         <TextInput
                             style={styles.input}
-                            placeholder="DD-MM-AAAA"
+                            placeholder="AAAA-MM-DD"
                             placeholderTextColor="gray"
                             
                             value={dataNascimento}
