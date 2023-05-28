@@ -61,7 +61,10 @@ export default function TransacaoConta(navigation) {
             const response = await axios.post(`http://${ip}/contas/movimentacao/`, {numero_conta: conta, agencia, valor: valorTranferencia, id_conta_sender: user.conta.id})
 
             if(response.status === 202){
+                // redirecionar efetivamente para a home
+                navigation.navigate("Home")
                 alert("Transação realizada com sucesso!")
+                
             }
 
         }catch (error){
