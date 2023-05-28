@@ -9,7 +9,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import { useFocusEffect } from "@react-navigation/native";
 
-export const ip = "todobank.azurewebsites.net/"
+export const ip = "todobank.azurewebsites.net"
+// //todobank.azurewebsites.net/
 
 export function useSession(navigation) {
     const [user, setUser] = useState({
@@ -24,8 +25,6 @@ export function useSession(navigation) {
         cpf_cnpj: "Carregando...",
         data_nascimento_criacao: "Carregando...",
         foto: "Carregando...",
-        conta_recv: "Carregando..."
-
     });
 
     useFocusEffect(() => {
@@ -161,7 +160,7 @@ export default function Home({ navigation }) {
                             </Text>
                             <Text style={{ margin: 6 }}>
                                 {/* COLOCAR toFixed NO SALDO */}
-                                R$ {olhoAberto ? user.conta.saldo : "*******"}
+                                R$ {olhoAberto ? user.conta.saldo.toFixed(2) : "*******"}
                             </Text>
                         </View>
 
