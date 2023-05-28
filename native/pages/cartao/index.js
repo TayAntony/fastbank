@@ -43,7 +43,6 @@ export default function Cartao() {
 
 
             <View style={{display: 'flex', justifyContent: 'space-around', gap: 24}}>
-                {/* CRIAR UM USE EFFECT PARA ATUALIZAR O LIMITE DO CARTÃO SEMPRE QUE MEXER NO SLIDER */}
                 <Text style={{ fontWeight: 400, fontSize: 16, color: 'black', marginTop: 48}}>
                    Escolha o limite do seu cartão: {limite.toFixed(0)}
                 </Text>
