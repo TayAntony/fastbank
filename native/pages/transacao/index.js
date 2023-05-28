@@ -40,11 +40,12 @@ export default function TransacaoConta(navigation) {
 
     const verificarConta = async ()  => {
         try{
-            const response = await axios.get(`https://${ip}/contas/info-conta/?agencia=${agencia}&numero_conta=${conta}`)
+            const response = await axios.get(`http://${ip}/contas/info-conta/?agencia=${agencia}&numero_conta=${conta}`)
 
             if (response.status===200){
                 setSessaoInfosConta(false)
                 setSessaoPagamento(true)
+                setNomeRecebedor(response.data.nome)
             }
         } catch (err){
             if (err.response && err.response.status === 401 || err.response.status === 404) {
@@ -57,18 +58,17 @@ export default function TransacaoConta(navigation) {
 
     const transferir = async () => {
         try {
-            const response = await axios.get(`https://${ip}/contas/movimentacao`)
+            const response = await axios.post(`http://${ip}/contas/movimentacao/`, {numero_conta: conta, agencia, valor: valorTranferencia, id_conta_sender: user.conta.id})
 
-            if(response.status === 200){
+            if(response.status === 202){
                 alert("Transação realizada com sucesso!")
             }
 
-        }catch (err){
+        }catch (error){
             if (err.response.status === 403){
                 alert("Saldo insuficiente!")
             }else{
                 console.log(err.response.status)
-                //está com erro 405 NOT ALLOWED
                 alert("Não foi possível realizar a transação")
             }
         }
@@ -105,7 +105,7 @@ export default function TransacaoConta(navigation) {
             {sessaoPagamento && (
                 <View style>
                     {/* COLOCAR O NOME DO USUÁRIO DA CONTA DESTINATÁRIA */}
-                    <Text>Transferir para: {user.conta_recv}</Text>
+                    <Text>Transferir para: {nomeRecebedor}</Text>
                     <View style={{display: 'flex', flexDirection: "row", justifyContent: 'space-around', alignItems: 'center',}}>
                         <TextInput
                             placeholder="Valor da transferência"
