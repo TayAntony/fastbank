@@ -59,7 +59,7 @@ export default function Carteira(navigation) {
                                 Saldo em conta
                             </Text>
                             <Text style={{ margin: 6 }}>
-                                R$ {user.conta.saldo}
+                                R$ {user.conta.saldo.toFixed(2)}
                             </Text>
                     </View>
 
