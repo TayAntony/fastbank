@@ -32,24 +32,28 @@ export default function Login({ navigation }) {
         setCamposValidados(false)
     }else{
         setCamposValidados(true)
-    }})
+    }}, [email, senha])
    
     const goCadastro = () => {
         navigation.navigate("Cadastro")
     }
 
     const logar = async () => {
+        console.log("iniciando logar")
         try {
             const response = await axios.post(`http://${ip}/auth/token/login`,{ email: email, password: senha});
+            console.log("request ok")
 
             if (response.status === 200) {
               // Salvar token no AsyncStorage
               await AsyncStorage.setItem("token", response.data.auth_token);
+              alert("Login realizado com sucesso!")
               // Redirecionar para a página Home
               navigation.navigate("Home")
             }
         } catch (err) {
             if (err.response && err.response.status === 401 || err.response.status === 400) {
+                console.log("caiu no if")
                 setSenhaIncorreta(senhaIncorreta-1)
                 alert(`E-mail ou senha incorretos! ${senhaIncorreta} tentativas restantes`)
                 if(senhaIncorreta == 0){
@@ -57,7 +61,6 @@ export default function Login({ navigation }) {
                 }
                  
             }else{
-                console.log(err.response.data);
                 alert('Não foi possível logar')
             }
         }
