@@ -119,7 +119,7 @@ def movimentacao(request: Request):
     id_conta_sender = request.data["id_conta_sender"]
     numero_conta = request.data["numero_conta"]
     agencia = request.data["agencia"]
-    valor = request.data["valor"]
+    valor = int(request.data["valor"])
 
     try:
         conta_sender = Conta.objects.get(pk=id_conta_sender)
@@ -146,7 +146,7 @@ def movimentacao(request: Request):
         return Response(
             {
                 "mensagem": "Movimentação realizada com sucesso",
-                "movimentacao": movimentacao_serializada,
+                "movimentacao": movimentacao_serializada.data,
             },
             status=status.HTTP_202_ACCEPTED,
         )

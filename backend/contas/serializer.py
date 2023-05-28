@@ -2,6 +2,7 @@ from rest_framework import serializers
 from .models import *
 from djoser.serializers import UserCreateSerializer as BaseUserRegistrationSerializer
 
+# transforma o objeto python em json para ser uma linguagem em comum pro js do browser entender
 
 class UserRegistrationSerializer(BaseUserRegistrationSerializer):
     class Meta(BaseUserRegistrationSerializer.Meta):
