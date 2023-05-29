@@ -10,7 +10,7 @@ import axios from 'axios';
 import { useFocusEffect } from "@react-navigation/native";
 
 export const ip = "todobank.azurewebsites.net"
-// //todobank.azurewebsites.net/
+// todobank.azurewebsites.net/
 
 export function useSession(navigation) {
     const [user, setUser] = useState({
@@ -35,13 +35,13 @@ export function useSession(navigation) {
                     return navigation.navigate('Login');
                 }
 
-                axios.get(`http://${ip}/auth/users/me/`, {
+                axios.get(`https://${ip}/auth/users/me/`, {
                     headers: {
                         "Authorization": `Token ${token}`
                     }
                 })
                 .then(res => {
-                    axios.get(`http://${ip}/contas/conta/${res.data.id}/`)
+                    axios.get(`https://${ip}/contas/conta/${res.data.id}/`)
                     .then(resConta => {
                         setUser({...res.data, conta: {...resConta.data}});
                     })
