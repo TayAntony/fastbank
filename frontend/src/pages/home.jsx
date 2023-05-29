@@ -45,7 +45,7 @@ function Homepage() {
     const navigate = useNavigate();
     useEffect(() => {
         AOS.init({
-          duration: 1500, // tempo de duração da animação
+          duration: 1000, // tempo de duração da animação
           easing: "ease-in-out", // curva de animação
           once: true, // animação acontece apenas uma vez
           mirror: true, // animação acontece na ida e na volta
@@ -127,20 +127,19 @@ function Homepage() {
                             </div>
 
                         </div>
-                        <img src={CelularImg} alt="App simulado" className='w-64 xs:mr-28 m-12'/>
+                        <img src={CelularImg} alt="App simulado" className='w-64 xs:mr-28 m-auto my-8'/>
                     </div>
 
                     <CardInformacoes/>
 
-                    {/* RODAR A ANIMAÇÃO SÓ QUANDO O USUÁRIO SCROOLAR */}
 
                     <div className='relative xs:m-8 h-[500px]'>
-                        <div className='absolute w-80 xs:w-3/6 left-[30vw] top-[13vh]'><img src={CartoesImg} alt="Cartões" data-aos="flip-right" data-aos-duration="7000"/></div>
+                        <div className='absolute w-80 xs:w-3/6 left-[15vw] xs:left-[30vw] xs:top-[13vh] top-[5vh]'><img src={CartoesImg} alt="Cartões" data-aos="flip-right" data-aos-duration="7000"/></div>
 
                         {/* COMENTÁRIOS */}
 
                         <div className='absolute top-0 left-0 right-0 bottom-0'>
-                            <div className='absolute top-[5vh] left-[35vw] xs:w-64 hidden xs:block'><img src={ComentarioVanessa} alt="" data-aos="zoom-in" data-aos-duration="6000"/></div>
+                            <div className='absolute top-[5vh] left-[35vw] xs:w-64 hidden xs:block'><img src={ComentarioVanessa} alt="" data-aos="zoom-in" data-aos-duration="4000"/></div>
 
                             <div className='absolute top-[12vh] left-[64vw] xs:w-64  hidden xs:block'><img src={ComentarioRaissa} alt="" data-aos="zoom-in" data-aos-duration="7000" /></div>
 
@@ -150,13 +149,13 @@ function Homepage() {
                             
                             <div className='hidden xs:block xs:w-80 absolute top-[43vh] left-[65vw]'><img src={ComentarioEmoji} alt="" data-aos="zoom-in" data-aos-duration="6500"/></div>
 
-                            <div className='absolute top-[54vh] left-[34vw] xs:w-64  hidden xs:block'><img src={ComentarioCintia} alt="" data-aos="zoom-in" data-aos-duration="5500"/></div>
+                            <div className='absolute top-[54vh] left-[34vw] xs:w-64  hidden xs:block'><img src={ComentarioCintia} alt="" data-aos="zoom-in" data-aos-duration="1000"/></div>
 
                             <div className='absolute hidden xs:block xs:w-64 top-[49vh] left-[20vw]'><img src={ComentarioCoracao} alt="" data-aos="zoom-in" data-aos-duration="7500"/></div>
 
                             <div className='absolute top-[35vh] left-[5vw] xs:w-64  hidden xs:block '><img src={ComentarioGustavo} alt="" data-aos="zoom-in" data-aos-duration="6000"/></div>
 
-                            <div className='absolute top-[24vh] left-[15vw] hidden xs:block xs:w-64'><img src={ComentarioDinheiro} alt="" data-aos="zoom-in" data-aos-duration="5500"/></div>
+                            <div className='absolute top-[24vh] left-[15vw] hidden xs:block xs:w-64'><img src={ComentarioDinheiro} alt="" data-aos="zoom-in" data-aos-duration="1000"/></div>
 
                             <div className='absolute top-[14vh] left-[8vw] xs:w-64  hidden xs:block'><img src={ComentarioViktor} alt="" data-aos="zoom-in" data-aos-duration="4500"/></div>
                         </div>
@@ -164,7 +163,7 @@ function Homepage() {
 
 
                     <div className='flex justify-center flex-col items-center '>
-                        <button className="bg-gradient-to-r from-[#7611A6] to-[#DA4C5DF8] drop-shadow-[6px_5px_5px_rgba(0,0,0,0.40)] rounded-2xl p-6 font-semibold text-xl border-2 border-solid max-w-xs transition duration-150 ease-in-out mt-24 " onClick={gerarCartao}>Peça já o seu cartão!</button>
+                        <button className="bg-gradient-to-r from-[#7611A6] to-[#DA4C5DF8] drop-shadow-[6px_5px_5px_rgba(0,0,0,0.40)] rounded-2xl p-6 font-semibold text-xl border-2 border-solid max-w-xs transition duration-150 ease-in-out xs:mt-24 mt-[-160px]" onClick={gerarCartao}>Peça já o seu cartão!</button>
                         {divVisivel && (
                             <div className='text-black m-4'>
                                 <p>Número cartão: {numeroCartao}</p>
@@ -180,10 +179,10 @@ function Homepage() {
 
                 <footer className='bg-gradient-to-r from-[#B455FF] to-[#FF5A5A] h-auto rounded-t-3xl mt-3 p-2 backdrop-blur-xl opacity-100' >
                     
-                        <div className='flex xs:flex-row justify-around mt-4 flex-col items-center gap-9'>
-                            <div className='w-4/5 m-1 text-center xs:w-1/5 items-center'>
+                        <div className='flex xs:flex-row justify-around mt-4 flex-col items-center gap-9 '>
+                            <div className='w-3/5 m-1 text-center xs:w-1/5 items-center align-middle'>
                                 <p className='text-xl font-bold mb-2'>Follow Us</p>
-                                <div className='flex justify-evenly flex-row gap-5'>
+                                <div className='flex items-center flex-row gap-5 xs:justify-between ml-6'>
                                     <div className=' xs:w-11 w-36'>
                                         <a href="https://github.com/TayAntony" target='_blank'><img src={IconGithub} alt="icone github"  /></a>
                                     </div>

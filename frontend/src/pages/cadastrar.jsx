@@ -142,11 +142,13 @@ function Cadastrar() {
     }
   
     return(
-        <div className="imgBackground">
-            <h1 className="font-poppins text-8xl font-bold">ToDo</h1>
-            <p className='font-michroma font-normal text-2xl '>Onde você faz acontecer!</p>
+        <div className="imgBackground xs:flex xs:flex-row">
+            <div className='xs:absolute xs:top-0 xs:left-0 m-36 hidden'>
+                <h1 className="text-6xl font-poppins xs:text-8xl font-bold ">ToDo</h1>
+                <p className='text-lg font-michroma xs:font-normal xs:text-2xl'>Onde você faz acontecer!</p>
+            </div>
             
-                <form onSubmit={cadastrar} className='flex flex-col p-6 items-center border-solid backdrop-blur-md border-2 border-white rounded-xl m-10 box-border text-center gap-8 justify-center py-14'>
+                <form onSubmit={cadastrar} className='flex flex-col p-6 items-center border-solid backdrop-blur-md border-2 border-white rounded-xl m-10 box-border text-center gap-8 justify-center py-14 xs:absolute xs:top-[5vh] xs:right-[20vw]'>
                     <p className='paragrafos max-w-xs text-justify'>Preencha com as suas informações para realizar o cadastro!</p>
                     
                     <div className='flex items-end flex-col gap-4 overflow-y-auto max-h-44'>

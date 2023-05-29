@@ -17,8 +17,8 @@ function Card() {
     return ( 
       <>
       <div className="imgBackground ">
-      <h1 className="text-6xl font-poppins xs:text-8xl font-bold">ToDo</h1>
-      <p className='text-lg font-michroma xs:font-normal xs:text-2xl'>Onde você faz acontecer!</p>
+        <h1 className="text-6xl font-poppins xs:text-8xl font-bold">ToDo</h1>
+        <p className='text-lg font-michroma xs:font-normal xs:text-2xl'>Onde você faz acontecer!</p>
         <div className='flex flex-col p-6 items-center border-solid backdrop-blur-md border-2 border-white rounded-xl m-10 box-border text-center gap-5 min-h-20 justify-center py-14'>
         <div className="flex flex-col ">
             <LogoComponent/>

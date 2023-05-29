@@ -6,7 +6,7 @@ import Swal from 'sweetalert2'
 import Input from '../components/input'
 import axios from 'axios'
 
-export const ip = "10.109.72.4:8000"
+export const ip = "todobank.azurewebsites.net"
 
 function Login() {
     let navigate = useNavigate()
@@ -74,10 +74,12 @@ function Login() {
     return (
         <>
             <div className="imgBackground">
-                <h1 className="font-poppins text-8xl font-bold">ToDo</h1>
-                <p className='font-michroma font-normal text-2xl '>Onde você faz acontecer!</p>
+            <div className='xs:absolute xs:top-0 xs:left-0 m-36 hidden'>
+                <h1 className="text-6xl font-poppins xs:text-8xl font-bold ">ToDo</h1>
+                <p className='text-lg font-michroma xs:font-normal xs:text-2xl'>Onde você faz acontecer!</p>
+            </div>
 
-                    <form onSubmit={logar} className='flex flex-col p-6 items-center border-solid backdrop-filter backdrop-blur-lg border-2 border-white rounded-xl m-10 box-border text-center gap-8 justify-center py-14'>
+                    <form onSubmit={logar} className='flex flex-col p-6 items-center border-solid backdrop-filter backdrop-blur-lg border-2 border-white rounded-xl m-10 box-border text-center gap-8 justify-center py-14 xs:absolute xs:top-[5vh] xs:right-[20vw]'>
                     <p className='paragrafos max-w-xs text-justify'>Insira suas informações para realizar o login!</p>
 
                         <Input placeholder='E-mail' tipo='text' value={email} onChange={(e) => setEmail(e.target.value)} />
