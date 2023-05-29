@@ -7,6 +7,7 @@ import "aos/dist/aos.css";
 import { useEffect, useState } from 'react';
 import Swal from 'sweetalert2'
 import "../index.css"
+//import Card from "../components/card"
 
 import CartoesImg from '../../public/cartao.svg'
 import ComentarioVanessa from '../assets/comentarios/comentarioVanessa.svg'
@@ -166,12 +167,8 @@ function Homepage() {
                         <button className="bg-gradient-to-r from-[#7611A6] to-[#DA4C5DF8] drop-shadow-[6px_5px_5px_rgba(0,0,0,0.40)] rounded-2xl p-6 font-semibold text-xl border-2 border-solid max-w-xs transition duration-150 ease-in-out xs:mt-24 mt-[-160px]" onClick={gerarCartao}>Peça já o seu cartão!</button>
                         {divVisivel && (
                             <div className='text-black m-4'>
-                                <p>Número cartão: {numeroCartao}</p>
-                                <p>....</p>
-                                <p>CVV: {cvv}</p>
-                                <p>Data de vencimento: {dataVencimento}</p>
-                                <p>Nome do titular: {nomeTitular}</p>
-                                <p>Bandeira {bandeira}</p>
+                                gerando cartão
+                                {/* <Card/> */}
                             </div>
                         )}
                     </div> 
