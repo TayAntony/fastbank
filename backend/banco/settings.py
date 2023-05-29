@@ -47,7 +47,8 @@ MIDDLEWARE = [
 
 CORS_ALLOWED_ORIGINS = [
     'exp://192.168.155.38:19000',
-    'https://fastbank.vercel.app'
+    'https://fastbank.vercel.app',
+    'http://127.0.0.1:5173'
 ]
 
 CORS_ALLOWED_ALL_ORIGINS = True
