@@ -78,10 +78,10 @@ function Cadastrar() {
 
         try {
             console.log("tentou cadastrar")
-            const retornoRequisicaoCadastro = await axios.post(`http://${ip}/auth/users/`, infoDoCadastro);
+            const retornoRequisicaoCadastro = await axios.post(`${ip}/auth/users/`, infoDoCadastro);
             const idUserCadastrado = retornoRequisicaoCadastro.data.id;
 
-            const retornoRequisicaoCriarConta = await axios.post(`http://${ip}/contas/create-conta/`, { id: idUserCadastrado });
+            const retornoRequisicaoCriarConta = await axios.post(`${ip}/contas/create-conta/`, { id: idUserCadastrado });
 
             console.log(retornoRequisicaoCriarConta.data);
 

@@ -62,7 +62,7 @@ function Homepage() {
 
         //LEMBRAR DE TROCAR O IP NO LOGIN
 
-        const res = await axios.get(`http://${ip}/auth/users/me/`, {
+        const res = await axios.get(`${ip}/auth/users/me/`, {
             headers: {
                 "Authorization": `Token ${token}`
             }
@@ -88,7 +88,7 @@ function Homepage() {
         setBandeira(user.bandeira)
         setNomeTitular(user.nome)
 
-        const res = await axios.post(`http://${ip}/contas/create-cartao/`, { id: idUsuario });
+        const res = await axios.post(`${ip}/contas/create-cartao/`, { id: idUsuario });
         console.log(res.data);
         Swal.fire({
             icon: 'success',
