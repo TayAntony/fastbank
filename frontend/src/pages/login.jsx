@@ -6,7 +6,9 @@ import Swal from 'sweetalert2'
 import Input from '../components/input'
 import axios from 'axios'
 
-export const ip = "https://todobank.azurewebsites.net"
+export const ip = "http://127.0.0.1:8000"
+// http://127.0.0.1:8000/
+// https://todobank.azurewebsites.net
 
 function Login() {
     let navigate = useNavigate()
@@ -19,21 +21,27 @@ function Login() {
     const [senha, setSenha] = useState('')
 
     const logar = async (evt) => {
+        console.log("clicou")
         evt.preventDefault()
         const infoDoLogin = {email: email, password: senha}
         try{
-            const res = await axios.post(`${ip}/auth/token/login`, infoDoLogin) //endpoint para verificar se o login está correto e gerar o token
+            console.log("try")
+            const res = await axios.post(`${ip}/auth/token/login/`, infoDoLogin) //endpoint para verificar se o login está correto e gerar o token
+            console.log("fez requisição")
             localStorage.setItem('token', res.data.auth_token)
             navigate("/homepage")
         } catch(err){
-            if(err.response.status == 401)
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'E-mail ou senha incorretos',
-                confirmButtonText: 'Tentar novamente',
-                confirmButtonColor: '#D51317',
-            });
+            console.log(err)
+            if(err.response.status == 401){
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'E-mail ou senha incorretos',
+                    confirmButtonText: 'Tentar novamente',
+                    confirmButtonColor: '#D51317',
+                });
+            }
+            
             else{
                 Swal.fire({
                     icon: 'warning',
@@ -87,6 +95,7 @@ function Login() {
             <div className='xs:absolute xs:top-0 xs:left-0 m-36 hidden'>
                 <h1 className="text-6xl font-poppins xs:text-8xl font-bold ">ToDo</h1>
                 <p className='text-lg font-michroma xs:font-normal xs:text-2xl'>Onde você faz acontecer!</p>
+                
             </div>
 
                     <form onSubmit={logar} className='flex flex-col p-6 items-center border-solid backdrop-filter backdrop-blur-lg border-2 border-white rounded-xl m-10 box-border text-center gap-8 justify-center py-14 xs:absolute xs:top-[5vh] xs:right-[20vw]'>

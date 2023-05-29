@@ -7,7 +7,6 @@ import "aos/dist/aos.css";
 import { useEffect, useState } from 'react';
 import Swal from 'sweetalert2'
 import "../index.css"
-//import Card from "../components/card"
 
 import CartoesImg from '../../public/cartao.svg'
 import ComentarioVanessa from '../assets/comentarios/comentarioVanessa.svg'
@@ -26,22 +25,51 @@ import IconInstagram from '../assets/icons/instagram.svg'
 import IconLinkedin from '../assets/icons/linkedin.svg'
 import { ip } from "./login";
 
+import chip from '../assets/cartoes/chip.svg';
+import brand from '../assets/cartoes/logo.svg';
+import mastercard from '../assets/cartoes/mastercard.svg';
+import aproximacao from '../assets/cartoes/aproximacao.svg';
+import background1 from '../assets/cartoes/bg1.svg';
+import background2 from '../assets/cartoes/bg2.svg';
+import background3 from '../assets/cartoes/bg3.svg';
+import background4 from '../assets/cartoes/bg4.svg';
+import background5 from '../assets/cartoes/bg5.svg';
+import background6 from '../assets/cartoes/bg6.svg';
+import background7 from '../assets/cartoes/bg7.svg';
+import background8 from '../assets/cartoes/bg8.svg';
+import background9 from '../assets/cartoes/bg9.svg';
+import background10 from '../assets/cartoes/bg10.svg';
+import { Card } from 'react-pay-card'
+
 import IconPhone from '../assets/icons/phone-solid.svg'
 
 
 function Homepage() {
-    // FUNÇÃO DE RODAR ANIMAÇÃO
+    const backgrounds = [
+        background1,
+        background2,
+        background3,
+        background4,
+        background5,
+        background6,
+        background7,
+        background8,
+        background9,
+        background10
+    ]
     
-
+    const randomIndexBg = Math.floor(Math.random() * backgrounds.length);
+    const bgRandom = backgrounds[randomIndexBg];
 
     const [user, setUser] = useState();
     const [divVisivel, setDivVisivel] = useState(false);
 
     const [cvv, setCvv] = useState("");
-    const [bandeira, setBandeira] = useState("");
+    const [bandeira, setBandeira] = useState("Mastercard")
     const [numeroCartao, setNumeroCartao] = useState("");
     const [dataVencimento, setDataVencimento] = useState("");
     const [nomeTitular, setNomeTitular] = useState("");
+    const dataSplitada = dataVencimento.split("/")
 
     const navigate = useNavigate();
     useEffect(() => {
@@ -167,8 +195,15 @@ function Homepage() {
                         <button className="bg-gradient-to-r from-[#7611A6] to-[#DA4C5DF8] drop-shadow-[6px_5px_5px_rgba(0,0,0,0.40)] rounded-2xl p-6 font-semibold text-xl border-2 border-solid max-w-xs transition duration-150 ease-in-out xs:mt-24 mt-[-160px]" onClick={gerarCartao}>Peça já o seu cartão!</button>
                         {divVisivel && (
                             <div className='text-black m-4'>
-                                gerando cartão
-                                {/* <Card/> */}
+                                <Card
+                                    chipIcon={chip}
+                                    brandIcon={brand} 
+                                    backgroundImage={bgRandom}
+                                    cardHolder={nomeTitular}
+                                    cardNumber={numeroCartao}
+                                    cardMonth={dataSplitada[0]}
+                                    cardYear={dataSplitada[1]}
+                                    cardCvv={cvv}/>
                             </div>
                         )}
                     </div> 
