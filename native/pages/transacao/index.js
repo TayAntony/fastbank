@@ -62,12 +62,13 @@ export default function TransacaoConta(navigation) {
 
             if(response.status === 202){
                 // redirecionar efetivamente para a home
-                navigation.navigate("Home")
                 alert("Transação realizada com sucesso!")
+                navigation.navigate("Home")
+                
                 
             }
 
-        }catch (error){
+        }catch (err){
             if (err.response.status === 403){
                 alert("Saldo insuficiente!")
             }else{
@@ -108,7 +109,7 @@ export default function TransacaoConta(navigation) {
             {sessaoPagamento && (
                 <View style>
                     {/* COLOCAR O NOME DO USUÁRIO DA CONTA DESTINATÁRIA */}
-                    <Text>Transferir para: {nomeRecebedor}</Text>
+                    <Text>Transferir para: {nomeRecebedor.toUpperCase()}</Text>
                     <View style={{display: 'flex', flexDirection: "row", justifyContent: 'space-around', alignItems: 'center',}}>
                         <TextInput
                             placeholder="Valor da transferência"
