@@ -42,7 +42,7 @@ export default function Cadastro({ navigation }) {
         } else if (nome.length === 0) {
             alert('Digite seu nome')
             return
-        } else if(dataNascimento.length != 10 || dataNascimento.includes("-")){
+        } else if(dataNascimento.length != 10 || !dataNascimento.includes("-")){
             alert("Escreva a data de nascimento em um formato válido: AAAA-MM-DD")
         }
 
