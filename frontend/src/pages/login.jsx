@@ -26,6 +26,7 @@ function Login() {
             localStorage.setItem('token', res.data.auth_token)
             navigate("/homepage")
         } catch(err){
+            if(err.response.status == 401)
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
@@ -33,6 +34,15 @@ function Login() {
                 confirmButtonText: 'Tentar novamente',
                 confirmButtonColor: '#D51317',
             });
+            else{
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Oops...',
+                    text: `Não foi possível logar, erro: ${err.response.status}`,
+                    confirmButtonText: 'Tentar novamente mais tarde',
+                    confirmButtonColor: '#D51317',
+                });
+            }
         }
     }
 
