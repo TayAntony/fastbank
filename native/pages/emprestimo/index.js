@@ -18,15 +18,15 @@ export default function Emprestimo(navigation) {
     const [totalPagarJuros, setTotalPagarJuros] = useState(0)
     const [porcentagemJuros, setPorcentagemJuros] = useState(0)
 
-    function solicitarEmprestimo(navigation){
-        if (valorEmprestado > (parseInt(user.conta.saldo))*5){
+    function solicitarEmprestimo(){
+        if (valorEmprestado > 2000){
             alert('Sua conta não cumpre os requisitos para solicitar um empréstimo desse porte!')
         }
         else{
             // aumentar o saldo do user e redirecionar efetivamente para a home
             alert('Seu empréstimo foi solicitado com sucesso!')
-            parseInt(user.conta.saldo) += valorEmprestado
-            navigation.navigate("Home")
+            //user.conta.saldo += valorEmprestado
+            navigation.navigate('Home');
         }
     }
 
