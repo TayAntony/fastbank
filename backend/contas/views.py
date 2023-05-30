@@ -43,15 +43,16 @@ def criar_conta(request: Request):
 def gerar_cartao():
     numero_cartao = f"{random.randint(1000, 9999)} {random.randint(1000, 9999)} {random.randint(1000, 9999)} {random.randint(1000, 9999)}"
     cvv = random.randint(100, 999)
-    data_vencimento = f"{random.randint(1,12)}/{datetime.today().year + 8}"
+    data_vencimento_mes = random.randint(1,12)
+    data_vencimento_ano = str(datetime.today().year + 8)[-2:]
     bandeira = "Mastercard"
-    return numero_cartao, cvv, data_vencimento, bandeira
+    return numero_cartao, cvv, data_vencimento_mes,data_vencimento_ano, bandeira
 
 
 @api_view(["POST"])
 def criar_cartao(request: Request):
     id_user = request.data["id"]
-    numero_cartao, cvv, data_vencimento, bandeira = gerar_cartao()
+    numero_cartao, cvv, data_vencimento_mes, data_vencimento_ano, bandeira = gerar_cartao()
 
     try:
         user = User.objects.get(pk=id_user)
@@ -62,7 +63,8 @@ def criar_cartao(request: Request):
             conta_cartao=conta,
             numero_cartao=numero_cartao,
             cvv=cvv,
-            data_vencimento=data_vencimento,
+            data_vencimento_mes=data_vencimento_mes,
+            data_vencimento_ano=data_vencimento_ano,
             bandeira=bandeira,
             titular_cartao=user,
             nome=user.nome_cliente,
