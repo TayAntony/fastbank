@@ -58,6 +58,7 @@ export default function Carteira(navigation) {
                             <Text style={{ margin: 6 }}>
                                 Saldo em conta
                             </Text>
+                            {/* quando entra na carteira as vezes da erro undefined */}
                             <Text style={{ margin: 6 }}>
                                 R$ {user.conta.saldo.toFixed(2)}
                             </Text>

@@ -40,7 +40,7 @@ export default function TransacaoConta(navigation) {
 
     const verificarConta = async ()  => {
         try{
-            const response = await axios.get(`http://${ip}/contas/info-conta/?agencia=${agencia}&numero_conta=${conta}`)
+            const response = await axios.get(`${ip}/contas/info-conta/?agencia=${agencia}&numero_conta=${conta}`)
 
             if (response.status===200){
                 setSessaoInfosConta(false)
@@ -58,7 +58,7 @@ export default function TransacaoConta(navigation) {
 
     const transferir = async () => {
         try {
-            const response = await axios.post(`http://${ip}/contas/movimentacao/`, {numero_conta: conta, agencia, valor: valorTranferencia, id_conta_sender: user.conta.id})
+            const response = await axios.post(`${ip}/contas/movimentacao/`, {numero_conta: conta, agencia, valor: valorTranferencia, id_conta_sender: user.conta.id})
 
             if(response.status === 202){
                 // redirecionar efetivamente para a home

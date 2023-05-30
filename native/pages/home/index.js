@@ -9,8 +9,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import { useFocusEffect } from "@react-navigation/native";
 
-export const ip = "todobank.azurewebsites.net"
-// todobank.azurewebsites.net/
+export const ip = "https://todobank.azurewebsites.net"
+// todobank.azurewebsites.net
 
 export function useSession(navigation) {
     const [user, setUser] = useState({
@@ -35,13 +35,13 @@ export function useSession(navigation) {
                     return navigation.navigate('Login');
                 }
 
-                axios.get(`https://${ip}/auth/users/me/`, {
+                axios.get(`${ip}/auth/users/me/`, {
                     headers: {
                         "Authorization": `Token ${token}`
                     }
                 })
                 .then(res => {
-                    axios.get(`https://${ip}/contas/conta/${res.data.id}/`)
+                    axios.get(`${ip}/contas/conta/${res.data.id}/`)
                     .then(resConta => {
                         setUser({...res.data, conta: {...resConta.data}});
                     })
