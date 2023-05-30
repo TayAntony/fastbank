@@ -7,7 +7,7 @@ import Input from '../components/input'
 import axios from 'axios'
 
 export const ip = "https://todobank.azurewebsites.net"
-// http://127.0.0.1:8000/
+// http://127.0.0.1:8000
 // https://todobank.azurewebsites.net
 
 function Login() {

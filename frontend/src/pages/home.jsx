@@ -23,6 +23,8 @@ import { useNavigate } from 'react-router-dom';
 import IconGithub from '../assets/icons/github.svg'
 import IconInstagram from '../assets/icons/instagram.svg'
 import IconLinkedin from '../assets/icons/linkedin.svg'
+import IconPhone from '../assets/icons/phone-solid.svg'
+
 import { ip } from "./login";
 
 import chip from '../assets/cartoes/chip.svg';
@@ -40,9 +42,6 @@ import background8 from '../assets/cartoes/bg8.svg';
 import background9 from '../assets/cartoes/bg9.svg';
 import background10 from '../assets/cartoes/bg10.svg';
 import { Card } from 'react-pay-card'
-
-import IconPhone from '../assets/icons/phone-solid.svg'
-
 
 function Homepage() {
     const backgrounds = [
@@ -64,12 +63,13 @@ function Homepage() {
     const [user, setUser] = useState();
     const [divVisivel, setDivVisivel] = useState(false);
 
-    const [cvv, setCvv] = useState("");
+    const [cvvWeb, setCvv] = useState(0);
     const [bandeira, setBandeira] = useState("Mastercard")
     const [numeroCartao, setNumeroCartao] = useState("");
-    const [dataVencimento, setDataVencimento] = useState("");
+    const [dataVencimentoMes, setDataVencimentoMes] = useState("");
+    const [dataVencimentoAno, setDataVencimentoAno] = useState("");
     const [nomeTitular, setNomeTitular] = useState("");
-    const dataSplitada = dataVencimento.split("/")
+    
 
     const navigate = useNavigate();
     useEffect(() => {
@@ -108,23 +108,39 @@ function Homepage() {
     const gerarCartao = async () => {
         if (!user) return;
         const idUsuario = user.id;
-        setDivVisivel(true)
-
-        setNumeroCartao(user.numero_cartao)
-        setCvv(user.cvv)
-        setDataVencimento(user.data_vencimento)
-        setBandeira(user.bandeira)
-        setNomeTitular(user.nome)
-
+        
         const res = await axios.post(`${ip}/contas/create-cartao/`, { id: idUsuario });
-        console.log(res.data);
-        Swal.fire({
-            icon: 'success',
-            title: 'Parabéns',
-            text: 'Seu cartão de débito foi gerado com sucesso!',
-            confirmButtonText: 'Quero ver!',
-            confirmButtonColor: '#700097',
-        });
+
+        console.log(res.data.cartao);
+    
+        setNumeroCartao(res.data.cartao.numero_cartao)
+        setCvv(res.data.cartao.cvv)
+        setBandeira(res.data.cartao.bandeira)
+        setNomeTitular(res.data.cartao.nome)
+        setDataVencimentoMes(res.data.cartao.data_vencimento_mes)
+        setDataVencimentoAno(res.data.cartao.data_vencimento_ano)
+        
+        if(res.data.status == 201){
+            Swal.fire({
+                icon: 'success',
+                title: 'Parabéns',
+                text: 'Seu cartão de débito foi gerado com sucesso!',
+                confirmButtonText: 'Quero ver!',
+                confirmButtonColor: '#700097',
+            });
+        }
+        else{
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops',
+                text: 'Ocorreu um erro ao criar seu cartão!',
+                confirmButtonText: 'Tente novamente!',
+                confirmButtonColor: '#c9083e',
+            });
+        }
+
+        
+        setDivVisivel(true)
     }
 
     return (
@@ -196,14 +212,14 @@ function Homepage() {
                         {divVisivel && (
                             <div className='text-black m-4'>
                                 <Card
-                                    chipIcon={chip}
-                                    brandIcon={brand} 
+                                    chipIcon={brand}
+                                    brandIcon={chip} 
                                     backgroundImage={bgRandom}
                                     cardHolder={nomeTitular}
                                     cardNumber={numeroCartao}
-                                    cardMonth={dataSplitada[0]}
-                                    cardYear={dataSplitada[1]}
-                                    cardCvv={cvv}/>
+                                    cardMonth={dataVencimentoMes}
+                                    cardYear={dataVencimentoAno}
+                                    cardCvv={cvvWeb}/>
                             </div>
                         )}
                     </div> 
