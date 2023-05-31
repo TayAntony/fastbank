@@ -6,9 +6,10 @@ import Swal from 'sweetalert2'
 import Input from '../components/input'
 import axios from 'axios'
 
-export const ip = "http://127.0.0.1:8000"
+export const ip = "http://10.109.72.4:8000"
 // http://127.0.0.1:8000
 // https://todobank.azurewebsites.net
+// http://10.109.72.4:8000
 
 function Login() {
     let navigate = useNavigate()
@@ -27,7 +28,7 @@ function Login() {
         try{
             console.log("try")
             const res = await axios.post(`${ip}/auth/token/login/`, infoDoLogin) //endpoint para verificar se o login está correto e gerar o token
-            console.log("fez requisição")
+            //console.log("fez requisição")
             localStorage.setItem('token', res.data.auth_token)
             navigate("/homepage")
         } catch(err){

@@ -40,11 +40,21 @@ export default function Extrato(navigation) {
                Suas movimentações aparecerão aqui!
             </Text>
 
-            <View style={{ fontWeight: 300, fontSize: 20, color: 'black', position: 'absolute', top: '40%' }}>
+            <View style={{ fontWeight: 300, fontSize: 20, color: 'black', position: 'absolute', top: '25%' }}>
                {extrato.map(move => (
-                <Text>
-                    {move.texto} {move.data_hora}
-                </Text>
+                <View style={{margin: 10}}>
+                    <Text>
+                    {move.data_hora}
+                    </Text>
+
+                    <Text style={{fontWeight: 'bold'}}>
+                    {move.texto.toUpperCase()} 
+                    </Text>
+                    <View style={{borderBottomColor: 'black', borderBottomWidth: 1, marginTop: 10}}>
+                    </View>
+
+                </View>
+
                ))}
             </View>
             

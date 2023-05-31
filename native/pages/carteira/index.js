@@ -1,10 +1,33 @@
 import { View, Text } from "react-native";
 import styles from './styles'
 import { LinearGradient } from 'expo-linear-gradient';
-import { useSession } from "../home";
+import { useSession, ip } from "../home";
+import axios from 'axios';
+import { useState, useEffect } from "react"
 
 export default function Carteira(navigation) {
+    const [extrato, setExtrato] = useState([])
     const { user } = useSession(navigation);
+
+    const puxarExtrato = async () => {
+        console.log("vou puxar extrato da conta", user.conta.id)
+        
+        try{
+            const response = await axios.get(`${ip}/contas/extrato/?id=${user.conta.id}`)
+            setExtrato(response.data.extrato)
+        }
+        catch(error){
+            console.log("deu erro", error)
+        }
+    }
+
+    useEffect(() => {
+        if (user.conta.id){
+            puxarExtrato()
+        }
+
+    }, [user.conta.id])
+
 
     return ( 
     <View style={styles.container}>
@@ -60,7 +83,7 @@ export default function Carteira(navigation) {
                             </Text>
                             {/* quando entra na carteira as vezes da erro undefined */}
                             <Text style={{ margin: 6 }}>
-                                R$ {user.conta.saldo}, 00
+                                R$ {user.conta.saldo}.00
                             </Text>
                     </View>
 
@@ -70,7 +93,25 @@ export default function Carteira(navigation) {
         </View>
         <Text style={{ fontWeight: 300, fontSize: 20, color: 'black', position: 'absolute', top: '35%' }}>
                Suas últimas movimentações!
-            </Text>
+        </Text>
+        <View style={{ fontWeight: 300, fontSize: 20, color: 'black', position: 'absolute', top: '40%' }}>
+               {extrato.map(move => (
+                <View style={{margin: 10}}>
+                    <Text>
+                    {move.data_hora}
+                    </Text>
+
+                    <Text style={{fontWeight: 'bold'}}>
+                    {move.texto.toUpperCase()} 
+                    </Text>
+                    <View style={{borderBottomColor: 'black', borderBottomWidth: 1, marginTop: 10}}>
+                    </View>
+
+                </View>
+
+               ))}
+            </View>
+
     </View>
     )
 }

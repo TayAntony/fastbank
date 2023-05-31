@@ -5,23 +5,36 @@ import BotaoAvancar from "../../components/botaoAvancar";
 import Slider from '@react-native-community/slider';
 import { useEffect } from "react";
 
-export default function Cartao() {
+export default function Cartao(navigation) {
     const [rendaMensal, setRendaMensal] = useState('')
     const [limite, setLimite] = useState(0)
     const [mexeuLimite, setMexeuLimite] = useState(0)
 
-    const [validarCampos, setValidarCampos] = useState(false)
+    const [camposValidados, setCamposValidados] = useState(false)
 
 
     function mexeuNoLimite(limite){
         setLimite(limite)
     }
 
+    useEffect(() => {
+        if (rendaMensal == "" || limite == 0){
+            setCamposValidados(false)
+        }else{
+            setCamposValidados(true)
+        }
+    }, [rendaMensal, limite])
+
     function solicitarCartao(){
         if (rendaMensal < limite){
             alert('Sua conta não cumpre os requisitos para solicitar um cartão de crédito!')
+            // resetar os valores dos inputs
+            // setLimite(0)
+            // setRendaMensal(0)
         }else{
             alert('Cartão solicitado com sucesso!')
+            //redirecionar para a home
+            //navigation.navigate("Home")
         }
     }
     
@@ -72,8 +85,8 @@ export default function Cartao() {
 
             </View>
 
-            <Pressable onPress={solicitarCartao}>
-                <BotaoAvancar texto='Avançar'  validacao={validarCampos}/>
+            <Pressable disabled={!camposValidados} onPress={solicitarCartao}>
+                <BotaoAvancar texto='Avançar'  validacao={camposValidados}/>
             </Pressable>
             
         </View>
