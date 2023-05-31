@@ -8,7 +8,7 @@ from django.utils import timezone
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 import random
-import string
+from datetime import date
 
 # 10.109.72.4:8000 IP SENAI
 
@@ -192,7 +192,10 @@ class Movimentacao(models.Model):
     )
     conta_recv = models.ForeignKey(Conta, on_delete=models.CASCADE, related_name="recv")
 
-    data_hora = models.DateTimeField(auto_now=True)
+    data_hora_atual = datetime.now()
+    data_hora_modificada = data_hora_atual.strftime('%d/%m/%Y %H:%M')
+    data_hora = models.CharField(max_length=20, default=(data_hora_modificada))
+
     operacao = models.CharField(
         max_length=1, choices=TIPO_OPERACAO, default=TRANSFERENCIA
     )
