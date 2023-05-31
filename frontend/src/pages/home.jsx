@@ -63,7 +63,7 @@ function Homepage() {
     const [user, setUser] = useState();
     const [divVisivel, setDivVisivel] = useState(false);
 
-    const [cvvWeb, setCvv] = useState(0);
+    const [cvvWeb, setCvv] = useState("");
     const [bandeira, setBandeira] = useState("Mastercard")
     const [numeroCartao, setNumeroCartao] = useState("");
     const [dataVencimentoMes, setDataVencimentoMes] = useState("");
@@ -111,7 +111,7 @@ function Homepage() {
         
         const res = await axios.post(`${ip}/contas/create-cartao/`, { id: idUsuario });
 
-        console.log(res.data.cartao);
+        console.log(res.status);
     
         setNumeroCartao(res.data.cartao.numero_cartao)
         setCvv(res.data.cartao.cvv)
@@ -120,7 +120,7 @@ function Homepage() {
         setDataVencimentoMes(res.data.cartao.data_vencimento_mes)
         setDataVencimentoAno(res.data.cartao.data_vencimento_ano)
         
-        if(res.data.status == 201){
+        if(res.status == 201 || res.status == 200){
             Swal.fire({
                 icon: 'success',
                 title: 'Parabéns',
@@ -129,6 +129,8 @@ function Homepage() {
                 confirmButtonColor: '#700097',
             });
         }
+
+        
         else{
             Swal.fire({
                 icon: 'error',
@@ -208,7 +210,8 @@ function Homepage() {
 
 
                     <div className='flex justify-center flex-col items-center '>
-                        <button className="bg-gradient-to-r from-[#7611A6] to-[#DA4C5DF8] drop-shadow-[6px_5px_5px_rgba(0,0,0,0.40)] rounded-2xl p-6 font-semibold text-xl border-2 border-solid max-w-xs transition duration-150 ease-in-out xs:mt-24 mt-[-160px]" onClick={gerarCartao}>Peça já o seu cartão!</button>
+                        {divVisivel == false ? <button className="bg-gradient-to-r from-[#7611A6] to-[#DA4C5DF8] drop-shadow-[6px_5px_5px_rgba(0,0,0,0.40)] rounded-2xl p-6 font-semibold text-xl border-2 border-solid max-w-xs transition duration-150 ease-in-out xs:mt-24 mt-[-160px]" onClick={gerarCartao}>Peça já o seu cartão!</button> : <p></p> }
+
                         {divVisivel && (
                             <div className='text-black m-4'>
                                 <Card
@@ -219,7 +222,7 @@ function Homepage() {
                                     cardNumber={numeroCartao}
                                     cardMonth={dataVencimentoMes}
                                     cardYear={dataVencimentoAno}
-                                    cardCvv={cvvWeb}/>
+                                    cardCvv={cvvWeb.toString()}/>
                             </div>
                         )}
                     </div> 

@@ -122,6 +122,7 @@ def movimentacao(request: Request):
     numero_conta = request.data["numero_conta"]
     agencia = request.data["agencia"]
     valor = int(request.data["valor"])
+    
 
     try:
         conta_sender = Conta.objects.get(pk=id_conta_sender)
@@ -139,8 +140,10 @@ def movimentacao(request: Request):
         conta_recv.save()
 
         movimentacao = Movimentacao(
-            conta_sender=conta_sender, conta_recv=conta_recv, valor=valor
+            conta_sender=conta_sender, conta_recv=conta_recv, valor=valor, 
+            texto= f"{conta_sender.user.nome_cliente} enviou R${valor} para {conta_recv.user.nome_cliente}."
         )
+
         movimentacao.save()
 
         movimentacao_serializada = MovimentacaoSerializer(movimentacao)
@@ -157,6 +160,28 @@ def movimentacao(request: Request):
             {"erro": "Conta que você está tentando enviar não existe"},
             status=status.HTTP_404_NOT_FOUND,
         )
+    
+@api_view(["GET"])
+def ver_movimentacoes(request: Request):
+    id_conta = int(request.query_params.get("id"))
+
+    try:
+        movimentacoes = Movimentacao.objects.filter(conta_sender__pk = id_conta) | Movimentacao.objects.filter(conta_recv__pk = id_conta)
+
+        movimentacoes_ordenada = movimentacoes.order_by("-data_hora")
+        movimentacoes_serializada = MovimentacaoSerializer(movimentacoes_ordenada, many=True)
+
+        return Response(
+            {"extrato" : movimentacoes_serializada.data}, status=status.HTTP_200_OK
+        )
+        
+    except Exception as e:
+        print(e)
+        return Response(
+            {"erro": "não foi possivel puxar as movimentações"},
+            status=status.HTTP_404_NOT_FOUND,
+        )
+
     
 
 # CLIENTE VIEWSET
@@ -201,6 +226,10 @@ class CartaoViewSet(viewsets.ModelViewSet):
     # permission_classes = (IsAuthenticated, )
     queryset = Cartao.objects.all()
     serializer_class = CartaoSerializer
+
+    def retrieve(self, request, pk=None):
+        user = User.objects.get(pk=pk)
+        return super().retrieve(request, user=user)
 
 
 # MOVIMENTACAO VIEWSET

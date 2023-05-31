@@ -60,7 +60,7 @@ export default function Carteira(navigation) {
                             </Text>
                             {/* quando entra na carteira as vezes da erro undefined */}
                             <Text style={{ margin: 6 }}>
-                                R$ {user.conta.saldo.toFixed(2)}
+                                R$ {user.conta.saldo}, 00
                             </Text>
                     </View>
 
