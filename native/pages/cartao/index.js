@@ -122,7 +122,7 @@ export default function Cartao(navigation) {
             {divVisivel && (
             <LinearGradient
                     style={{
-                        width: '90%',
+                        width: 350,
                         flex: 0.45,
                         borderRadius: 20,
                         margin: 20
