@@ -28,9 +28,7 @@ import IconPhone from '../assets/icons/phone-solid.svg'
 import { ip } from "./login";
 
 import chip from '../assets/cartoes/chip.svg';
-import brand from '../assets/cartoes/logo.svg';
-import mastercard from '../assets/cartoes/mastercard.svg';
-import aproximacao from '../assets/cartoes/aproximacao.svg';
+import brand from '../assets/cartoes/logo.svg'
 import background1 from '../assets/cartoes/bg1.svg';
 import background2 from '../assets/cartoes/bg2.svg';
 import background3 from '../assets/cartoes/bg3.svg';
@@ -110,7 +108,6 @@ function Homepage() {
         const idUsuario = user.id;
         
         const res = await axios.post(`${ip}/contas/create-cartao/`, { id: idUsuario });
-
         console.log(res.status);
     
         setNumeroCartao(res.data.cartao.numero_cartao)
@@ -213,17 +210,19 @@ function Homepage() {
                         {divVisivel == false ? <button className="bg-gradient-to-r from-[#7611A6] to-[#DA4C5DF8] drop-shadow-[6px_5px_5px_rgba(0,0,0,0.40)] rounded-2xl p-6 font-semibold text-xl border-2 border-solid max-w-xs transition duration-150 ease-in-out xs:mt-24 mt-[-160px]" onClick={gerarCartao}>Peça já o seu cartão!</button> : <p></p> }
 
                         {divVisivel && (
-                            <div className='text-black m-4'>
+                            <div className='xs:my-20'>
                                 <Card
-                                    chipIcon={brand}
-                                    brandIcon={chip} 
+                                    chipIcon={chip}
+                                    brandIcon='ToDo'
                                     backgroundImage={bgRandom}
                                     cardHolder={nomeTitular}
                                     cardNumber={numeroCartao}
                                     cardMonth={dataVencimentoMes}
                                     cardYear={dataVencimentoAno}
-                                    cardCvv={cvvWeb.toString()}/>
+                                    cardCvv={cvvWeb.toString()}
+                                    />
                             </div>
+                            
                         )}
                     </div> 
                 </div>
