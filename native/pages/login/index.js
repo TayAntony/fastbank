@@ -61,6 +61,7 @@ export default function Login({ navigation }) {
                 }
                  
             }else{
+                console.log("caiu no else")
                 alert('Não foi possível logar')
             }
         }

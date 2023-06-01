@@ -14,23 +14,24 @@ export default function Perfil(navigation) {
     //arrumar a função de escolher imagem
 
     const escolherImagemPerfil = () => {
-        const options = {
-            mediaType: 'photo',
-            maxWidth: 200,
-            maxHeight: 200,
-            quality: 1,
-          };
+        alert("Opção indisponível no momento!")
+        // const options = {
+        //     mediaType: 'photo',
+        //     maxWidth: 200,
+        //     maxHeight: 200,
+        //     quality: 1,
+        //   };
       
-        ImagePicker.launchImageLibrary(options, (response) => {
-            if (response.didCancel) {
-                console.log('Seleção de foto cancelada');
-            } else if (response.error) {
-                console.log('Erro: ', response.error);
-            } else {
-                const source = { uri: response.uri };
-                setImagemPerfil(source);
-            }
-        });
+        // ImagePicker.launchImageLibrary(options, (response) => {
+        //     if (response.didCancel) {
+        //         console.log('Seleção de foto cancelada');
+        //     } else if (response.error) {
+        //         console.log('Erro: ', response.error);
+        //     } else {
+        //         const source = { uri: response.uri };
+        //         setImagemPerfil(source);
+        //     }
+        // });
     };
 
     return ( 
@@ -61,12 +62,16 @@ export default function Perfil(navigation) {
 
         {/* MUDAR FOTO DE PERFIL */}
         <View style={{backgroundColor: 'grey', borderRadius:100, width: 200, height: 200, position: 'absolute', top: '35%', left: "25%"}}>
-            {imagemPerfil && (
-                <Image source={imagemPerfil} style={{width: 200, height: 200, borderRadius:100 }}/>
-            )}
-            <Pressable style={{alignItems: 'center', top: '80%', left: '40%'}} onPress={escolherImagemPerfil}>
-                <FontAwesome name="pencil" size={40} color={'#000'}/>
-            </Pressable>
+            
+        </View>
+
+        <View style={{backgroundColor: 'white', borderRadius:100, width: 200, height: 200, position: 'absolute', top: '35%', left: "25%"}}>
+            <View>
+                <FontAwesome name={'user-circle-o'} size={200} color={'#000'} />
+                <Pressable style={{alignItems: 'center', top: '75%', left: '70%',  borderRadius: 100, width: 50, height: 50, backgroundColor: 'green', position: 'absolute', justifyContent: 'space-around'}} onPress={escolherImagemPerfil}>
+                    <FontAwesome name="pencil" size={30} color={'white'}/>
+                </Pressable>
+            </View>
         </View>
 
         <View style={{display: 'flex', flexDirection: 'column', justifyContent: 'space-around', top: "60%", gap: 24, left: '16%'}}>
