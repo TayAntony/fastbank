@@ -8,14 +8,19 @@ import { useSession, ip } from "../home";
 import axios from 'axios';
 import { LinearGradient } from 'expo-linear-gradient';
 
-import chip from '../../assets/cartoes/chip.svg';
-import logo from '../../assets/cartoes/logo.svg'
+import chip from '../../assets/cartoes/chip.png';
+import logo from '../../assets/cartoes/logo.png'
+import aproximacao from '../../assets/cartoes/aproximacao.png';
+import mastercard from '../../assets/cartoes/mastercard.png'
+
 
 export default function Cartao(navigation) {
     const { user } = useSession(navigation);
     const [rendaMensal, setRendaMensal] = useState('')
     const [limite, setLimite] = useState(0)
     const [mexeuLimite, setMexeuLimite] = useState(0)
+
+    const [temCartao, setTemCartao] = useState(false)
 
     const [bandeira, setBandeira] = useState("Mastercard")
     const [numeroCartao, setNumeroCartao] = useState("");
@@ -55,6 +60,8 @@ export default function Cartao(navigation) {
                 setNomeTitular(res.data.cartao.nome)
                 setDataVencimentoMes(res.data.cartao.data_vencimento_mes)
                 setDataVencimentoAno(res.data.cartao.data_vencimento_ano)
+
+                setTemCartao(true)
                 // resetar os valores dos inputs
                 // setLimite(0)
                 // setRendaMensal(0)       
@@ -137,7 +144,7 @@ export default function Cartao(navigation) {
                     <View style={{display: 'flex', alignItems: 'center', flexDirection: 'row', justifyContent: 'space-between', margin: 10}}>
                         <Image
                         style={{width: 150, height: 40}}
-                        source={require('../../assets/cartoes/logo.svg')}
+                        source={logo}
                         />
 
                         <Text style={{color:'white', fontSize: 18, fontWeight: 700,}}>
@@ -152,14 +159,14 @@ export default function Cartao(navigation) {
                         <Text style={{fontWeight: 700, color: 'white', fontSize: 18}}>
                             {numeroCartao}
                         </Text>
-                        <View style={{display: 'flex', alignItems: 'center', flexDirection: 'row', justifyContent: 'space-between'}}>
+                        <View style={{display: 'flex', alignItems: 'center', flexDirection: 'row', justifyContent: 'space-between', gap: 6}}>
                             <Image
                                 style={{width: 40, height: 30}}
-                                source={require('../../assets/cartoes/chip.svg')}
+                                source={chip}
                             />
                             <Image
-                                style={{width: 40, height: 30}}
-                                source={require('../../assets/cartoes/aproximacao.svg')}
+                                style={{width: 30, height: 30}}
+                                source={aproximacao}
                             />
                         </View>
                     </View>
@@ -181,7 +188,7 @@ export default function Cartao(navigation) {
 
                             <Image
                             style={{width: 62, height: 35}}
-                            source={require('../../assets/cartoes/mastercard.svg')}
+                            source={mastercard}
                             />
                         </View>
                     </View>
@@ -191,8 +198,6 @@ export default function Cartao(navigation) {
 
                 </LinearGradient>
             )}
-
-            
         </View>
     )
 }
