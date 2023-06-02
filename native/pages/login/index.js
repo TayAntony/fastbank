@@ -7,6 +7,7 @@ import axios from "axios";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ip } from "../home";
 import { useEffect } from "react";
+import { Stopwatch, Timer } from 'react-native-stopwatch-timer'
 
 
 export default function Login({ navigation }) {
@@ -14,18 +15,21 @@ export default function Login({ navigation }) {
     const [senha, setSenha] = useState('');
 
     const [senhaIncorreta, setSenhaIncorreta ] = useState(2)
-    const [tempoBloqueio, setTempoBloqueio] = useState(0); 
-    const [tempoDecorrido, setTempoDecorrido] = useState(0);
+    const [contaBloqueada, setContaBloqueada] = useState(false)
+    const [duracaoBloqueio, setDuracaoBloqueio] = useState(10000)
+    const [resetTimer, setResetTimer] = useState(false)
+    const [tempo, setTempo] = useState(0)
 
     const [camposValidados, setCamposValidados] = useState(false)
 
-    useEffect(() => {
-        // Verificar se o tempo decorrido atingiu o tempo de bloqueio
-        if (tempoDecorrido >= tempoBloqueio) {
-            setSenhaIncorreta(0); 
-            setTempoDecorrido(0);
-        }
-      }, [tempoDecorrido, tempoBloqueio]);
+    // useEffect(() => {
+    //     // Verificar se o tempo decorrido atingiu o tempo de bloqueio
+    //     if (tempoDecorrido >= duracaoBloqueio) {
+    //         setSenhaIncorreta(2); 
+    //         setTempoDecorrido(0);
+    //         contaBloqueada(false)
+    //     }
+    //   }, [tempoDecorrido, duracaoBloqueio]);
 
     useEffect(() => {
     if (email == "" || senha == ""){
@@ -37,6 +41,7 @@ export default function Login({ navigation }) {
     const goCadastro = () => {
         navigation.navigate("Cadastro")
     }
+    
 
     const logar = async () => {
         console.log("iniciando logar")
@@ -45,35 +50,53 @@ export default function Login({ navigation }) {
             console.log("request ok")
 
             if (response.status === 200) {
-              // Salvar token no AsyncStorage
-              await AsyncStorage.setItem("token", response.data.auth_token);
-              alert("Login realizado com sucesso!")
-              // Redirecionar para a página Home
-              navigation.navigate("Home")
+            // Salvar token no AsyncStorage
+            await AsyncStorage.setItem("token", response.data.auth_token);
+            alert("Login realizado com sucesso!")
+            // Redirecionar para a página Home
+            navigation.navigate("Home")
             }
         } catch (err) {
-            if (err.response && err.response.status === 401 || err.response.status === 400) {
-                console.log("caiu no if")
+            if (err.response && err.response.status === 401) {
+                alert('Não foi possível logar')
+            }else{
                 alert(`E-mail ou senha incorretos! ${senhaIncorreta} tentativas restantes`)
                 setSenhaIncorreta(senhaIncorreta-1)
-                if(senhaIncorreta == 0){
-                    alert("Seu acesso está bloqueado por ")
+                if (senhaIncorreta === 0) {
+                    setContaBloqueada(true)
                 }
-                 
-            }else{
-                console.log("caiu no else")
-                alert('Não foi possível logar')
+                return
             }
         }
     }
     
     return (
         <View style={styles.container}>
+            {contaBloqueada && (
+                <Timer
+                totalDuration={duracaoBloqueio}
+                msecs
+                start={contaBloqueada}
+                reset={resetTimer}
+                handleFinish={() => {
+                    alert('Acesso desbloqueado');
+                    setContaBloqueada(false)
+                    setSenhaIncorreta(2)
+                }}
+                getTime={(time) => {
+                    alert(`Conta bloqueada por ${time} segundos...`);
+                }}
+                
+            />
+            )}
+            
+
             <ImageBackground
                 source={require('../../assets/fundo.png')}
                 style={{ width: 800, height: 840, position: 'absolute' }}
             />
-
+            
+            
             <View>
                 <Text style={styles.txt1}>Insira suas informações para realizar o login </Text>
             
