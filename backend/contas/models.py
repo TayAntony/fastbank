@@ -8,7 +8,6 @@ from django.utils import timezone
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 import random
-from datetime import date
 
 # 10.109.72.4:8000 IP SENAI
 

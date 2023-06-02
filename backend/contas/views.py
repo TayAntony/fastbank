@@ -166,9 +166,11 @@ def ver_movimentacoes(request: Request):
     id_conta = int(request.query_params.get("id"))
 
     try:
-        movimentacoes = Movimentacao.objects.filter(conta_sender__pk = id_conta) | Movimentacao.objects.filter(conta_recv__pk = id_conta)
+        movimentacoes_sender = Movimentacao.objects.filter(conta_sender__pk = id_conta)
+        movimentacoes_recv = Movimentacao.objects.filter(conta_recv__pk = id_conta)
 
-        movimentacoes_ordenada = movimentacoes.order_by("data_hora")
+        movimentacoes = movimentacoes_sender.union(movimentacoes_recv)
+        movimentacoes_ordenada = movimentacoes.order_by("-data_hora")
         movimentacoes_serializada = MovimentacaoSerializer(movimentacoes_ordenada, many=True)
 
         return Response(
