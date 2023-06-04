@@ -86,13 +86,13 @@ function Homepage() {
             return navigate("/login");
         }
 
-        //LEMBRAR DE TROCAR O IP NO LOGIN
 
         const res = await axios.get(`${ip}/auth/users/me/`, {
             headers: {
                 "Authorization": `Token ${token}`
             }
         });
+        
 
         return res.data;
     }
@@ -102,6 +102,28 @@ function Homepage() {
             .then(user => setUser(user))
             .catch(_err => navigate("/login"));
     }, []);
+
+    useEffect(() => {
+        if (user){
+            loadCard()
+        }
+        
+    }, [user])
+
+    const loadCard = () => {
+        if (!user) return;
+        axios.get(`${ip}/contas/cartao/${user.id}/`)
+        .then(res => {
+            setNumeroCartao(res.data.numero_cartao)
+            setCvv(res.data.cvv)
+            setBandeira(res.data.bandeira)
+            setNomeTitular(res.data.nome)
+            setDataVencimentoMes(res.data.data_vencimento_mes)
+            setDataVencimentoAno(res.data.data_vencimento_ano)
+            setDivVisivel(true)
+        })
+        .catch(_err => {})
+    }
 
     const gerarCartao = async () => {
         if (!user) return;
@@ -222,7 +244,6 @@ function Homepage() {
                                     cardCvv={cvvWeb.toString()}
                                     />
                             </div>
-                            
                         )}
                     </div> 
                 </div>

@@ -22,14 +22,6 @@ export default function Login({ navigation }) {
 
     const [camposValidados, setCamposValidados] = useState(false)
 
-    // useEffect(() => {
-    //     // Verificar se o tempo decorrido atingiu o tempo de bloqueio
-    //     if (tempoDecorrido >= duracaoBloqueio) {
-    //         setSenhaIncorreta(2); 
-    //         setTempoDecorrido(0);
-    //         contaBloqueada(false)
-    //     }
-    //   }, [tempoDecorrido, duracaoBloqueio]);
 
     useEffect(() => {
     if (email == "" || senha == ""){
