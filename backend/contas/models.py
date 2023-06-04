@@ -151,7 +151,7 @@ class Conta(models.Model):
         verbose_name_plural = "Conta"
 
     def __str__(self) -> str:
-        return self.numero_conta
+        return str(self.numero_conta)
 
 
 class Cartao(models.Model):
@@ -173,6 +173,9 @@ class Cartao(models.Model):
             )
         ]
         verbose_name_plural = "Cartao"
+
+    def __str__(self) -> str:
+        return self.nome
 
 
 class Movimentacao(models.Model):

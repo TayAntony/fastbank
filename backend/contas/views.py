@@ -231,7 +231,7 @@ class CartaoViewSet(viewsets.ModelViewSet):
 
     def retrieve(self, request, pk=None):
         user = User.objects.get(pk=pk)
-        return super().retrieve(request, user=user)
+        return super().retrieve(request, titular_cartao=user)
 
 
 # MOVIMENTACAO VIEWSET
