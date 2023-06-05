@@ -54,7 +54,8 @@ function Cadastrar() {
                 confirmButtonColor: '#D51317',
             });
             return
-        }else if (cep.length !=8){
+        }
+        else if (cep.length !=8){
             Swal.fire({
                 icon: 'warning',
                 title: 'Oops...',
@@ -75,15 +76,14 @@ function Cadastrar() {
             return
         }
 
-
         try {
-            console.log("tentou cadastrar")
+            //console.log("tentou cadastrar")
             const retornoRequisicaoCadastro = await axios.post(`${ip}/auth/users/`, infoDoCadastro);
             const idUserCadastrado = retornoRequisicaoCadastro.data.id;
 
             const retornoRequisicaoCriarConta = await axios.post(`${ip}/contas/create-conta/`, { id: idUserCadastrado });
 
-            console.log(retornoRequisicaoCriarConta.data);
+            //console.log(retornoRequisicaoCriarConta.data);
 
             Swal.fire({
                 icon: 'success',

@@ -6,10 +6,7 @@ import Swal from 'sweetalert2'
 import Input from '../components/input'
 import axios from 'axios'
 
-export const ip = "http://192.168.1.9:8000"
-// http://127.0.0.1:8000
-// https://todobank.azurewebsites.net
-// http://10.109.72.4:8000
+export const ip = "https://todobank.azurewebsites.net"
 
 function Login() {
     let navigate = useNavigate()
