@@ -6,8 +6,6 @@ router = routers.SimpleRouter()
 
 router.register("conta", views.ContaViewSet)
 router.register("cartao", views.CartaoViewSet)
-router.register("contato", views.ContatoViewSet)
-router.register("emprestimo", views.EmprestimoViewSet)
 
 urlpatterns = [
     path("create-conta/", views.criar_conta, name="criar_conta"),
