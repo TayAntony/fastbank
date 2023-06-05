@@ -9,7 +9,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import { useFocusEffect } from "@react-navigation/native";
 
-export const ip = "http://192.168.1.9:8000"
+export const ip = "https://todobank.azurewebsites.net"
 // https://todobank.azurewebsites.net
 // http://192.168.1.8:8000
 // http://10.109.72.4:8000

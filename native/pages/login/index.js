@@ -7,7 +7,7 @@ import axios from "axios";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ip } from "../home";
 import { useEffect } from "react";
-import { Stopwatch, Timer } from 'react-native-stopwatch-timer'
+import { Timer } from 'react-native-stopwatch-timer'
 
 
 export default function Login({ navigation }) {
@@ -16,9 +16,8 @@ export default function Login({ navigation }) {
 
     const [senhaIncorreta, setSenhaIncorreta ] = useState(2)
     const [contaBloqueada, setContaBloqueada] = useState(false)
-    const [duracaoBloqueio, setDuracaoBloqueio] = useState(10000)
+    const [duracaoBloqueio, setDuracaoBloqueio] = useState(5000)
     const [resetTimer, setResetTimer] = useState(false)
-    const [tempo, setTempo] = useState(0)
 
     const [camposValidados, setCamposValidados] = useState(false)
 

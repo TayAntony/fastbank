@@ -60,11 +60,7 @@ export default function Cartao(navigation) {
                 setNomeTitular(res.data.cartao.nome)
                 setDataVencimentoMes(res.data.cartao.data_vencimento_mes)
                 setDataVencimentoAno(res.data.cartao.data_vencimento_ano)
-
-                setTemCartao(true)
-                // resetar os valores dos inputs
-                // setLimite(0)
-                // setRendaMensal(0)       
+                setDivVisivel(true)
             }
             else{
                 alert("Não foi possível solicitar o cartão agora!")
@@ -72,12 +68,32 @@ export default function Cartao(navigation) {
         }else{
             alert("Sua conta não cumpre os requisitos para solicitar um cartão de crédito")
         }
-        setDivVisivel(true)
+        
+    }
+
+    useEffect(() => {
+        if (user){
+            loadCard()
+        }
+        
+    }, [user])
+
+    const loadCard = () => {
+        if (!user) return;
+        axios.get(`${ip}/contas/cartao/${user.id}/`)
+        .then(res => {
+            setNumeroCartao(res.data.numero_cartao)
+            setCvv(res.data.cvv)
+            setBandeira(res.data.bandeira)
+            setNomeTitular(res.data.nome)
+            setDataVencimentoMes(res.data.data_vencimento_mes)
+            setDataVencimentoAno(res.data.data_vencimento_ano)
+            setDivVisivel(true)
+        })
+        .catch(_err => {})
     }
     
     return(
-        // ao solicitar cartão de crédto pelo app é possível escolher o limite, ao solicitar pelo site é apenas cartão de débito e não da pra escolher nada
-
         <View style={styles.container}>
             <Text style={{ fontWeight: 600, fontSize: 24, color: 'black', position: 'absolute', top: 80 }}>
                 Solicitar cartão de crédito
@@ -126,6 +142,7 @@ export default function Cartao(navigation) {
             </Pressable> : <Text></Text>
             }
 
+            {/* CARTÃO DEPOIS DE SOLICITADO */}
             {divVisivel && (
             <LinearGradient
                     style={{
@@ -150,7 +167,6 @@ export default function Cartao(navigation) {
                         <Text style={{color:'white', fontSize: 18, fontWeight: 700,}}>
                         CREDITO
                         </Text>
-                        
                     </View>
 
                     
@@ -194,10 +210,9 @@ export default function Cartao(navigation) {
                     </View>
                 
                 </View>
-
-
-                </LinearGradient>
+            </LinearGradient>
             )}
+            
         </View>
     )
 }

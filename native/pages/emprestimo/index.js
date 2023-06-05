@@ -19,14 +19,11 @@ export default function Emprestimo(navigation) {
     const [porcentagemJuros, setPorcentagemJuros] = useState(0)
 
     function solicitarEmprestimo(){
-        if (valorEmprestado > 2000){
+        if (valorEmprestado > 10000){
             alert('Sua conta não cumpre os requisitos para solicitar um empréstimo desse porte!')
         }
         else{
-            // aumentar o saldo do user e redirecionar efetivamente para a home
             alert('Seu empréstimo foi solicitado com sucesso!')
-            //user.conta.saldo += valorEmprestado
-            navigation.navigate('Home');
         }
     }
 
