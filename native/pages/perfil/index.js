@@ -8,30 +8,8 @@ import React, { useState } from 'react';
 
 export default function Perfil(navigation) {
     const { user } = useSession(navigation);
-
-    const [imagemPerfil, setImagemPerfil] = useState(null);
-
-    //arrumar a função de escolher imagem
-
     const escolherImagemPerfil = () => {
         alert("Opção indisponível no momento!")
-        // const options = {
-        //     mediaType: 'photo',
-        //     maxWidth: 200,
-        //     maxHeight: 200,
-        //     quality: 1,
-        //   };
-      
-        // ImagePicker.launchImageLibrary(options, (response) => {
-        //     if (response.didCancel) {
-        //         console.log('Seleção de foto cancelada');
-        //     } else if (response.error) {
-        //         console.log('Erro: ', response.error);
-        //     } else {
-        //         const source = { uri: response.uri };
-        //         setImagemPerfil(source);
-        //     }
-        // });
     };
 
     return ( 

@@ -92,7 +92,6 @@ function Homepage() {
             }
         });
         
-
         return res.data;
     }
 
